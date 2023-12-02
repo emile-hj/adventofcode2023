@@ -1,9 +1,9 @@
 'use client' ;
 
-import Image from 'next/image'
-import styles from './page.module.css'
+// import Image from 'next/image'
+// import styles from './page.module.css'
 
-export default function Home() {
+export default function Page() {
 
   const input = `2qlljdqcbeight
   eight47srvbfive
@@ -1063,8 +1063,8 @@ export default function Home() {
   console.log(total);
 
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
+    <main>
+      <div>
        
       </div>
     </main>
