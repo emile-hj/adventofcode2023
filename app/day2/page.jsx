@@ -228,7 +228,7 @@ export default function Page() {
   return (
     <main>
       <div>
-       
+      <h1>Day 2</h1>
       </div>
     </main>
   )
