@@ -230,7 +230,7 @@ export default function Page() {
 
   const scratchCards = [];
   const cardValues = [];
-  const scratchCardSets = [];
+  var scratchCardSets = [];
 
   var inputLines = testInput.split(/\n/);
   inputLines.forEach(function(line){
@@ -320,9 +320,11 @@ export default function Page() {
       // console.log('j',j);
       // for the following cards
       for( var i=setNo + 1; i<winCount + 2; i++ ) {
+        console.log('scratchCardSets.length', scratchCardSets.length);
         if( i < scratchCardSets.length ) {
+          console.log(`set ${i} exists`);
           // console.log('i',i);
-          // console.log(`looking at set no ${i} because it should gain a copy`);
+          console.log(`looking at set no ${i+1} because it should gain a copy`);
           const arrSetNoToDup = i;
           const setToDupOriginal = scratchCardSets[i][0];
           scratchCardSets[i].push(setToDupOriginal);
