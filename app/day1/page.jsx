@@ -1,7 +1,6 @@
 'use client' ;
 
-// import Image from 'next/image'
-// import styles from './page.module.css'
+import Link from "next/link";
 
 export default function Page() {
 
@@ -1060,12 +1059,14 @@ export default function Page() {
     total = total + +num
   });
 
-  console.log(total);
+  console.log('total',total);
 
   return (
     <main>
       <div>
         <h1>Day 1</h1>
+
+        <Link href="/">Back</Link>
       </div>
     </main>
   )

@@ -1,7 +1,6 @@
 'use client' ;
 
-// import Image from 'next/image'
-// import styles from './page.module.css'
+import Link from "next/link";
 
 export default function Page() {
   // Please note the second part of the puzzle, checking for gear ratios based of *, using recursion, done very inelegantly to try find solution. All could be rewritten better
@@ -615,6 +614,7 @@ export default function Page() {
     <main>
       <div>
         <h1>Day 3</h1>
+        <Link href="/">Back</Link>
       </div>
     </main>
   )

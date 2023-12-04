@@ -1,5 +1,7 @@
 'use client' ;
 
+import Link from "next/link";
+
 export default function Page() {
 
   const testInput = `Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -232,7 +234,7 @@ export default function Page() {
   const cardValues = [];
   var scratchCardSets = [];
 
-  var inputLines = testInput.split(/\n/);
+  var inputLines = realInput.split(/\n/);
   inputLines.forEach(function(line){
     const lineArr = line.split(':');
     const lineNumbers = lineArr[1];
@@ -253,42 +255,42 @@ export default function Page() {
   // console.log(scratchCards);
 
   // for part 1
-  // scratchCards.forEach(function(card){
-  //   const winCaseNums = card[0];
-  //   const yourNums = card[1];
-  //   var winCount = 0;
-  //   var cardValue = 0;
+  scratchCards.forEach(function(card){
+    const winCaseNums = card[0];
+    const yourNums = card[1];
+    var winCount = 0;
+    var cardValue = 0;
 
-  //   yourNums.forEach(function(num) {
-  //     var isAWinner = false;
-  //     winCaseNums.forEach(function(winNum) {
-  //       if( num === winNum ) {
-  //         isAWinner = true;
-  //       }
-  //     });
+    yourNums.forEach(function(num) {
+      var isAWinner = false;
+      winCaseNums.forEach(function(winNum) {
+        if( num === winNum ) {
+          isAWinner = true;
+        }
+      });
 
-  //     if( isAWinner ) {
-  //       winCount = winCount + 1;
-  //     }
-  //   });
-  //   // we now have a win count
-  //   if( winCount > 0 ) {
-  //     cardValue = 1;
-  //   }
-  //   for( var i=0; i<winCount-1; i++ ) {
-  //     cardValue = cardValue * 2;
-  //   }
+      if( isAWinner ) {
+        winCount = winCount + 1;
+      }
+    });
+    // we now have a win count
+    if( winCount > 0 ) {
+      cardValue = 1;
+    }
+    for( var i=0; i<winCount-1; i++ ) {
+      cardValue = cardValue * 2;
+    }
 
-  //   // console.log('cardValue',cardValue);
-  //   cardValues.push(cardValue);
-  // });
+    // console.log('cardValue',cardValue);
+    cardValues.push(cardValue);
+  });
 
-  // var totalCardValue = 0;
-  // cardValues.forEach(function(value){
-  //   totalCardValue = totalCardValue + value;
-  // });
-  // console.log('totalCardValue',totalCardValue);
-  // var buildingSets = scratchCardSets;
+  var totalCardValue = 0;
+  cardValues.forEach(function(value){
+    totalCardValue = totalCardValue + value;
+  });
+  console.log('totalCardValue',totalCardValue);
+  var buildingSets = scratchCardSets;
 
   // for part 2
   scratchCardSets.forEach(function(cardSet,setNo){
@@ -309,42 +311,42 @@ export default function Page() {
         winCount = winCount + 1;
       }
     });
-
-    // const freshSetBuild = buildingSets;
     // we now have a win count
-    console.log(`we have ${copyCount} copies of card ${setNo + 1}`);
-    console.log(`card ${setNo + 1} has ${winCount} wins, and ${copyCount} copies, so we should gain 1 copy of the following ${winCount} cards, ${copyCount} times`);
+
+    // console.log('---');
+    // console.log(`card ${setNo}: ${copyCount} copies`);
+    // console.log(`card ${setNo} has ${winCount} wins, and ${copyCount} copies, so we should gain ${copyCount} copies of the following ${winCount} cards`);
 
     // for each copy
-    for( var j=0;j<copyCount; j++ ) {
-      // console.log('j',j);
+    for( var i=0; i<copyCount; i++ ) {
+
       // for the following cards
-      for( var i=setNo + 1; i<winCount + 2; i++ ) {
-        console.log('scratchCardSets.length', scratchCardSets.length);
-        if( i < scratchCardSets.length ) {
-          console.log(`set ${i} exists`);
-          // console.log('i',i);
-          console.log(`looking at set no ${i+1} because it should gain a copy`);
-          const arrSetNoToDup = i;
-          const setToDupOriginal = scratchCardSets[i][0];
-          scratchCardSets[i].push(setToDupOriginal);
+      const nextSetNo = setNo + 1;
+      for( var j=0; j<winCount; j++ ) {
+        const targetSetNo = nextSetNo + j;
+        if( targetSetNo < scratchCardSets.length ) {
+          const setToDupOriginal = scratchCardSets[targetSetNo][0];
+          scratchCardSets[targetSetNo].push(setToDupOriginal);
         }
       }
 
     }
 
-    // buildingSets = freshSetBuild;
   });
 
-
-  console.log('all scratchcards',scratchCardSets);
-
-
+  // console.log('all scratchcards',scratchCardSets);
+  var totalCardCount = 0;
+  scratchCardSets.forEach(function(set) {
+    const cardCount = set.length;
+    totalCardCount = totalCardCount + cardCount;
+  });
+  console.log('totalCardCount',totalCardCount);
 
   return (
     <main>
       <div>
         <h1>Day 4</h1>
+        <Link href="/">Back</Link>
       </div>
     </main>
   )

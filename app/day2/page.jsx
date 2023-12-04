@@ -1,7 +1,6 @@
 'use client' ;
 
-// import Image from 'next/image'
-// import styles from './page.module.css'
+import Link from "next/link";
 
 export default function Page() {
 
@@ -154,7 +153,7 @@ export default function Page() {
 
   allGameOutcomes.forEach(function(outcomeSet, index) {
     const gameID = index + 1;
-    console.log('gameID',gameID);
+    // console.log('gameID',gameID);
     var gameIsPossible = true;
 
     var highestRedOutcome = 0;
@@ -162,7 +161,7 @@ export default function Page() {
     var highestBlueOutcome = 0;
 
     outcomeSet.forEach(function(outcome) {
-      console.log('outcome',outcome);
+      // console.log('outcome',outcome);
       // console.log('outcome[0]',outcome[0]);
       // console.log('outcome[1]',outcome[1]);
       // console.log('blueLimit',blueLimit);
@@ -193,11 +192,11 @@ export default function Page() {
       }
     });
 
-    console.log('highestRedOutcome',highestRedOutcome);
-    console.log('highestGreenOutcome',highestGreenOutcome);
-    console.log('highestBlueOutcome',highestBlueOutcome);
+    // console.log('highestRedOutcome',highestRedOutcome);
+    // console.log('highestGreenOutcome',highestGreenOutcome);
+    // console.log('highestBlueOutcome',highestBlueOutcome);
     const powerOfHighestOutcomes = highestRedOutcome * highestGreenOutcome * highestBlueOutcome;
-    console.log('powerOfHighestOutcomes',powerOfHighestOutcomes);
+    // console.log('powerOfHighestOutcomes',powerOfHighestOutcomes);
     outcomePowers.push(powerOfHighestOutcomes);
 
     if( gameIsPossible ) {
@@ -211,11 +210,8 @@ export default function Page() {
   var total = 0;
   possibleGameIDs.forEach(function(gameID){
     total = total + +gameID;
-
-    
-
   });
-  // console.log('total',total);
+  console.log('total',total);
 
   var powersTotal = 0;
   console.log('outcomePowers',outcomePowers);
@@ -228,7 +224,8 @@ export default function Page() {
   return (
     <main>
       <div>
-      <h1>Day 2</h1>
+        <h1>Day 2</h1>
+        <Link href="/">Back</Link>
       </div>
     </main>
   )
