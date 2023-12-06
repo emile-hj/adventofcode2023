@@ -66,11 +66,33 @@ export default function Page() {
 
   console.log(`powerOfWinningStratCounts:`,powerOfWinningStratCounts);
 
+  // part 2
+  const realRaceTime = timesStr.replace(/\s+/g,'');
+  console.log('realRaceTime',realRaceTime);
+  const realRaceDistance = distancesStr.replace(/\s+/g,'');
+  console.log('realRaceDistance',realRaceDistance);
+  var finalWinningStratCount = 0;
+  for( var j=0; j<realRaceTime; j++) {
+    const chargeTime = j;
+    // console.log(`we charge for ${chargeTime}`);
+    const remainingTime = realRaceTime - chargeTime;
+    // console.log(`remaining time is ${remainingTime}`);
+    const speed = chargeTime;
+    const distanceDuringRace = speed * remainingTime;
+    // console.log('distanceFromCharge',distanceFromCharge);
+    // console.log(`for race ${i}, strat ${j} is to wait ${chargeTime} and achieve ${distanceDuringRace} distance`);
+    if( distanceDuringRace > realRaceDistance ) {
+      finalWinningStratCount = finalWinningStratCount + 1; 
+    }
+  }
+  console.log('finalWinningStratCount',finalWinningStratCount);
+
+  
   return (
     <main>
       <div>
         <h1>Day 6</h1>
-
+        <p>Well it seems I am well and truly obsessed. Part two today was so much easier than yesterday's XD. basically the same as part one with some spaces removed.</p>
         <Link href="/">Back</Link>
       </div>
     </main>
