@@ -1065,7 +1065,9 @@ export default function Page() {
     <main>
       <div>
         <h1>Day 1</h1>
-
+        <p>Gabo sent over this Advent of Code thing and I instantly got pulled in and enjoyed solving this. It seems like a great way to practise and learn more which is fun.</p>
+        <p>I haven't been doing much of this kind of coding recently so I think I was slower to get into this than I am now (writing this in retrospect on day 6).</p>
+        <p>Part two was more confusing because I originally thought about comparing actual numbers with real numbers whilst analysing their character positions, but soon realised I could just replace the written numbers with actual numbers. Had some issues with that because I missed one of the combined word combinations and didn't find it for ages.</p>
         <Link href="/">Back</Link>
       </div>
     </main>

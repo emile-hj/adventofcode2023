@@ -346,6 +346,8 @@ export default function Page() {
     <main>
       <div>
         <h1>Day 4</h1>
+        <p>I woke up very early this day and so did part one before work. I think I found it pretty easy and very enjoyable</p>
+        <p>Did part two after work and if I remember correctly this one was pretty light and easy. Nice for a Monday after the difficult one on Sunday.</p>
         <Link href="/">Back</Link>
       </div>
     </main>

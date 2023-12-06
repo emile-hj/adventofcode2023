@@ -225,6 +225,7 @@ export default function Page() {
     <main>
       <div>
         <h1>Day 2</h1>
+        <p>Already feeling more used to this kind of problem solving after day 1. Writing this in retrospect but I think this was fairly smooth and easy.</p>
         <Link href="/">Back</Link>
       </div>
     </main>

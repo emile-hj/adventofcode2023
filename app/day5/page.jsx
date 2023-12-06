@@ -276,16 +276,17 @@ export default function Page() {
   1082510516 3749523110 18833794
   3727956151 3150282471 536984712`;
 
+
   // ! Make a database of necessary seeds
-  const inputParts = realInput.split(/\n\n/);  
-  // console.log(inputParts);
+  const inputParts = testInput.split(/\n\n/);  
+  console.log(inputParts);
   const seedListInput = inputParts[0];
   // console.log('seedListInput',seedListInput);
   const seedListInputArr = seedListInput.split(':');
   const seedList = seedListInputArr[1].trim().split(' ');
 
 
-  // console.log('seedList',seedList);
+  console.log('seedList',seedList);
   const seedDB = [];
   seedList.forEach(function(seedNo) { // part 1
     const dbEntry = {
@@ -377,7 +378,7 @@ export default function Page() {
 
   // ! Find the seed locations to update the awesome seedDB
   // seedList.forEach(function(seedNo) { 
-  //   // console.log(`––– Examining seed ${seedNo}`);
+  //   console.log(`––– Examining seed ${seedNo}`);
   //   const soilNo = getCorrespondingID(seedNo,'seed-to-soil');
   //   const fertilizerNo = getCorrespondingID(soilNo,'soil-to-fertilizer');
   //   const waterNo = getCorrespondingID(fertilizerNo,'fertilizer-to-water');
@@ -386,13 +387,13 @@ export default function Page() {
   //   const humidityNo = getCorrespondingID(temperatureNo,'temperature-to-humidity');
   //   const locationNo = getCorrespondingID(humidityNo,'humidity-to-location');
 
-  //   locationNo = 1;
+  //   // locationNo = 1;
     
   //   // console.log('locationNo',locationNo);
   //   const seedEntryToUpdate = Object.values(seedDB).find((obj) => {
   //     return obj.id == seedNo;
   //   });
-  //   // console.log('seedEntryToUpdate',seedEntryToUpdate);
+  //   console.log('seedEntryToUpdate',seedEntryToUpdate);
   //   seedEntryToUpdate.location = locationNo;
   // }); 
 
@@ -405,7 +406,6 @@ export default function Page() {
   // })
   // const closestLocationNo = Math.min(...allLocations);
   // console.log('closestLocationNo',closestLocationNo);
-
 
 
   // part 2
@@ -425,7 +425,7 @@ export default function Page() {
   // console.log('seedListByRange',seedListByRange);
 
   var totalSeedCount = 0;
-  var smallestLocationNo = 9999999999999999999999;
+  var smallestLocationNo = null;
   seedListByRange.forEach(function(seedRange) {
     const rangeMin = seedRange[0];
     const range = seedRange[1];
@@ -433,7 +433,7 @@ export default function Page() {
 
     for( var seedNo = rangeMin; seedNo <= rangeMax; seedNo++ ) {
       totalSeedCount = totalSeedCount + 1;
-      console.log(`checking seed ${totalSeedCount}`);
+      // console.log(`checking seed ${totalSeedCount}`);
 
       const soilNo = getCorrespondingID(seedNo,'seed-to-soil');
       const fertilizerNo = getCorrespondingID(soilNo,'soil-to-fertilizer');
@@ -444,11 +444,11 @@ export default function Page() {
       const locationNo = getCorrespondingID(humidityNo,'humidity-to-location');
 
       // const locationNo = 0;
-      // if( smallestLocationNo === null ) {
-      //   smallestLocationNo = locationNo;
-      // } else if( locationNo < smallestLocationNo ) {
+      if( smallestLocationNo === null ) {
         smallestLocationNo = locationNo;
-      // }
+      } else if( locationNo < smallestLocationNo ) {
+        smallestLocationNo = locationNo;
+      }
     }
 
   });
@@ -458,11 +458,17 @@ export default function Page() {
   const endTime = performance.now() / 1000;
   console.log(`end at ${endTime} seconds`);
 
+
   
   return (
     <main>
       <div>
         <h1>Day 5</h1>
+
+        <p>Part 1 was the most medative thing I have done all day…</p>
+        <p>Then I got to part 2. It turns out that I got a working solution very quickly, but I was unable to run it to get an answer in a reasonable time. I spent a long time trying to run the code to get an answer.</p>
+        <p>PLEASE NOTE! Running part 2 in browser will probably crash it. I ended up running the code directly with Node.js and it took 1 hour to compute the answer, checking a total of: 2,855,550,144 seeds. I have pasted the final code back here, and note that the original set up of input strings could be different due to how they are interpreted in this environment.</p>
+
         <Link href="/">Back</Link>
       </div>
     </main>
