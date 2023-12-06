@@ -299,7 +299,6 @@ export default function Page() {
 
 
   // ! Get the maps ready
-
   // const mapsTogetherInput = inputParts[1];
   // console.log('mapsTogetherInput',mapsTogetherInput);
   // const mapInputs = mapsTogetherInput.split(/\n  \n/);
@@ -376,6 +375,7 @@ export default function Page() {
 
   }
 
+  // part 1
   // ! Find the seed locations to update the awesome seedDB
   // seedList.forEach(function(seedNo) { 
   //   console.log(`––– Examining seed ${seedNo}`);
@@ -467,7 +467,7 @@ export default function Page() {
 
         <p>Part 1 was the most medative thing I have done all day…</p>
         <p>Then I got to part 2. It turns out that I got a working solution very quickly, but I was unable to run it to get an answer in a reasonable time. I spent a long time trying to run the code to get an answer.</p>
-        <p>PLEASE NOTE! Running part 2 in browser will probably crash it. I ended up running the code directly with Node.js and it took 1 hour to compute the answer, checking a total of: 2,855,550,144 seeds. I have pasted the final code back here, and note that the original set up of input strings could be different due to how they are interpreted in this environment.</p>
+        <p>PLEASE NOTE! Running part 2 in browser will probably crash it. I ended up running the code directly with Node.js and it took 1 hour to compute the answer, checking a total of: 2,855,550,144 seeds.</p>
 
         <Link href="/">Back</Link>
       </div>
