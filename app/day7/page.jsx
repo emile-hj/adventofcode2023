@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { CopyBlock,dracula } from "react-code-blocks"; 
 
 export default function Page() {
   // camel cards game
@@ -1281,6 +1282,263 @@ export default function Page() {
   console.log('totalWinnings',totalWinnings);
 
 
+  const codeToShowOnPage = `
+  const inputToUse = realInput;
+  const inputLines = inputToUse.split(/\\n/);
+  // console.log('inputLines',inputLines);
+  
+  const hands = []; // will be array of objs for each hand
+  inputLines.forEach(function(line,i){
+    const trimmedLine = line.trim();
+    const lineParts = trimmedLine.split(' ');
+    // console.log(\`line ${i} parts\`,lineParts);
+    const value = lineParts[0];
+    const bid = lineParts[1];
+
+    // analyse the value to find the hand type
+    const valueChars = value.split('');
+    // console.log('valueChars',valueChars);
+    
+    const charCounts = {};
+    valueChars.forEach(function(char) {
+      charCounts[char] = (charCounts[char] || 0 ) + 1;
+    });    
+    // console.log('charCounts',charCounts);
+    var type = 'unknown';
+    const uniqueCharCount = Object.values(charCounts).length;
+    // console.log('uniqueCharCount',uniqueCharCount);
+    if( uniqueCharCount == 1 ) {
+      type = 'fiveOfKind';
+    } else if( uniqueCharCount == 5 ) {
+      type = 'highCard';
+
+      // pt 2: wildcard promotes type
+      if( value.includes('J') ){
+        type = 'pair';
+      }
+    } else if( uniqueCharCount == 4 ) {
+      type = 'pair';
+
+      // pt 2: wildcard promotes type
+      if( value.includes('J') ){
+        // console.log('looking at pairs, charCounts',charCounts);
+        // const pairCard = Object.keys(charCounts).find(key => charCounts[key] === 2);
+        // console.log('pair card',pairCard);
+        // if( pairCard != 'J' ) {
+          // there is a pair, plus a J, it becomes 3 of a kind
+          type = 'threeOfKind';
+        // }
+      }
+    } else if( uniqueCharCount == 2 ) {
+      // could be four of a kind or full house
+      const flattenedCounts = [].concat(...Object.values(charCounts));
+      const largestCount = Math.max(...flattenedCounts);
+      if( largestCount > 3 ) {
+        type = 'fourOfKind';
+
+        // pt 2: wildcard promotes type
+        if( value.includes('J') ){
+          // const fourCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 4);
+          // if( fourCopyCard != 'J' ) {
+            type = 'fiveOfKind';
+          // }
+        }
+      } else {
+        type = 'fullHouse';
+
+        // pt 2: wildcard promotes type
+        if( value.includes('J') ){
+          const threeCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 3);
+          if( threeCopyCard != 'J' ) {
+            
+            const jays = value.match(/J/g);
+            // console.log('jays',jays);
+            // if( jays.length == 1 ) {
+            //   type = 'fourOfKind';
+            // } else {
+              type = 'fiveOfKind';
+            // }
+          }
+        }
+      }
+
+    } else if( uniqueCharCount == 3 ) {
+      // could be 3 of a kind or 2 pair
+      const flattenedCounts = [].concat(...Object.values(charCounts));
+      const largestCount = Math.max(...flattenedCounts);
+      if( largestCount > 2 ) {
+        type = 'threeOfKind';
+
+        // pt 2: wildcard promotes type
+        if( value.includes('J') ){
+          // const threeCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 3);
+          // if( threeCopyCard != 'J' ) {
+          
+            // const jays = value.match(/J/g);
+            // console.log('jays',jays);
+            // if( jays.length == 1 ) {
+              type = 'fourOfKind';
+            // } else {
+            //   type = 'fiveOfKind';
+            // }
+          // }
+        }
+      } else {
+        type = 'twoPair';
+
+        // pt 2: wildcard promotes type
+        if( value.includes('J') ){
+          const jays = value.match(/J/g);
+          if( jays.length == 1 ) {
+            type = 'fullHouse';
+          } else {
+            type = 'fourOfKind';
+          }
+        }
+      }
+    }
+    const obj = {
+      value:value,
+      bid:bid,
+      type:type
+    }
+
+    hands.push(obj);
+  });
+
+  console.log('hands are',hands);
+  // We now know the types for each hand
+  
+  function getHandTypeRank(handType) {
+    var rank = 0;
+    if( handType == 'pair' ) {
+      rank = 1;
+    } else if( handType == 'twoPair' ) {
+      rank = 2;
+    } else if( handType == 'threeOfKind' ) {
+      rank = 3;
+    } else if( handType == 'fullHouse' ) {
+      rank = 4;
+    } else if( handType == 'fourOfKind' ) {
+      rank = 5;
+    } else if( handType == 'fiveOfKind' ) {
+      rank = 6;
+    }
+    return rank;
+  }
+
+  function getCardRank(cardName) {
+    var rank = 0;
+    const cardIsNum = !isNaN(cardName);
+    if( cardIsNum ) {
+      // rank = cardName - 2;
+      rank = cardName - 1;
+    } else {
+      if( cardName == 'T' ) {
+        // rank = 8;
+        rank = 9;
+      } else if( cardName == 'J' ) {
+        // rank = 9;
+        // rank = -1 // part 2 
+      } else if( cardName == 'Q' ) {
+        rank = 10;
+      } else if( cardName == 'K' ) {
+        rank = 11;
+      } else if( cardName == 'A' ) {
+        rank = 12;
+      }   
+      
+      
+    }
+
+    return rank;
+  }
+
+  const handsCount = Object.keys(hands).length;
+  // console.log('handsCount',handsCount);
+  for( var i=0; i<handsCount; i++ ) {
+
+    for( var j=0; j<handsCount-1; j++ ) {
+
+      const thisHand = hands[j];
+      // console.log('thisHand',thisHand);
+      const nextHand = hands[j+1];
+      // console.log('nextHand',nextHand);
+
+      const thisHandType = thisHand.type;
+      // console.log('thisHandType',thisHandType);
+      const nextHandType = nextHand.type;
+      // console.log('nextHandType',nextHandType);
+      if( thisHandType != nextHandType ) {
+        // if they're not the same, they need to be swapped (based off rank)
+        const thisHandTypeRank = getHandTypeRank(thisHandType);
+        // console.log(\`\${thisHandType} is worth \${thisHandTypeRank}\`);
+        const nextHandTypeRank = getHandTypeRank(nextHandType);
+        // console.log(\`\${nextHandType} is worth \${nextHandTypeRank}\`);
+        if( thisHandTypeRank > nextHandTypeRank ) {
+          hands[j] = nextHand;
+          hands[j+1] = thisHand;
+        }
+      } else {
+        // if they are the same, we need to compare the actual cards in the hand
+        // console.log('--- analyse same hand type')
+        const thisHandCards = thisHand.value.split('');
+        // console.log('thisHandCards',thisHandCards);
+        const nextHandCards = nextHand.value.split('');
+        // console.log('nextHandCards',nextHandCards);
+        var foundDifferentCards = false;
+        var checkingCardNo = 0;
+
+        while( foundDifferentCards == false && checkingCardNo < thisHandCards.length ) {
+          const thisHandCard = thisHandCards[checkingCardNo];
+          const nextHandCard = nextHandCards[checkingCardNo];
+          if( thisHandCard != nextHandCard ) {
+            // console.log('the checking cards are different');
+            const thisCardRank = getCardRank(thisHandCard);
+            // console.log(\`rank of card \${thisHandCard} is \${thisCardRank}\`);
+            const nextCardRank = getCardRank(nextHandCard);
+            // console.log(\`rank of card \${nextHandCard} is \${nextCardRank}\`);
+
+            if( thisCardRank > nextCardRank ) {
+              hands[j] = nextHand;
+              hands[j+1] = thisHand;
+            }
+
+            foundDifferentCards = true;
+          }
+          checkingCardNo = checkingCardNo + 1;
+        }
+
+      }
+
+    }
+  }
+  // console.log('sorted hands are',hands);
+    // the hands are now be sorted by rank
+
+  const handsWithWildcard = [];
+  hands.forEach(function(hand) {
+    const value = hand.value;
+    if( value.includes('J') ) {
+      handsWithWildcard.push(hand);
+    }
+  });
+  console.log('handsWithWildcard',handsWithWildcard);
+  
+  var totalWinnings = 0;
+  hands.forEach(function(hand,i){
+    const rank = i + 1;
+    const bid = hand.bid;
+    const winnings = rank * bid;
+
+    totalWinnings = totalWinnings + winnings;
+
+  });
+
+  console.log('totalWinnings',totalWinnings);
+`;
+
+
   return (
     <main>
       <div>
@@ -1288,6 +1546,15 @@ export default function Page() {
         <p>It took me a few minutes to plan out how to tackle part 1 with pen and paper, but was way more time consuming to implement. This was mentally challenging but fairly straight forward; complicated but just need to follow the logic path. Ended up with a bubble sort inside a bubble sort yay!</p>
         <p>I said to Nichola and Gabo the other day that I like writing code to achieve creating something rather than writing code for the sake of it, but here I am on day 7, and I am starting to question that. I guess I am achieving stars though…</p>
         <p>It's been a stressful week and funnily enough, doing these puzzles has been the most meditative part of the day each day.</p>
+
+
+        <CopyBlock 
+          text={codeToShowOnPage}
+          language='javascript'
+          showLineNumbers='true'
+          wrapLines 
+          theme={dracula} 
+        /> 
 
         <Link href="/">Back</Link>
       </div>
