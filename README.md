@@ -1,5 +1,7 @@
 Tracking my progress through Advent of Code 2023.
 
+View this site deployed here: [https://adventofcode2023.vercel.app/](https://adventofcode2023.vercel.app/)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
