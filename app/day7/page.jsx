@@ -1042,15 +1042,6 @@ export default function Page() {
     const valueChars = value.split('');
     // console.log('valueChars',valueChars);
     
-    // var lastChar = null; 
-
-        // fiveKind
-    // var isFourKind = true;
-        // var isFullHouse = true;
-    // var isThreeKind = true;
-        // var isPair = true;
-    // var isTwoPair = true;
-        // var isHighCard = true;
     const charCounts = {};
     valueChars.forEach(function(char) {
       charCounts[char] = (charCounts[char] || 0 ) + 1;
@@ -1063,16 +1054,55 @@ export default function Page() {
       type = 'fiveOfKind';
     } else if( uniqueCharCount == 5 ) {
       type = 'highCard';
+
+      // pt 2: wildcard promotes type
+      if( value.includes('J') ){
+        type = 'pair';
+      }
     } else if( uniqueCharCount == 4 ) {
       type = 'pair';
+
+      // pt 2: wildcard promotes type
+      if( value.includes('J') ){
+        // console.log('looking at pairs, charCounts',charCounts);
+        // const pairCard = Object.keys(charCounts).find(key => charCounts[key] === 2);
+        // console.log('pair card',pairCard);
+        // if( pairCard != 'J' ) {
+          // there is a pair, plus a J, it becomes 3 of a kind
+          type = 'threeOfKind';
+        // }
+      }
     } else if( uniqueCharCount == 2 ) {
       // could be four of a kind or full house
       const flattenedCounts = [].concat(...Object.values(charCounts));
       const largestCount = Math.max(...flattenedCounts);
       if( largestCount > 3 ) {
         type = 'fourOfKind';
+
+        // pt 2: wildcard promotes type
+        if( value.includes('J') ){
+          // const fourCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 4);
+          // if( fourCopyCard != 'J' ) {
+            type = 'fiveOfKind';
+          // }
+        }
       } else {
         type = 'fullHouse';
+
+        // pt 2: wildcard promotes type
+        if( value.includes('J') ){
+          const threeCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 3);
+          if( threeCopyCard != 'J' ) {
+            
+            const jays = value.match(/J/g);
+            // console.log('jays',jays);
+            // if( jays.length == 1 ) {
+            //   type = 'fourOfKind';
+            // } else {
+              type = 'fiveOfKind';
+            // }
+          }
+        }
       }
 
     } else if( uniqueCharCount == 3 ) {
@@ -1081,8 +1111,33 @@ export default function Page() {
       const largestCount = Math.max(...flattenedCounts);
       if( largestCount > 2 ) {
         type = 'threeOfKind';
+
+        // pt 2: wildcard promotes type
+        if( value.includes('J') ){
+          // const threeCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 3);
+          // if( threeCopyCard != 'J' ) {
+          
+            // const jays = value.match(/J/g);
+            // console.log('jays',jays);
+            // if( jays.length == 1 ) {
+              type = 'fourOfKind';
+            // } else {
+            //   type = 'fiveOfKind';
+            // }
+          // }
+        }
       } else {
         type = 'twoPair';
+
+        // pt 2: wildcard promotes type
+        if( value.includes('J') ){
+          const jays = value.match(/J/g);
+          if( jays.length == 1 ) {
+            type = 'fullHouse';
+          } else {
+            type = 'fourOfKind';
+          }
+        }
       }
     }
     const obj = {
@@ -1119,13 +1174,15 @@ export default function Page() {
     var rank = 0;
     const cardIsNum = !isNaN(cardName);
     if( cardIsNum ) {
-      rank = cardName - 2;
+      // rank = cardName - 2;
+      rank = cardName - 1;
     } else {
       if( cardName == 'T' ) {
-        rank = 8;
+        // rank = 8;
+        rank = 9;
       } else if( cardName == 'J' ) {
         // rank = 9;
-        rank = -1 // part 2 
+        // rank = -1 // part 2 
       } else if( cardName == 'Q' ) {
         rank = 10;
       } else if( cardName == 'K' ) {
@@ -1199,8 +1256,17 @@ export default function Page() {
 
     }
   }
-  console.log('hands are',hands);
-  // the hands are now be sorted by rank
+  // console.log('sorted hands are',hands);
+    // the hands are now be sorted by rank
+
+  const handsWithWildcard = [];
+  hands.forEach(function(hand) {
+    const value = hand.value;
+    if( value.includes('J') ) {
+      handsWithWildcard.push(hand);
+    }
+  });
+  console.log('handsWithWildcard',handsWithWildcard);
   
   var totalWinnings = 0;
   hands.forEach(function(hand,i){
