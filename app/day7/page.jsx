@@ -1291,7 +1291,7 @@ export default function Page() {
   inputLines.forEach(function(line,i){
     const trimmedLine = line.trim();
     const lineParts = trimmedLine.split(' ');
-    // console.log(\`line ${i} parts\`,lineParts);
+    // console.log(\`line \${i} parts\`,lineParts);
     const value = lineParts[0];
     const bid = lineParts[1];
 
