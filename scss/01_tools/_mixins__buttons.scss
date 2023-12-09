@@ -1,0 +1,99 @@
+
+$space__side_in_button_default:1.25em;
+
+@mixin buttonPartial__basicColors(
+    $name:null,
+    $textColor:null,
+    $bgColor:null,
+    $borderColor:null,
+    $icon:null,
+    $iconColor:null
+  ){
+
+  @if $textColor != null {
+    color:$textColor;
+  }
+  @if $bgColor != null {
+    background-color:$bgColor;
+  }
+
+  @if $icon == arrow_right {
+    @if $iconColor == black {
+      @include asset__arrow(right, black, normal);
+    }
+  }
+
+  @if $borderColor != null {
+    border-color:$borderColor;
+  }
+}
+
+@mixin button(
+    $name:default,
+    $textColor:white,
+    $bgColor:var(--defaultText),
+    $borderColor:var(--defaultText),
+    $textColor--hov:var(--defaultText),
+    $bgColor--hov:var(--alpha),
+    $borderColor--hov:var(--alpha),
+    $icon:null,
+    $iconColor:null,
+    $iconColor--hov:null
+  ){
+  display:inline-block;
+
+  cursor:pointer;
+
+  // transition:background-color 0.25s;
+
+  &,
+  &:link {
+    color:$textColor;
+    background:none;
+    background-color:$bgColor;
+  }
+
+  &:hover,
+  &:focus-visible {
+    @include buttonPartial__basicColors(
+      null,
+      $textColor--hov,
+      $bgColor--hov,
+      $borderColor--hov
+    );
+  }
+
+  @if $name == default {
+    @include typeStyle(button,default);
+
+    // position:relative; // contain pos abs child
+
+    padding:{
+      top:0.9em;
+      bottom:0.85em;
+      left:$space__side_in_button_default;
+      right:$space__side_in_button_default;
+    }
+    border:thin solid $borderColor;
+
+    // @if $icon == null {
+    //   padding:{
+    //     left:$space__side_in_button_default;
+    //     right:$space__side_in_button_default;
+    //   }
+    // }
+    // @if $icon != none {
+
+    // }
+
+    &:hover,
+    &:focus-visible {
+      @include buttonPartial__basicColors(
+        null,
+        $textColor--hov,
+        $bgColor--hov
+      );
+    }
+  }
+
+}

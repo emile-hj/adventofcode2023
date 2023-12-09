@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 
+import { CopyBlock,dracula } from "react-code-blocks"; 
+
 export default function Page() {
 
   const input = `Game 1: 7 green, 14 red, 5 blue; 8 red, 4 green; 6 green, 18 red, 9 blue
@@ -220,12 +222,134 @@ export default function Page() {
   });
   console.log('powersTotal',powersTotal);
   
+  const codeToShowOnPage = `
+  const redLimit = 12;
+  const greenLimit = 13;
+  const blueLimit = 14;
+  const possibleGameIDs = [];
+  const outcomePowers = [];
+
+  // console.log(input);
+  const gameStrs = input.split('\\n');
+  // console.log(gameStrings);
+  const allGameOutcomes = [];
+  
+
+  // set up to convert strings to objects we can use
+  gameStrs.forEach(function(gameStr) {
+    const gameOutcomeStrs = [];
+    // console.log(gameStr);
+    const splitGameStr = gameStr.split(':');
+    // console.log(splitGameStr);
+    const cleanGameStr = splitGameStr[1];
+    // console.log(cleanGameStr);
+
+    const roundStrs = cleanGameStr.split(';');
+    // console.log('roundStrs',roundStrs);
+    roundStrs.forEach(function(rndStr) {
+      const outcomeStrs = rndStr.split(',');
+      // console.log('outcomeStrs', outcomeStrs);
+      outcomeStrs.forEach(function(outcomeStr){
+        const cleanOutcomeStr = outcomeStr.trim();
+
+        const splitOutcomeStr = cleanOutcomeStr.split(' ');
+        // console.log(splitOutcomeStr);
+
+        const colour = splitOutcomeStr[1];
+        const num = parseFloat(splitOutcomeStr[0]);
+        const outcome = [colour, num];
+        
+        gameOutcomeStrs.push(outcome);
+      });
+
+    });
+    
+    // console.log('gameOutcomeStrs',gameOutcomeStrs);
+    allGameOutcomes.push(gameOutcomeStrs);
+  });
+  // console.log('allGameOutcomes',allGameOutcomes);
+
+  allGameOutcomes.forEach(function(outcomeSet, index) {
+    const gameID = index + 1;
+    // console.log('gameID',gameID);
+    var gameIsPossible = true;
+
+    var highestRedOutcome = 0;
+    var highestGreenOutcome = 0;
+    var highestBlueOutcome = 0;
+
+    outcomeSet.forEach(function(outcome) {
+      // console.log('outcome',outcome);
+      // console.log('outcome[0]',outcome[0]);
+      // console.log('outcome[1]',outcome[1]);
+      // console.log('blueLimit',blueLimit);
+      if( outcome[0] === 'red' ) {
+        if( outcome[1] > redLimit ) {
+          gameIsPossible = false;
+          // console.log('this game is not possible');
+        }
+        if( outcome[1] > highestRedOutcome ) {
+          highestRedOutcome = outcome[1];
+        }
+      } else if( outcome[0] === 'green' ) {
+        if( outcome[1] > greenLimit ) {
+          gameIsPossible = false;
+          // console.log('this game is not possible');
+        }
+        if( outcome[1] > highestGreenOutcome ) {
+          highestGreenOutcome = outcome[1];
+        }
+      } else if( outcome[0] === 'blue' ) {
+        if( outcome[1] > blueLimit ) {
+          gameIsPossible = false;
+          // console.log('this game is not possible');
+        }
+        if( outcome[1] > highestBlueOutcome ) {
+          highestBlueOutcome = outcome[1];
+        }
+      }
+    });
+
+    // console.log('highestRedOutcome',highestRedOutcome);
+    // console.log('highestGreenOutcome',highestGreenOutcome);
+    // console.log('highestBlueOutcome',highestBlueOutcome);
+    const powerOfHighestOutcomes = highestRedOutcome * highestGreenOutcome * highestBlueOutcome;
+    // console.log('powerOfHighestOutcomes',powerOfHighestOutcomes);
+    outcomePowers.push(powerOfHighestOutcomes);
+
+    if( gameIsPossible ) {
+      possibleGameIDs.push(gameID);
+    };
+
+  });
+
+  console.log('possibleGameIDs', possibleGameIDs);
+
+  var total = 0;
+  possibleGameIDs.forEach(function(gameID){
+    total = total + +gameID;
+  });
+  console.log('total',total);
+
+  var powersTotal = 0;
+  console.log('outcomePowers',outcomePowers);
+  outcomePowers.forEach(function(outcomePwr){
+    powersTotal = powersTotal + +outcomePwr;
+  });
+  console.log('powersTotal',powersTotal);`;
 
   return (
     <main>
       <div>
         <h1>Day 2</h1>
         <p>Already feeling more used to this kind of problem solving after day 1. Writing this in retrospect but I think this was fairly smooth and easy.</p>
+        <CopyBlock 
+          text={codeToShowOnPage}
+          language='javascript'
+          showLineNumbers='true'
+          wrapLines 
+          theme={dracula} 
+        /> 
         <Link href="/">Back</Link>
       </div>
     </main>

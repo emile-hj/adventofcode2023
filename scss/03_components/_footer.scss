@@ -1,0 +1,92 @@
+
+.fullWidth__footer {
+	margin:{
+		top:5rem;
+	}
+
+	a:not(.cta) {
+		&,
+		&:link {
+	    // color: white;
+			text-decoration:underline;
+
+			&:hover,
+			&:focus {
+				color:var(--alpha);
+			}
+
+		}
+	}
+
+	p {
+		@include typeStyle(body,small);
+
+		a {
+			// color:white;
+			border:0;
+			text-decoration: underline;
+
+
+			&:hover,
+			&:focus {
+				color:var(--alpha);
+
+			}
+		}
+	}
+
+
+	.field--name-body {
+		a:not(.cta) {
+		//
+	    &,
+	    &:link {
+		// 		color:white;
+				border:0;
+		// 		text-decoration: underline;
+		//
+		// 		&:hover,
+		// 		&:focus {
+		// 			color:var(--charlie);
+		// 		}
+			}
+		}
+
+		p a {
+			&,
+			&:link {
+				// color:white;
+				border:0;
+				text-decoration: underline;
+
+				&:hover,
+				&:focus {
+					color:var(--alpha);
+				}
+			}
+		}
+	}
+
+	.cta {
+		margin-top:0.5em;
+	}
+
+	h2 {
+		@include typeStyle(heading,h4);
+	}
+
+	ul.menu {
+
+	}
+
+	.block {
+		margin:{
+			bottom:1rem;
+		}
+
+	}
+
+	@include in_print {
+		display:none;
+	}
+}

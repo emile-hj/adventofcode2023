@@ -1,0 +1,65 @@
+
+/* Sitewide Typography
+************************************* */
+html {
+  /*
+    Letting the browser and user set default font-size, for accesibility.
+    I am working with REMs (except for media queries which is not viable)
+  */
+}
+// set font basics
+body {
+  @include typeStyle(body,normal);
+  color:var(--defaultText);
+
+  -webkit-font-smoothing:antialiased;
+}
+// admin menu font independent from rest of website (DRUPAL)
+.toolbar {
+  -webkit-font-smoothing:subpixel-antialiased;
+}
+
+// PLEASE ALSO SEE CKE, which has sitewide type rules
+
+a {
+  &,
+  &:link {
+    color:var(--defaultText);
+    text-decoration:underline;
+    text-decoration-color:var(--alpha);
+    text-decoration-thickness:1px;
+    text-underline-offset: 0.25em;
+  }
+}
+
+p {
+	@include typeStyle(body,normal);
+  margin:0 0 1em;
+}
+
+// H1
+h1 {
+  @include typeStyle(heading,h1);
+}
+h2 {
+  @include typeStyle(heading,h2);
+}
+h3 {
+  @include typeStyle(heading,h3);
+}
+h4 {
+  @include typeStyle(heading,h4);
+}
+h5 {
+  @include typeStyle(heading,h5);
+}
+
+.field--name-field-introduction {
+  p {
+    @include typeStyle(body,large);
+  }
+}
+
+.cta {
+  @include button();
+}

@@ -1,0 +1,28 @@
+
+
+.paragraph {
+  @include typeHierarchySizes(h1);
+  margin:{
+    top:1em;
+    bottom:1em;
+  }
+}
+
+
+// remove margin top from first paragraph in content
+.field--name-field-content {
+  .field__item:first-child {
+    .paragraph {
+      margin-top:0;
+    }
+  }
+}
+
+// remove margin bottom from last paragraph in lists
+.field--name-field-lists {
+  .field__item:last-child {
+    .paragraph {
+      margin-bottom:0;
+    }
+  }
+}

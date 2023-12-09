@@ -1,0 +1,176 @@
+
+
+/*  Animate Into Viewport effects
+*********************************** */
+@mixin component_style__animateIntoViewport_standardImageAppear_init {
+  transform:translateY(12%);
+  opacity:0;
+}
+@mixin component_style__animateIntoViewport_standardImageAppear_complete {
+  transform:translateY(0%);
+  opacity:1;
+
+  transition-property:transform, opacity;
+  transition-duration: $time__animateIntoViewport_standardElementAppear;
+  transition-timing-function: $ease__easeOutQuint;
+}
+
+
+@mixin burgerButton {
+  .line {
+    display: block;
+    position: absolute;
+    top:50%;
+    left:50%;
+    @include calcRemSize(3, height);
+    width: 80%;
+    background-color:black;
+    transform-origin:50% 0%;
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+
+    &.id_1 {
+      transform: translate3d(-50%, calc(-50% - 0.5625rem), 0);
+    }
+    &.id_2 {
+      transform: translate3d(-50%, -50%, 0);
+    }
+    &.id_3 {
+      transform: translate3d(-50%, calc(-50% + 0.5625rem), 0)
+    }
+
+    // 4 and 5 used for close only
+    &.id_4,
+    &.id_5 {
+      top:50%;
+      opacity:0;
+      transform-origin:50% 50%;
+    }
+    &.id_4 {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    &.id_5 {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+  }
+
+  &:hover,
+  &:focus {
+    .line {
+      background-color:var(--alpha);
+    }
+  }
+  &.state__open {
+    .line {
+      &.id_1,
+      &.id_2,
+      &.id_3 {
+        opacity:0;
+      }
+      &.id_4,
+      &.id_5 {
+        opacity:1;
+      }
+
+    }
+  }
+}
+
+@mixin fullVW_bgColor($color, $pseudo:before) {
+  position:relative;
+
+
+  // pseudo for 100vw bg color
+  &::#{$pseudo} {
+    content:" ";
+    display:block;
+    position:absolute;
+    z-index:-1;
+    left:50%;
+    top:0;
+
+    width:110vw;
+    height:100%;
+
+    min-width:$width__minSiteWidth_PX;
+
+    background-color: $color;
+
+    transform:translateX(-50%);
+  }
+}
+
+
+$space_side--mobile:4.5%;
+$space_side--mobile--large:4%;
+$space_side--tablet:3.5%;
+$space_side--desktop:2rem;
+
+@mixin siteSidePaddings {
+  padding:{
+    left: $space_side--mobile;
+    right:$space_side--mobile;
+  }
+  @include min_480 {
+    padding:{
+      left: $space_side--mobile--large;
+      right:$space_side--mobile--large;
+    }
+  }
+  @include min_696 {
+    padding:{
+      left:$space_side--desktop;
+      right:$space_side--desktop;
+    }
+  }
+
+}
+
+@mixin applySectionalColor($selector, $alpha) {
+
+  #{$selector} {
+    .colorBox {
+      background-color:$alpha;
+    }
+  }
+}
+
+@mixin webkitScrollbar(
+    $trackColor:rgba(255,255,255,1), 
+    $thumbColor:var(--alpha), 
+    $thumbHoverColor:var(--beta),
+    $trackRounded:true,
+    $handleRounded:true
+  ) {
+  overscroll-behavior: contain;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 10px;          
+    
+    // @include max_624 {
+    //   width:11px;
+    // }
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background:$trackColor;
+
+    @if( $trackRounded ) {
+      border-radius:2em;
+    }
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $thumbColor;
+
+    @if( $handleRounded ) {
+      border-radius:2em;
+    }
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $thumbHoverColor;
+  }
+}

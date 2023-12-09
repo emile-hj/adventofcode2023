@@ -1,0 +1,95 @@
+
+/* Set Initial grid values
+   'fixed' means it is a fixed numerical value
+*********************************** */
+$grid_sizingUnit:rem;
+
+// Set the total amount of columns in grid
+$grid_columnCount: 12;
+
+// Set the pixel width of columns
+$grid_columnWidth_fixed: 70; // SET THIS UNIT in px
+$grid_columnWidth_fixed: math.div($grid_columnWidth_fixed, 16); // converted to rem
+
+// Set the pixel width of gutters
+$grid_gutterWidth_fixed: 20; // SET THIS UNIT in px
+$grid_gutterWidth_fixed: math.div($grid_gutterWidth_fixed, 16); // converted to rem
+$grid_gutterWidth_rem: #{$grid_gutterWidth_fixed}rem;
+
+$grid_columnsWidth_fixed: $grid_columnCount * $grid_columnWidth_fixed; // width of all columns in the grid is equal to column count times width of a column
+$grid_guttersWidth_fixed: ($grid_columnCount * $grid_gutterWidth_fixed) - $grid_gutterWidth_fixed; // width of all gutters in the grid is equal to column count times width of a gutter, minus one gutter (gutters are always internal)
+$grid_totalWidth_fixed: $grid_columnsWidth_fixed + $grid_guttersWidth_fixed; // total width of grid is equal to width of columns plus gutters
+$grid_maxWidth: unquote( "#{$grid_totalWidth_fixed}#{$grid_sizingUnit}" ); // suffix the sizing unit on the fixed value: Max width of the grid as a fixed value with sizing unit
+
+$width__minSiteWidth_PX: 320px; // The minimum width of the site
+
+
+/* 	Fonts – Specfics
+    These are not to be used directly in styling,
+    please use the generic values further below!
+*********************************** */
+$font__helvetica: Helvetica, Arial, sans-serif; // INITAL/UNSET
+// 400, 400 italic, 700, 900
+
+/* 	Fonts – Generic values
+    Use these values in styling!
+*********************************** */
+$font__body: $font__helvetica; // INITAL/UNSET
+$font__heading: $font__helvetica; // INITAL/UNSET
+
+
+:root {
+  /*	Colours - Specifics: Don't use directly
+  ***********************************  */
+  --pink: #FF557A;
+  --blue: #3a8dff;
+  --yellow: #ffbf00;
+
+  /*	Colours - Generics: Use these values in styling
+  ***********************************  */
+  --alpha: var(--pink); // INITAL/UNSET
+  --beta: var(--blue); // INITAL/UNSET
+  --charlie: var(--yellow); // INITAL/UNSET
+  
+  --pageBackground: white; // INITAL/UNSET
+  --defaultText: black; // INITAL/UNSET
+}
+// [data-theme="dark"] { 
+//   --pageBackground: black; // INITAL/UNSET
+//   --defaultText: white; // INITAL/UNSET
+// }
+
+
+/*	Size variables
+***********************************  */
+$width__icon_button--mobile: 2rem; // INITAL/UNSET
+$width__icon_button--desktop: 2rem; // INITAL/UNSET
+
+$borderWidth__standard:thin; // INITAL/UNSET
+
+$lineHeight__tag_normal: 1.2em; // INITAL/UNSET
+
+
+/*	Transition variables
+***********************************  */
+$ease__outSine:cubic-bezier(0.39, 0.575, 0.565, 1);
+$ease__easeOutQuint: cubic-bezier(0.23, 1, 0.32, 1);
+
+$slidingOverlayTransition: 0.3s $ease__outSine; // INITAL/UNSET
+
+$time__delay_step1:0.35s; // INITAL/UNSET
+$time__delay_step2:0.75s; // INITAL/UNSET
+
+$time__animateIntoViewport_standardElementAppear: 1s; // INITAL/UNSET
+
+/*	Selector variables
+***********************************  */
+// $selector__first_lev_is_on_sectional_page:'body.x &'; // INITAL/UNSET
+
+// $selector__section_has_bg_color:'section.x'; // INITAL/UNSET
+// $selector__first_lev_is_on_color_bg_section:'section.x &'; // INITAL/UNSET
+
+// $selector__first_lev_is_on_content_page:'body.frontend_nodetype--content &'; // INITAL/UNSET
+
+// $selector__has_header_over_image:'.page-standard.has_banner'; // INITAL/UNSET
+// $selector__first_lev_has_header_over_image:'.page-standard.has_banner &'; // INITAL/UNSET

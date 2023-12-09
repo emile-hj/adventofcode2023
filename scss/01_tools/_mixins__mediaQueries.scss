@@ -1,0 +1,601 @@
+
+/* Media Queries
+*********************************** */
+$mq_2208 : 2208px;
+$mq_2136 : 2136px;
+$mq_2064 : 2064px;
+$mq_1992 : 1992px;
+$mq_1920 : 1920px;
+$mq_1848 : 1848px;
+$mq_1776 : 1776px;
+$mq_1704 : 1704px;
+$mq_1632 : 1632px;
+$mq_1560 : 1560px;
+$mq_1488 : 1488px;
+$mq_1416 : 1416px;
+$mq_1344 : 1344px;
+$mq_1272 : 1272px;
+$mq_1200 : 1200px;
+$mq_1128 : 1128px;
+$mq_1056 : 1056px;
+$mq_984  : 984px;
+$mq_912  : 912px;
+$mq_840  : 840px;
+$mq_768  : 768px;
+$mq_696  : 696px;
+$mq_624  : 624px;
+$mq_552  : 552px;
+$mq_480  : 480px;
+$mq_408  : 408px;
+$mq_336  : 336px;
+
+
+/*
+  I am working with REMs for the whole site, except for the media queries which is not viable
+  These media queries are better suited to mobile first.
+*/
+// 2208
+@mixin min_2208 {
+  @media only screen and (min-width : $mq_2208) {
+    @content;
+  }
+}
+@mixin max_2208 {
+  @media only screen and (max-width : $mq_2208 - 1) {
+    @content;
+  }
+}
+
+// 2136
+@mixin min_2136 {
+  @media only screen and (min-width : $mq_2136) {
+    @content;
+  }
+}
+@mixin max_2136 {
+  @media only screen and (max-width : $mq_2136 - 1) {
+    @content;
+  }
+}
+
+// 2064
+@mixin min_2064 {
+  @media only screen and (min-width : $mq_2064) {
+    @content;
+  }
+}
+@mixin max_2064 {
+  @media only screen and (max-width : $mq_2064 - 1) {
+    @content;
+  }
+}
+
+// 1992
+@mixin min_1992 {
+  @media only screen and (min-width : $mq_1992) {
+    @content;
+  }
+}
+@mixin max_1992 {
+  @media only screen and (max-width : $mq_1992 - 1) {
+    @content;
+  }
+}
+
+// 1920
+@mixin min_1920 {
+  @media only screen and (min-width : $mq_1920) {
+    @content;
+  }
+}
+@mixin max_1920 {
+  @media only screen and (max-width : $mq_1920 - 1) {
+    @content;
+  }
+}
+
+// 1848
+@mixin min_1848 {
+  @media only screen and (min-width : $mq_1848) {
+    @content;
+  }
+}
+@mixin max_1848 {
+  @media only screen and (max-width : $mq_1848 - 1) {
+    @content;
+  }
+}
+
+// 1776
+@mixin min_1776 {
+  @media only screen and (min-width : $mq_1776) {
+    @content;
+  }
+}
+@mixin max_1776 {
+  @media only screen and (max-width : $mq_1776 - 1) {
+    @content;
+  }
+}
+
+// 1704
+@mixin min_1704 {
+  @media only screen and (min-width : $mq_1704) {
+    @content;
+  }
+}
+@mixin max_1704 {
+  @media only screen and (max-width : $mq_1704 - 1) {
+    @content;
+  }
+}
+
+// 1632
+@mixin min_1632 {
+  @media only screen and (min-width : $mq_1632) {
+    @content;
+  }
+}
+@mixin max_1632 {
+  @media only screen and (max-width : $mq_1632 - 1) {
+    @content;
+  }
+}
+
+// 1560
+@mixin min_1560 {
+  @media only screen and (min-width : $mq_1560) {
+    @content;
+  }
+}
+@mixin max_1560 {
+  @media only screen and (max-width : $mq_1560 - 1) {
+    @content;
+  }
+}
+
+
+// 1488
+@mixin min_1488 {
+  @media only screen and (min-width : $mq_1488) {
+    @content;
+  }
+}
+@mixin max_1488 {
+  @media only screen and (max-width : $mq_1488 - 1) {
+    @content;
+  }
+}
+
+
+// 1416
+@mixin min_1416 {
+  @media only screen and (min-width : $mq_1416) {
+    @content;
+  }
+}
+@mixin max_1416 {
+  @media only screen and (max-width : $mq_1416 - 1) {
+    @content;
+  }
+}
+
+// 1344
+@mixin min_1344 {
+  @media only screen and (min-width : $mq_1344) {
+    @content;
+  }
+}
+@mixin max_1344 {
+  @media only screen and (max-width : $mq_1344 - 1) {
+    @content;
+  }
+}
+
+// 1272
+@mixin min_1272 {
+  @media only screen and (min-width : $mq_1272) {
+    @content;
+  }
+}
+@mixin max_1272 {
+  @media only screen and (max-width : $mq_1272 - 1) {
+    @content;
+  }
+}
+
+// 1200
+@mixin min_1200 {
+  @media only screen and (min-width : $mq_1200) {
+    @content;
+  }
+}
+@mixin max_1200 {
+  @media only screen and (max-width : $mq_1200 - 1) {
+    @content;
+  }
+}
+@mixin from_1200_to_1056 {
+  @media only screen and (min-width : $mq_1056) and (max-width : $mq_1200 - 1) {
+    @content;
+  }
+}
+
+// 1128
+@mixin min_1128 {
+  @media only screen and (min-width : $mq_1128) {
+    @content;
+  }
+}
+@mixin max_1128 {
+  @media only screen and (max-width : $mq_1128) {
+    @content;
+  }
+}
+@mixin from_1128_to_1056 {
+  @media only screen and (min-width : $mq_1056) and (max-width : $mq_1128 - 1) {
+    @content;
+  }
+}
+@mixin from_1128_to_768 {
+  @media only screen and (min-width : $mq_768) and (max-width : $mq_1128 - 1) {
+    @content;
+  }
+}
+
+
+// 1056
+@mixin min_1056 {
+  @media only screen and (min-width : $mq_1056 - 1) {
+    @content;
+  }
+}
+@mixin max_1056 {
+  @media only screen and (max-width : $mq_1056 - 1) {
+    @content;
+  }
+}
+@mixin from_1056_to_912 {
+  @media only screen and (min-width : $mq_912) and (max-width : $mq_1056 - 1) {
+    @content;
+  }
+}
+@mixin from_1056_to_840 {
+  @media only screen and (min-width : $mq_840) and (max-width : $mq_1056 - 1) {
+    @content;
+  }
+}
+@mixin from_1056_to_768 {
+  @media only screen and (min-width : $mq_768) and (max-width : $mq_1056 - 1) {
+    @content;
+  }
+}
+@mixin from_1056_to_480 {
+  @media only screen and (min-width : $mq_480) and (max-width : $mq_1056 - 1) {
+    @content;
+  }
+}
+
+
+// 984
+@mixin min_984 {
+  @media only screen and (min-width : $mq_984) {
+    @content;
+  }
+}
+@mixin max_984 {
+  @media only screen and (max-width : $mq_984 - 1) {
+    @content;
+  }
+}
+@mixin from_984_to_912 {
+  @media only screen and (min-width : $mq_912) and (max-width : $mq_984 - 1) {
+    @content;
+  }
+}
+@mixin from_984_to_840 {
+  @media only screen and (min-width : $mq_840) and (max-width : $mq_984 - 1) {
+    @content;
+  }
+}
+@mixin from_984_to_768 {
+  @media only screen and (min-width : $mq_768) and (max-width : $mq_984 - 1) {
+    @content;
+  }
+}
+@mixin from_984_to_696 {
+  @media only screen and (min-width : $mq_696) and (max-width : $mq_984 - 1) {
+    @content;
+  }
+}
+@mixin from_984_to_624 {
+  @media only screen and (min-width : $mq_624) and (max-width : $mq_984 - 1) {
+    @content;
+  }
+}
+@mixin from_984_to_480 {
+  @media only screen and (min-width : $mq_480) and (max-width : $mq_984 - 1) {
+    @content;
+  }
+}
+
+
+
+// 912
+@mixin min_912 {
+  @media only screen and (min-width : $mq_912) {
+    @content;
+  }
+}
+@mixin max_912 {
+  @media only screen and (max-width : $mq_912 - 1) {
+    @content;
+  }
+}
+@mixin from_912_to_840 {
+  @media only screen and (min-width : $mq_840) and (max-width : $mq_912 - 1) {
+    @content;
+  }
+}
+@mixin from_912_to_768 {
+  @media only screen and (min-width : $mq_768) and (max-width : $mq_912 - 1) {
+    @content;
+  }
+}
+@mixin from_912_to_624 {
+  @media only screen and (min-width : $mq_624) and (max-width : $mq_912 - 1) {
+    @content;
+  }
+}
+@mixin from_912_to_552 {
+  @media only screen and (min-width : $mq_552) and (max-width : $mq_912 - 1) {
+    @content;
+  }
+}
+@mixin from_912_to_480 {
+  @media only screen and (min-width : $mq_480) and (max-width : $mq_912 - 1) {
+    @content;
+  }
+}
+
+
+
+// 840
+@mixin min_840 {
+  @media only screen and (min-width : $mq_840) {
+    @content;
+  }
+}
+@mixin max_840 {
+  @media only screen and (max-width : $mq_840 - 1) {
+    @content;
+  }
+}
+@mixin from_840_to_768 {
+  @media only screen and (min-width : $mq_768) and (max-width : $mq_840 - 1) {
+    @content;
+  }
+}
+@mixin from_840_to_696 {
+  @media only screen and (min-width : $mq_696) and (max-width : $mq_840 - 1) {
+    @content;
+  }
+}
+@mixin from_840_to_624 {
+  @media only screen and (min-width : $mq_624) and (max-width : $mq_840 - 1)  {
+    @content;
+  }
+}
+@mixin from_840_to_552 {
+  @media only screen and (min-width : $mq_552) and (max-width : $mq_840 - 1) {
+    @content;
+  }
+}
+@mixin from_840_to_480 {
+  @media only screen and (min-width : $mq_480) and (max-width : $mq_840 - 1) {
+    @content;
+  }
+}
+@mixin from_840_to_408 {
+  @media only screen and (min-width : $mq_408) and (max-width : $mq_840 - 1) {
+    @content;
+  }
+}
+
+
+// 768
+@mixin min_768 {
+  @media only screen and (min-width : $mq_768) {
+    @content;
+  }
+}
+@mixin max_768 {
+  @media only screen and (max-width : $mq_768 - 1) {
+    @content;
+  }
+}
+@mixin from_768_to_624 {
+  @media only screen and (min-width : $mq_624) and (max-width : $mq_768 - 1) {
+    @content;
+  }
+}
+@mixin from_768_to_552 {
+  @media only screen and (min-width : $mq_552) and (max-width : $mq_768 - 1) {
+    @content;
+  }
+}
+@mixin from_768_to_480 {
+  @media only screen and (min-width : $mq_480) and (max-width : $mq_768 - 1) {
+    @content;
+  }
+}
+@mixin from_768_to_408 {
+  @media only screen and (min-width : $mq_408) and (max-width : $mq_768 - 1) {
+    @content;
+  }
+}
+
+
+// 696
+@mixin min_696 {
+  @media only screen and (min-width : $mq_696) {
+    @content;
+  }
+}
+@mixin max_696 {
+  @media only screen and (max-width : $mq_696 - 1) {
+    @content;
+  }
+}
+@mixin from_696_to_552 {
+  @media only screen and (min-width : $mq_552) and (max-width : $mq_696 - 1) {
+    @content;
+  }
+}
+@mixin from_696_to_480  {
+  @media only screen and (min-width : $mq_480) and (max-width : $mq_696 - 1) {
+     @content;
+  }
+}
+
+
+// 624
+@mixin min_624 {
+  @media only screen and (min-width : $mq_624) {
+    @content;
+  }
+}
+@mixin max_624 {
+  @media only screen and (max-width : $mq_624 - 1) {
+    @content;
+  }
+}
+@mixin from_624_to_408  {
+  @media only screen and (min-width : $mq_408) and (max-width : $mq_624 - 1) {
+     @content;
+  }
+}
+
+// 552
+@mixin min_552 {
+  @media only screen and (min-width : $mq_552) {
+    @content;
+  }
+}
+// Max-width 552
+@mixin max_552 {
+  @media only screen and (max-width : $mq_552 - 1) {
+    @content;
+  }
+}
+@mixin from_552_to_408  {
+  @media only screen and (min-width : $mq_408) and (max-width : $mq_552 - 1) {
+     @content;
+  }
+}
+
+
+// 480
+@mixin min_480 {
+  @media only screen and (min-width : $mq_480) {
+    @content;
+  }
+}
+@mixin max_480 {
+  @media only screen and (max-width : $mq_480 - 1) {
+    @content;
+  }
+}
+@mixin from_480_to_336 {
+  @media only screen and (min-width : $mq_336) and (max-width : $mq_480 - 1) {
+    @content;
+  }
+}
+
+
+// 408
+@mixin min_408 {
+  @media only screen and (min-width : $mq_408) {
+    @content;
+  }
+}
+@mixin max_408 {
+  @media only screen and (max-width : $mq_408 - 1) {
+    @content;
+  }
+}
+
+
+// 336
+@mixin min_336 {
+  @media only screen and (min-width : $mq_336) {
+    @content;
+  }
+}
+@mixin max_336 {
+  @media only screen and (max-width : $mq_336 - 1) {
+    @content;
+  }
+}
+
+
+// Retina screens have a 1.5 pixel ratio, not 2
+@mixin retina {
+  @media only screen and (-webkit-min-device-pixel-ratio : 1.5), only screen and (min-device-pixel-ratio : 1.5) {
+    @content;
+  }
+}
+
+
+@mixin on_screen {
+  @media only screen {
+    @content;
+  }
+}
+
+@mixin in_print {
+  @media print {
+    @content;
+  }
+}
+
+// The following are for described purposes, using the same MQs from above
+@mixin mq_breakpoint__sidebar_and_content_sidebyside {
+  @media only screen and (min-width : $mq_912) {
+    @content;
+  }
+}
+@mixin mq_breakpoint__sidebar_and_content_stacked {
+  @media only screen and (max-width : $mq_912 - 1) {
+    @content;
+  }
+}
+
+@mixin mq__burgerMenuNotAvailable {
+  @include min_984 {
+    @content;
+  }
+}
+@mixin mq__burgerMenuIsAvailable {
+  @include max_984 {
+    @content;
+  }
+}
+
+// @mixin mq_breakpoint__standard4colLayout_breaks3colto4col {
+//   @include min_984 {
+//     @content;
+//   }
+// }
+
+// @mixin mq_breakpoint__standardSquareButtons_atDesktopSize {
+//   @include min_552 {
+//     @content;
+//   }
+// }
+
+// @mixin mq_breakpoint__fullLayout_Main8colWithSide4col_mainNextToSide {
+//   @include min_984 {
+//     @content;
+//   }
+// }

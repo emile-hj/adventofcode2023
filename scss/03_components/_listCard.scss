@@ -1,0 +1,90 @@
+
+/*  Listing item
+*********************************** */
+.listCard {
+  position:relative;
+
+  .list_title {
+    @include typeStyle(heading,h4);
+
+    a {
+      color:var(--defaultText);
+      display:block;
+
+      // Pseudo for extend anchor area to cover whole block
+      &::before {
+        content:" ";
+        display:block;
+        position:absolute;
+        z-index:1;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+      }
+    }
+  }
+
+  .image_box {
+    line-height: 0;
+  }
+
+  // Teaser
+  .teaser_text {
+    p {
+      @include typeStyle(body,small);
+      color:black;
+      margin-bottom:1em;
+    }
+  }
+
+  .read_more {
+    @include typeStyle(button,default);
+  }
+
+
+  &.is_linked {
+    &:hover,
+    &:focus-within {
+
+      cursor:pointer;
+
+      .read_more {
+        color:white;
+        background-color:black;
+      }
+    }
+  }
+
+  &.animate_init {
+    .content_box {
+      @include component_style__animateIntoViewport_standardImageAppear_init;
+    }
+  }
+  &.in_viewport {
+    .content_box {
+      @include component_style__animateIntoViewport_standardImageAppear_complete;
+    }
+
+    .image_box {
+      transition-delay:$time__delay_step1;
+    }
+
+    .image_box + .text_box {
+      transition-delay:$time__delay_step2;
+    }
+
+  }
+
+  &.style__default {
+    @include typeHierarchySizes(h4);
+
+    .image_box {
+      margin:{
+        bottom:1em;
+      }
+    }
+
+  }
+
+}

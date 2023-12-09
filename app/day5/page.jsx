@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 
+import { CopyBlock,dracula } from "react-code-blocks"; 
+
 export default function Page() {
   const startTime = performance.now() / 1000;
   console.log(`startTime at ${startTime} seconds`);
@@ -276,15 +278,14 @@ export default function Page() {
   1082510516 3749523110 18833794
   3727956151 3150282471 536984712`;
 
-
+  const inputToUse = testInput;
   // ! Make a database of necessary seeds
-  const inputParts = testInput.split(/\n\n/);  
+  const inputParts = inputToUse.split(/\n\n/);  
   console.log(inputParts);
   const seedListInput = inputParts[0];
   // console.log('seedListInput',seedListInput);
   const seedListInputArr = seedListInput.split(':');
   const seedList = seedListInputArr[1].trim().split(' ');
-
 
   console.log('seedList',seedList);
   const seedDB = [];
@@ -297,11 +298,7 @@ export default function Page() {
   });
   // console.log('seedDB',seedDB);
 
-
   // ! Get the maps ready
-  // const mapsTogetherInput = inputParts[1];
-  // console.log('mapsTogetherInput',mapsTogetherInput);
-  // const mapInputs = mapsTogetherInput.split(/\n  \n/);
   const mapInputs = [];
   inputParts.forEach(function(part, i){
     if( i != 0 ) {
@@ -458,7 +455,183 @@ export default function Page() {
   const endTime = performance.now() / 1000;
   console.log(`end at ${endTime} seconds`);
 
+  const codeToShowOnPage = `
+  const inputToUse = testInput;
+  // ! Make a database of necessary seeds
+  const inputParts = inputToUse.split(/\\n\\n/);  
+  console.log(inputParts);
+  const seedListInput = inputParts[0];
+  // console.log('seedListInput',seedListInput);
+  const seedListInputArr = seedListInput.split(':');
+  const seedList = seedListInputArr[1].trim().split(' ');
 
+  console.log('seedList',seedList);
+  const seedDB = [];
+  seedList.forEach(function(seedNo) { // part 1
+    const dbEntry = {
+      id: seedNo,
+      location: 'unknown'
+    }
+    seedDB.push(dbEntry);
+  });
+  // console.log('seedDB',seedDB);
+
+  // ! Get the maps ready
+  const mapInputs = [];
+  inputParts.forEach(function(part, i){
+    if( i != 0 ) {
+      mapInputs.push(part);
+    }
+  });
+  // console.log('mapInputs',mapInputs);
+  const maps = [];
+  mapInputs.forEach(function(input){
+    const inputArr = input.split(':');
+    // console.log(inputArr);
+    const mapName = inputArr[0].replace(' map','').trim();
+
+    const rulesStr = inputArr[1].trim();
+    const rulesStrs = rulesStr.split(/\\n/);
+    // console.log('rulesStrs',rulesStrs);
+    const rulesObj = [];
+    rulesStrs.forEach(function(str){
+      const cleanStr = str.trim();
+      const rulesArr = cleanStr.split(' ');
+      const numRulesArr = [];
+      rulesArr.forEach(function(numStr){
+        numRulesArr.push(parseFloat(numStr));
+      });
+      rulesObj.push(numRulesArr);
+    });
+    // console.log('rulesObj',rulesObj);
+    
+    const mapObj = {
+      name: mapName,
+      map: rulesObj
+    }
+
+    maps.push(mapObj);    
+  });
+  // console.log('maps',maps);
+
+  // ! We can pass a source number and a map name to get the corresponding id for that map
+  function getCorrespondingID(sourceNo, mapName) {
+    var correspondingID = sourceNo;
+    // console.log('requested to use map:',mapName);
+    // console.log('maps',maps);
+
+    const mapToUse = Object.values(maps).find((obj) => {
+      return obj.name == mapName;
+    });
+    // console.log('mapToUse',mapToUse);
+    const map = mapToUse.map;
+    // console.log('map for this is:', map);
+
+    // for each rule in the map
+    map.forEach(function(rule){
+      const minSourceNo = rule[1];
+      // console.log('minSourceNo',minSourceNo);
+      const range = rule[2];
+      const maxSourceNo = +minSourceNo + +(range-1);
+      // console.log('maxSourceNo',maxSourceNo);
+
+      if( sourceNo >= minSourceNo && sourceNo<=maxSourceNo ) {
+        // we need to use this rule to find the corresponding ID
+        // console.log(\`\${sourceNo} lies in range between \${minSourceNo} and \${maxSourceNo}\`);
+        const distanceFromMinNo = sourceNo - minSourceNo;
+
+        const minDestinationNo = rule[0];
+        correspondingID = minDestinationNo + distanceFromMinNo;
+
+      }
+    });
+
+    return( correspondingID );
+
+  }
+
+  // part 1
+  // ! Find the seed locations to update the awesome seedDB
+  // seedList.forEach(function(seedNo) { 
+  //   console.log(\`––– Examining seed \${seedNo}\`);
+  //   const soilNo = getCorrespondingID(seedNo,'seed-to-soil');
+  //   const fertilizerNo = getCorrespondingID(soilNo,'soil-to-fertilizer');
+  //   const waterNo = getCorrespondingID(fertilizerNo,'fertilizer-to-water');
+  //   const lightNo = getCorrespondingID(waterNo,'water-to-light');
+  //   const temperatureNo = getCorrespondingID(lightNo,'light-to-temperature');
+  //   const humidityNo = getCorrespondingID(temperatureNo,'temperature-to-humidity');
+  //   const locationNo = getCorrespondingID(humidityNo,'humidity-to-location');
+
+  //   // locationNo = 1;
+    
+  //   // console.log('locationNo',locationNo);
+  //   const seedEntryToUpdate = Object.values(seedDB).find((obj) => {
+  //     return obj.id == seedNo;
+  //   });
+  //   console.log('seedEntryToUpdate',seedEntryToUpdate);
+  //   seedEntryToUpdate.location = locationNo;
+  // }); 
+
+  // ! Check the updated DB
+  // console.log('seedDB', seedDB);
+  // const allLocations = [];
+  // seedDB.forEach(function(entry){
+  //   const location = entry.location;
+  //   allLocations.push(location);
+  // })
+  // const closestLocationNo = Math.min(...allLocations);
+  // console.log('closestLocationNo',closestLocationNo);
+
+
+  // part 2
+  function isOdd(num) {
+    return num % 2 == 1;
+  }
+  const seedListByRange = [];
+  seedList.forEach(function(seedNo, i) {
+    const cleanSeedNo = parseFloat(seedNo);
+    const realCount = i+1;
+    if( isOdd(realCount) ) {
+      seedListByRange.push([cleanSeedNo]);
+    } else {
+      seedListByRange[seedListByRange.length-1].push(cleanSeedNo);
+    }
+  });
+  // console.log('seedListByRange',seedListByRange);
+
+  var totalSeedCount = 0;
+  var smallestLocationNo = null;
+  seedListByRange.forEach(function(seedRange) {
+    const rangeMin = seedRange[0];
+    const range = seedRange[1];
+    const rangeMax = rangeMin + (range-1);
+
+    for( var seedNo = rangeMin; seedNo <= rangeMax; seedNo++ ) {
+      totalSeedCount = totalSeedCount + 1;
+      // console.log(\`checking seed \${totalSeedCount}\`);
+
+      const soilNo = getCorrespondingID(seedNo,'seed-to-soil');
+      const fertilizerNo = getCorrespondingID(soilNo,'soil-to-fertilizer');
+      const waterNo = getCorrespondingID(fertilizerNo,'fertilizer-to-water');
+      const lightNo = getCorrespondingID(waterNo,'water-to-light');
+      const temperatureNo = getCorrespondingID(lightNo,'light-to-temperature');
+      const humidityNo = getCorrespondingID(temperatureNo,'temperature-to-humidity');
+      const locationNo = getCorrespondingID(humidityNo,'humidity-to-location');
+
+      // const locationNo = 0;
+      if( smallestLocationNo === null ) {
+        smallestLocationNo = locationNo;
+      } else if( locationNo < smallestLocationNo ) {
+        smallestLocationNo = locationNo;
+      }
+    }
+
+  });
+
+  console.log('totalSeedCount',totalSeedCount);
+  console.log('smallestLocationNo',smallestLocationNo);
+  const endTime = performance.now() / 1000;
+  console.log(\`end at \${endTime} seconds\`);`;
   
   return (
     <main>
@@ -468,6 +641,14 @@ export default function Page() {
         <p>Part 1 was the most medative thing I have done all day…</p>
         <p>Then I got to part 2. It turns out that I got a working solution very quickly, but I was unable to run it to get an answer in a reasonable time. I spent a long time trying to run the code to get an answer.</p>
         <p>PLEASE NOTE! Running part 2 in browser will probably crash it. I ended up running the code directly with Node.js and it took 1 hour to compute the answer, checking a total of: 2,855,550,144 seeds.</p>
+        
+        <CopyBlock 
+          text={codeToShowOnPage}
+          language='javascript'
+          showLineNumbers='true'
+          wrapLines 
+          theme={dracula} 
+        /> 
 
         <Link href="/">Back</Link>
       </div>

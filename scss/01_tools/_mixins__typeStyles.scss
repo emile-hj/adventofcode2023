@@ -1,0 +1,254 @@
+
+/*  Type hierarchy size mixins
+    - Do not use typeHierarchySizes to set type styles on text elements!
+    The purpose of this is to use relative units on non-text elements
+    (without applying the entire type style, which is unnecessary)
+*********************************** */
+
+@mixin typeHierarchySizes($name) {
+  @if $name == bodyNormal {
+    @include clamp(
+      font-size, 16, 18, 1500 // INITAL/UNSET
+    );
+  }
+  @else if $name == bodySmall {
+    @include clamp(
+      font-size, 16, 23, 1947 // INITAL/UNSET
+    );
+  }
+  @else if $name == bodyExtraSmall {
+    @include clamp(
+      font-size, 14, 21, 2016 // INITAL/UNSET
+    );
+  }
+  @else if $name == bodyLarge {
+    @include clamp(
+      font-size, 19, 28, 1632 // INITAL/UNSET
+    );
+  }
+
+  @else if $name == h0 {
+    @include clamp(
+      font-size, 46, 120, 1920 // INITAL/UNSET
+    );
+  }
+  @else if $name == h1 {
+    @include clamp( 
+      font-size, 35, 60, 1848 // INITAL/UNSET
+    );
+  }
+  @else if $name == h2 {
+    @include clamp(
+      font-size, 34, 64, 1705 // INITAL/UNSET
+    );
+  }
+  @else if $name == h3 {
+    @include clamp(
+      font-size, 26, 50, 1800 // INITAL/UNSET
+    );
+  }
+  @else if $name == h4 {
+    @include clamp(
+      font-size, 22, 40, 1920 // INITAL/UNSET
+    );
+  }
+  @else if $name == h5 {
+    @include clamp( 
+      font-size, 19, 32, 1776 // INITAL/UNSET
+    );
+  }
+  @else if $name == h6 {
+    @include clamp(
+      font-size, 18, 25, 1704 // INITAL/UNSET
+    );
+  }
+
+  @else if $name == buttonPrimary {
+    @include clamp(
+      font-size, 16, 22, 1760 // INITAL/UNSET
+    );
+  }
+  @else if $name == buttonSecondary {
+    @include clamp(
+      font-size, 16, 21, 1776 // INITAL/UNSET
+    );
+  }
+
+  @else if $name == menu_normal {
+    @include typeHierarchySizes(bodySmall); // INITAL/UNSET
+  }
+
+
+  @else if $name == tagNormal {
+    @include clamp(
+      font-size, 14, 21, 2015 // INITAL/UNSET
+    );
+
+  }
+
+}
+
+
+/*  'Paragraph style' Mixins
+    - These are actual type styles, apply these to text elements
+*********************************** */
+@mixin typeStyle($category:body, $name:normal) {
+
+
+  @if $category == body {
+    font-family:$font__body; 
+    font-weight:400; // INITAL/UNSET
+    letter-spacing:0; // INITAL/UNSET
+
+    // Important: This style is the basis for the site, applied to the body
+    @if $name == normal {
+      line-height:1.5238em; // INITAL/UNSET
+      @include typeHierarchySizes(bodyNormal); // INITAL/UNSET
+    }
+    @else if $name == small {
+      line-height:1.470588em;
+      @include typeHierarchySizes(bodySmall); // INITAL/UNSET
+    }
+    @else if $name == extraSmall {
+      line-height:1.47em; // INITAL/UNSET
+      @include typeHierarchySizes(bodyExtraSmall); // INITAL/UNSET
+    }
+    @else if $name == large {
+      line-height:1.48em; // INITAL/UNSET
+      @include typeHierarchySizes(bodyLarge); // INITAL/UNSET
+    }
+  }
+
+  @else if $category == heading {
+    @if $name == h0 {
+      font-family:$font__heading;
+      font-weight:700; // INITAL/UNSET
+      line-height:1.05em; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(h0); // INITAL/UNSET
+
+      margin:{
+        top:0; // INITAL/UNSET
+        bottom:0.525em; // INITAL/UNSET
+      }
+    }
+    @else if $name == h1 {
+      font-family:$font__heading;
+      font-weight:700; // INITAL/UNSET
+      line-height:1.028571em; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(h1); // INITAL/UNSET
+
+      margin:{
+        top:0; // INITAL/UNSET
+        bottom:0.525em; // INITAL/UNSET
+      }
+    }
+    @else if $name == h2 {
+      font-family:$font__heading;
+      font-weight:700; // INITAL/UNSET
+      line-height:1.111111em; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(h2); // INITAL/UNSET
+
+      margin:{
+        top:0; // INITAL/UNSET
+        bottom:0.4em; // INITAL/UNSET
+      }
+    }
+    @else if $name == h3 {
+      font-family:$font__heading;
+      font-weight:700; // INITAL/UNSET
+      line-height:1.2em; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(h3); // INITAL/UNSET
+
+      margin:{
+        top:0; // INITAL/UNSET
+        bottom:0.65em; // INITAL/UNSET
+      }
+    }
+    @else if $name == h4 {
+      font-family:$font__heading;
+      font-weight:700; // INITAL/UNSET
+      line-height:1.266667em; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(h4); // INITAL/UNSET
+
+      margin:{
+        top:0; // INITAL/UNSET
+        bottom:0.4em; // INITAL/UNSET
+      }
+    }
+    @else if $name == h5 {
+      font-family:$font__heading;
+      font-weight:700; // INITAL/UNSET
+      line-height:1.2em; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(h5); // INITAL/UNSET
+
+      margin:{
+        top:0; // INITAL/UNSET
+        bottom:0.35em; // INITAL/UNSET
+      }
+    }
+    @else if $name == h6 {
+      font-family:$font__body;
+      font-weight:600; // INITAL/UNSET
+      line-height:1.45em; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(h6); // INITAL/UNSET
+ 
+      margin:{
+        top:0; // INITAL/UNSET
+        bottom:0.15em; // INITAL/UNSET
+      }
+    }
+  }
+
+  @else if $category == menu {
+    @if $name == normal {
+      font-family:$font__heading; // INITAL/UNSET
+      font-weight:700; // INITAL/UNSET
+      line-height:1.25em; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(menu_normal); // INITAL/UNSET
+    }
+  }
+
+  @else if $category == button {
+    font-family:$font__body; // INITAL/UNSET
+    font-weight:600; // INITAL/UNSET
+    line-height: 1.2em; // INITAL/UNSET
+    letter-spacing: 0; // INITAL/UNSET
+
+    @if $name == primary {
+      @include typeHierarchySizes(buttonPrimary); // INITAL/UNSET
+    }
+    @else if $name == secondary {
+      @include typeHierarchySizes(buttonSecondary); // INITAL/UNSET
+    } 
+  }
+
+  @else if $category == tag {
+    @if $name == normal {
+      font-family:$font__body;
+      font-weight:600; // INITAL/UNSET
+      line-height:1.47619em; // INITAL/UNSET
+
+      text-transform:none; // INITAL/UNSET
+      letter-spacing:0; // INITAL/UNSET
+
+      @include typeHierarchySizes(tagNormal); // INITAL/UNSET
+    }
+  }
+
+}

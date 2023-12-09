@@ -1,0 +1,20 @@
+.listing_tag {
+  @include typeStyle(tag,normal);
+}
+
+// .date_box {
+//   @include typeStyle(tag,small);
+// }
+// .date_tag_box {
+//   @include typeStyle(tag,normal);
+//   margin:{
+//     bottom:2em;
+//   }
+//
+//   > * {
+//     @include typeStyle__tag(normal);
+//     display:inline-block;
+//     vertical-align: middle;
+//   }
+//
+// }

@@ -1,0 +1,97 @@
+
+/* 	Forms
+*********************************** */
+$selector__form_text_inputs: 'input[type="text"], input[type="password"], input[type="email"], input[type="search"], input[type="phone"], input[type="number"], .form-text, textarea';
+
+form {
+
+  label {
+    @include typeStyle(heading,h4);
+    margin:{
+      bottom:0.75em;
+    }
+  }
+
+  input,
+  textarea {
+    &::-webkit-input-placeholder {
+      color:var(--defaultText);
+    }
+
+    &::-moz-placeholder {
+      color:var(--defaultText);
+    }
+
+    &:-moz-placeholder {
+      color:var(--defaultText);
+    }
+
+    &:-ms-input-placeholder {
+      color:var(--defaultText);
+    }
+    &::placeholder {
+      color:var(--defaultText);
+    }
+  }
+
+  #{$selector__form_text_inputs} {
+    @include typeStyle(body,normal);
+
+    width:100%;
+    padding:{
+      top:0.45em;
+      bottom:0.45em;
+      left:0.8em;
+      right:0.8em;
+    }
+
+    background-color:transparent;
+    border:thin solid var(--alpha);
+    -webkit-appearance:none;
+    border-radius:0;
+
+    &:focus {
+      outline:0;
+    }
+
+  }
+  textarea {
+    resize: vertical;
+  }
+
+  .form-item {
+    margin:{
+      bottom:2em;
+    }
+  }
+
+  .description {
+    @include typeStyle(body,small);
+    margin:{
+      top:0.75em;
+    }
+  }
+
+  fieldset {
+    padding:0;
+    margin: 0;
+    border:0;
+  }
+
+  input[type="submit"] {
+    @include button();
+  }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    @include calcRemSize(12,width);
+    @include calcRemSize(12,height);
+    // @include asset__close(white); TO DO!!!!
+    background-repeat:no-repeat;
+    background-size:contain;
+    margin:{
+      left:0.5em;
+    }
+    cursor:pointer;
+  }
+}

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 
+import { CopyBlock,dracula } from "react-code-blocks"; 
+
 export default function Page() {
 
   const input = `2qlljdqcbeight
@@ -1061,6 +1063,63 @@ export default function Page() {
 
   console.log('total',total);
 
+  const codeToShowOnPage = `
+  const allStrings = input.split(/\\s+/);
+  const allNums = [];
+
+  allStrings.forEach(function(string){
+    var convertedString = string;
+    convertedString = convertedString.replace(/twone/g,'twoone');
+    convertedString = convertedString.replace(/oneight/g,'oneeight');
+    convertedString = convertedString.replace(/threeight/g,'threeeight');
+    convertedString = convertedString.replace(/fiveight/g,'fiveeight');
+    convertedString = convertedString.replace(/nineight/g,'nineeight');
+    convertedString = convertedString.replace(/eightwo/g,'eighttwo');
+    convertedString = convertedString.replace(/eighthree/g,'eightthree');    
+    convertedString = convertedString.replace(/sevenine/g,'sevennine');    
+
+    convertedString = convertedString.replace(/one/g, 1);
+    convertedString = convertedString.replace(/two/g, 2);
+    convertedString = convertedString.replace(/three/g, 3);
+    convertedString = convertedString.replace(/four/g, 4);
+    convertedString = convertedString.replace(/five/g, 5);
+    convertedString = convertedString.replace(/six/g, 6);
+    convertedString = convertedString.replace(/seven/g, 7);
+    convertedString = convertedString.replace(/eight/g, 8);
+    convertedString = convertedString.replace(/nine/g, 9);
+
+    // console.log(convertedString);
+    const chars = convertedString.split('');
+    var firstNum = null;
+    var lastNum = null;
+
+    chars.forEach(function(char){
+      // console.log(char);
+      const isNotNum = isNaN(char);
+      // console.log(isNotNum);
+      if( !isNotNum ) {
+        if( firstNum === null ) {
+          firstNum = char;
+        }
+        lastNum = char;
+      }
+    });
+
+    var newNum = \`\${firstNum}\${lastNum}\`;
+    newNum = +newNum
+    // console.log(newNum)
+    // console.log(typeof newNum)
+    allNums.push(newNum);
+
+  });
+  // console.log(allNums);
+  var total = 0;
+  allNums.forEach(function(num) {
+    total = total + +num
+  });
+
+  console.log('total',total);`;
+
   return (
     <main>
       <div>
@@ -1068,6 +1127,13 @@ export default function Page() {
         <p>Gabo sent over this Advent of Code thing and I instantly got pulled in and enjoyed solving this. It seems like a great way to practise and learn more which is fun.</p>
         <p>I haven't been doing much of this kind of coding recently so I think I was slower to get into this than I am now (writing this in retrospect on day 6).</p>
         <p>Part two was more confusing because I originally thought about comparing actual numbers with real numbers whilst analysing their character positions, but soon realised I could just replace the written numbers with actual numbers. Had some issues with that because I missed one of the combined word combinations and didn't find it for ages.</p>
+        <CopyBlock 
+          text={codeToShowOnPage}
+          language='javascript'
+          showLineNumbers='true'
+          wrapLines 
+          theme={dracula} 
+        /> 
         <Link href="/">Back</Link>
       </div>
     </main>

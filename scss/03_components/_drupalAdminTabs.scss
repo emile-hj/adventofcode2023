@@ -1,0 +1,54 @@
+
+// Admin tabs
+.block-local-tasks-block {
+  @include typeStyle(button,primary);
+
+  margin:{
+    top:2em;
+    bottom:2em;
+  }
+
+  ul {
+    list-style:none;
+
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:0.5em;
+    
+    padding: 0;
+
+    border:{
+      bottom:1px solid var(--defaultText);
+    }
+    margin:0;
+
+  }
+  li {
+    margin-bottom:-1px;
+  }
+
+  a {
+    text-decoration: none;
+
+    display:block;
+
+    padding: 0.6em 1em;
+    border: 1px solid var(--defaultText);
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+
+    margin:0;
+    
+
+
+    // active, hover, focus
+    &.is-active,
+    &:hover,
+    &:focus-visible {
+      background-color: var(--alpha);
+      // color:white;
+    }
+  }
+
+}

@@ -1,0 +1,96 @@
+
+/*  Display mixins
+*********************************** */
+@mixin clamp(
+  $property,
+  $minSize,
+  $maxSize,
+  $maxBreakpoint
+) {
+  $minSizeRem: math.div($minSize,16);
+  $minSizeRem: #{$minSizeRem}rem;
+
+  $maxSizeRem: math.div($maxSize,16);
+  $maxSizeRem: #{$maxSizeRem}rem;
+
+  $preferredSize: math.div($maxSize, $maxBreakpoint);
+  $preferredSize: $preferredSize * 100;
+  $preferredSize: #{$preferredSize}vw;
+
+  #{$property}:clamp(
+    $minSizeRem,
+    $preferredSize,
+    $maxSizeRem
+  );
+
+}
+
+@mixin grid($columnCount, $isNew:null) {
+	@if $isNew {
+		display:grid;
+		grid-gap:$grid_gutterWidth_rem;
+    grid-row-gap:#{$grid_gutterWidth_fixed * 2}rem;
+	}
+	grid-template-columns: repeat($columnCount, 1fr);
+}
+
+// Make element a block and hide its text
+@mixin display__block_hideText {
+  display:block;
+  overflow:hidden;
+  text-align:left;
+  text-indent:-9999px;
+}
+@mixin display__inlineBlock_hideText {
+  display:inline-block;
+  overflow:hidden;
+  text-align:left;
+  text-indent:-9999px;
+}
+
+
+// Clear fix elements
+@mixin clearFix {
+  &::after {
+    content:" ";
+    display:block;
+    clear:both;
+  }
+}
+
+
+/*  Show/hide mixins
+*********************************** */
+@mixin elementInvisible {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+// Turns off the elementInvisible effect.
+@mixin elementInvisibleOff {
+  position: static !important;
+  clip: auto;
+  height: auto;
+  width: auto;
+  overflow: auto;
+}
+
+// Makes an element visually hidden by default, but visible when focused.
+@mixin elementFocusable {
+  @include elementInvisible;
+
+  &:active,
+  &:focus {
+    @include elementInvisibleOff;
+  }
+}
+
+
+@mixin calcRemSize($px_size, $property:font-size){
+  $rem_size: math.div($px_size, 16);
+
+  #{$property}: #{$rem_size}rem;
+}

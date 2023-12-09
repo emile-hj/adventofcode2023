@@ -1,0 +1,22 @@
+.tns-nav {
+  display:flex;
+  // justify-content: center;
+  
+  @include calcRemSize(20,gap);
+
+  button {
+    display:block;
+    @include calcRemSize(11,width);
+    aspect-ratio: 1 / 1;
+        
+    background-color: white;
+
+    padding:0;
+    border:0;
+    border-radius: 50%;
+    
+    &.tns-nav-active {
+      background-color:var(--defaultText);
+    }
+  }
+}

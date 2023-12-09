@@ -1,0 +1,141 @@
+
+
+/*  Sidebar (first or second)
+*********************************** */
+.sidebar {
+
+  h2 {
+    @include typeStyle(heading,h4);
+
+    &,
+    a {
+      color:var(--alpha);
+    }
+
+    a {
+      &:hover,
+      &:focus {
+        color:var(--beta);
+      }
+    }
+  }
+
+  ul {
+    @include typeStyle(body,small);
+
+    list-style:none;
+
+    width:100%;
+    padding:{
+      left:2em;
+    }
+    margin:0;
+
+
+    li {
+     display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    a {
+      color:var(--defaultText);
+
+      width: calc(100% - 2em); // 100 minus .menu_control width
+
+      padding:{
+        top:0.25em;
+        bottom:0.25em;
+      }
+
+      // // Pseudo for arrow icon
+      // &::after {
+      //   flex-shrink:0;
+      //
+      //   content:" ";
+      //   display:block;
+      //   width:$width__iconArrowLarge;
+      //   height:1.4em;
+      //   @include asset__arrow_tailed_large_right_mobile--color_beta;
+      //   background-repeat:no-repeat;
+      //   background-position:50% 50%;
+      //   background-size:0.875rem auto;
+      //
+      //   margin:{
+      //     left:0.5rem;
+      //   }
+      //
+      //   @include min_624 {
+      //     @include asset__arrow_tailed_large_right--color_beta;
+      //     background-size:$width__iconArrowLarge auto;
+      //   }
+      // }
+
+      &:hover,
+      &:focus,
+      &.menu-item--active-trail {
+        color:var(--beta);
+      }
+    }
+
+    .menu_control {
+      @include display__block_hideText;
+      width:2em;
+      height:2em;
+      background-color:transparent;
+      @include asset__chevron(black, down);
+      background-repeat:no-repeat;
+      background-position:50% 50%;
+      background-size:50% auto;
+      border:0;
+
+      transform:rotate(0deg);
+
+      transition: transform 0.25s;
+
+      &.open {
+        transform:rotate(180deg);
+      }
+    }
+  }
+
+  // Level 1 only
+  > ul {
+    padding:0;
+
+    > li {
+      border-top:thin solid black;
+
+      > a {
+        padding:{
+          left:1em;
+          right:1em;
+          top:1em;
+          bottom:1em;
+        }
+      }
+    }
+  }
+  ul ul {
+    border-top:thin solid black;
+
+    li {
+      padding:{
+        right:0.5em;
+      }
+    }
+  }
+  ul ul ul {
+    border-top:0;
+  }
+
+  .block {
+    @include typeHierarchySizes(h2);
+    margin:{
+      bottom:2em;
+    }
+  }
+
+
+
+}

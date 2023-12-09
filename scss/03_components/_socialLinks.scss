@@ -1,0 +1,62 @@
+//
+// /*  Social links
+// *********************************** */
+//
+// .social_media_links {
+// 	list-style:none;
+
+//  display:flex;  
+// 	padding:0;
+// 	margin:0;
+//
+
+//
+//
+// 	li {
+// 		margin:{
+// 			right:1.1em;
+// 		}
+// 		&:last-child {
+// 			margin-right:0;
+// 		}
+//
+// 		a {
+// 			@include display__block_hideText;
+// 			width: 1.5rem;
+// 			height: 1.5rem;
+//
+// 			background-position: 50% 50%;
+// 			background-size: 90% auto;
+// 		}
+//
+// 		&.facebook a {
+// 			@include asset__social_facebook--color_alpha;
+// 	    background-size: auto 90%;
+//
+// 			&:hover,
+// 			&:focus {
+// 				@include asset__social_facebook--color_white;
+// 			}
+// 		}
+//
+// 		&.twitter a {
+//
+// 			@include asset__social_twitter--color_alpha;
+//
+// 			&:hover,
+// 			&:focus {
+// 				@include asset__social_twitter--color_white;
+// 			}
+//
+// 		}
+//
+// 		&.mailto a {
+// 			@include asset__social_mail--color_alpha;
+// 			&:hover,
+// 			&:focus {
+// 				@include asset__social_mail--color_white;
+// 			}
+// 		}
+//
+// 	}
+// }

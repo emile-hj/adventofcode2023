@@ -166,7 +166,7 @@ export default function Page() {
     }
   }
   console.log('finalWinningStratCount',finalWinningStratCount);`;
-
+  
   return (
     <main>
       <div>
@@ -179,7 +179,7 @@ export default function Page() {
           showLineNumbers='true'
           wrapLines 
           theme={dracula} 
-        /> 
+        />  
 
         <Link href="/">Back</Link>
       </div>

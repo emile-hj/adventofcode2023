@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 
+
+
 export default function Home() {
 
   return (
     <main>
       <div>
-        <h1>AdventOfCode2023</h1>
+        <h1>Days</h1>
         <nav>
           <ul>
             <li>
@@ -33,6 +35,9 @@ export default function Home() {
             </li>
             <li>
               <Link href="day8">Day 8</Link>
+            </li>
+            <li>
+              <Link href="day9">Day 9</Link>
             </li>
           </ul>
         </nav>

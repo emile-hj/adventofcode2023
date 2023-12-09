@@ -1065,13 +1065,7 @@ export default function Page() {
 
       // pt 2: wildcard promotes type
       if( value.includes('J') ){
-        // console.log('looking at pairs, charCounts',charCounts);
-        // const pairCard = Object.keys(charCounts).find(key => charCounts[key] === 2);
-        // console.log('pair card',pairCard);
-        // if( pairCard != 'J' ) {
-          // there is a pair, plus a J, it becomes 3 of a kind
-          type = 'threeOfKind';
-        // }
+        type = 'threeOfKind';
       }
     } else if( uniqueCharCount == 2 ) {
       // could be four of a kind or full house
@@ -1082,27 +1076,14 @@ export default function Page() {
 
         // pt 2: wildcard promotes type
         if( value.includes('J') ){
-          // const fourCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 4);
-          // if( fourCopyCard != 'J' ) {
-            type = 'fiveOfKind';
-          // }
+          type = 'fiveOfKind';
         }
       } else {
         type = 'fullHouse';
 
         // pt 2: wildcard promotes type
         if( value.includes('J') ){
-          const threeCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 3);
-          if( threeCopyCard != 'J' ) {
-            
-            const jays = value.match(/J/g);
-            // console.log('jays',jays);
-            // if( jays.length == 1 ) {
-            //   type = 'fourOfKind';
-            // } else {
-              type = 'fiveOfKind';
-            // }
-          }
+          type = 'fiveOfKind';
         }
       }
 
@@ -1115,17 +1096,7 @@ export default function Page() {
 
         // pt 2: wildcard promotes type
         if( value.includes('J') ){
-          // const threeCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 3);
-          // if( threeCopyCard != 'J' ) {
-          
-            // const jays = value.match(/J/g);
-            // console.log('jays',jays);
-            // if( jays.length == 1 ) {
-              type = 'fourOfKind';
-            // } else {
-            //   type = 'fiveOfKind';
-            // }
-          // }
+          type = 'fourOfKind';
         }
       } else {
         type = 'twoPair';
@@ -1321,13 +1292,7 @@ export default function Page() {
 
       // pt 2: wildcard promotes type
       if( value.includes('J') ){
-        // console.log('looking at pairs, charCounts',charCounts);
-        // const pairCard = Object.keys(charCounts).find(key => charCounts[key] === 2);
-        // console.log('pair card',pairCard);
-        // if( pairCard != 'J' ) {
-          // there is a pair, plus a J, it becomes 3 of a kind
-          type = 'threeOfKind';
-        // }
+        type = 'threeOfKind';
       }
     } else if( uniqueCharCount == 2 ) {
       // could be four of a kind or full house
@@ -1338,27 +1303,14 @@ export default function Page() {
 
         // pt 2: wildcard promotes type
         if( value.includes('J') ){
-          // const fourCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 4);
-          // if( fourCopyCard != 'J' ) {
-            type = 'fiveOfKind';
-          // }
+          type = 'fiveOfKind';
         }
       } else {
         type = 'fullHouse';
 
         // pt 2: wildcard promotes type
         if( value.includes('J') ){
-          const threeCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 3);
-          if( threeCopyCard != 'J' ) {
-            
-            const jays = value.match(/J/g);
-            // console.log('jays',jays);
-            // if( jays.length == 1 ) {
-            //   type = 'fourOfKind';
-            // } else {
-              type = 'fiveOfKind';
-            // }
-          }
+          type = 'fiveOfKind';
         }
       }
 
@@ -1371,17 +1323,7 @@ export default function Page() {
 
         // pt 2: wildcard promotes type
         if( value.includes('J') ){
-          // const threeCopyCard = Object.keys(charCounts).find(key => charCounts[key] === 3);
-          // if( threeCopyCard != 'J' ) {
-          
-            // const jays = value.match(/J/g);
-            // console.log('jays',jays);
-            // if( jays.length == 1 ) {
-              type = 'fourOfKind';
-            // } else {
-            //   type = 'fiveOfKind';
-            // }
-          // }
+          type = 'fourOfKind';
         }
       } else {
         type = 'twoPair';
@@ -1537,6 +1479,7 @@ export default function Page() {
 
   console.log('totalWinnings',totalWinnings);
 `;
+
 
 
   return (

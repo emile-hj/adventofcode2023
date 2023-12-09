@@ -1,0 +1,503 @@
+
+#block-efd9minimal-main-menu {
+  // display:none; // hidden by default, shown when JS (highlight nav allows non-JS nav)
+
+  // JS set up
+  // &.toggleMenu_setup {
+  //   display:block;
+  // }
+
+  // Togglable page overlays (js)
+  .overlay_outer {
+    position: fixed;
+    top:0;
+    right: 0;
+    width: 100%;
+    height:100vh;
+    overflow: hidden;
+    z-index:10;
+
+    background-color:transparent;
+
+    // transform:translateZ(0);
+  }
+  .overlay_inner {
+   display:flex;
+    flex-direction: column;
+
+    position:absolute;
+    z-index:2;
+    top:0;
+    right:0;
+
+    height:100%;
+    width:100%;
+    @include calcRemSize(450,max-width);
+
+    background-color:white;
+
+    padding: {
+      top:2rem;
+      left:3rem;
+      right:3rem;
+      bottom: 3rem;
+    }
+    overflow:hidden; // hide menu overflow
+
+    // transform:translateX(100%);
+    // transition:transform $slidingOverlayTransition;
+  }
+  .overlay_wrap {
+    width:100%;
+
+    overflow-x:hidden;
+    overflow-y: auto;
+  }
+  .content_overlay {
+    position:absolute;
+    z-index:1;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(255, 255, 255, 0.5);
+  }
+
+  // &.state__closed {
+  //   .overlay_outer {
+  //     display:block; // ensure transition can work
+  //   }
+  // }
+  //
+  // &.state__open {
+  //
+  //   .overlay_inner {
+  //     transform:translateX(0%);
+  //   }
+  // }
+  // &.state__overlay_hidden {
+  //
+  //   .overlay_outer {
+  //     display:none;
+  //   }
+  // }
+
+  // Toggle button wrap
+  .toggle_button_wrap {
+   display:flex;
+    justify-content: flex-end;
+
+    button {
+      position:relative;
+      @include display__block_hideText;
+      width:$width__icon_button--mobile;
+      height:$width__icon_button--mobile;
+
+      background-color:transparent;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: 70% auto;
+      padding:0;
+      border:0;
+      margin-left:0.75rem;
+
+      &:first-child {
+        margin-left:0;
+      }
+    }
+
+    .toggle_mode {
+      @include asset__search(black);
+
+      &:hover,
+      &:focus {
+        @include asset__search(alpha);
+      }
+
+      &.mode__search {
+        @include burgerButton;
+        background-image:none;
+      }
+    }
+
+    .toggle_state {
+      @include burgerButton;
+    }
+
+    @include min_768 {
+      button {
+        width:$width__icon_button--desktop;
+        height:$width__icon_button--desktop;
+      }
+    }
+
+  }
+
+  // .overlay_controls {
+  //  display:flex;
+  //   justify-content:flex-end;
+  //   align-items:center;
+  //
+  //   margin:{
+  //     bottom:3.25rem;
+  //   }
+  //
+  //   .control_buttons {
+  //    display:flex;
+  //     justify-content:flex-end;
+  //   }
+  //
+  //   button {
+  //     flex-shrink:0;
+  //
+  //     position:relative;
+  //     @include display__block_hideText;
+  //     width:$width__icon_button--mobile;
+  //     height:$width__icon_button--mobile;
+  //     background-color:transparent;
+  //     background-position:50% 50%;
+  //
+  //     border:0;
+  //     border-radius:0;
+  //     border:0;
+  //     padding:0;
+  //     margin-left:0.4rem;
+  //
+  //     @include min_552 {
+  //       width:$width__icon_button--desktop;
+  //       height:$width__icon_button--desktop;
+  //     }
+  //     @include min_768 {
+  //       margin-left:0.75rem;
+  //     }
+  //   }
+  // }
+
+  .overlay_modes {
+    flex-grow:1;
+
+    position:relative;
+    overflow:hidden; // hide modes which are inactive
+
+    // wider adds padding area for sliding ul.menu's
+    width:calc(100% + 2rem);
+    margin:{
+      top:1rem;
+      left:-1rem;
+    }
+  }
+
+  .overlay_mode {
+   display:flex;
+    flex-direction:column;
+
+    position:absolute;
+    top:0;
+    left:0;
+    box-sizing:border-box;
+    width:100%;
+    height:100%;
+    padding:{
+      left:1rem;
+      right:1rem;
+    }
+
+    transform:translateX(0%);
+
+    transition: transform $slidingOverlayTransition;
+
+    // &.mode_transition_enabled {
+    //   transition: transform $slidingOverlayTransition;
+    // }
+  }
+
+  &.mode__search {
+    .overlay_mode_menu {
+      transform:translateX(100%);
+    }
+  }
+  &.mode__menu {
+    .overlay_mode_menu {
+      padding:{
+        left:0;
+        right:0;
+      }
+    }
+    .overlay_mode_search {
+      transform:translateX(-100%);
+    }
+  }
+
+  .menu_controls {
+    @include typeHierarchySizes(h3);
+
+   display:flex;
+    align-items:center;
+
+    &.root_level {
+      display:none;
+    }
+  }
+  .collapseLevel {
+    flex-shrink:0;
+
+    @include display__block_hideText;
+    width:3rem;
+    height:3rem;
+    padding:0;
+    background-color:transparent;
+    @include asset__arrow(left, white);
+    background-repeat:no-repeat;
+    background-position: 50% 50%;
+    background-size:0.875rem auto;
+    border:0;
+
+    margin:{
+      right:0.5rem;
+    }
+
+    &:hover,
+    &:focus {
+      @include asset__arrow(left, charlie);
+    }
+
+  }
+
+  $padding__menulev1_topbottom:0.48em; // rel to h4
+  $padding__menulev2_topbottom:0.695em; // rel to h5
+
+  .menuLevelHeading {
+    @include typeStyle(heading,h4);
+    flex-shrink:1;
+    flex-grow:1;
+
+    margin:0;
+
+    a {
+      color:var(--defaultText);
+
+      display:block;
+
+      padding:{
+        top:$padding__menulev1_topbottom;
+        bottom:$padding__menulev1_topbottom;
+      }
+
+      &:hover,
+      &:focus {
+        color:var(--charlie);
+      }
+    }
+  }
+
+
+  .overlay_menu {
+    flex-grow:1;
+
+    position:relative;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling: touch; // Potentially breaks the sliding transition?
+
+
+    // level 1 and down
+    ul.menu {
+      @include typeStyle(heading,h3);
+
+      display:block;
+      // overflow:hidden; // hide sliding menus that aren't in view
+
+      overflow-x:hidden;
+      overflow-y:auto;
+      -webkit-overflow-scrolling: touch; // Potentially breaks the sliding transition?
+
+      position:absolute;
+      top:0;
+      left:0;
+      box-sizing:border-box;
+      width:100%;
+      height:auto;
+      min-height:100%;
+      background-color:white;
+      margin:0;
+
+      li {
+        width:100%;
+        padding:{
+          left:1rem;
+          right:1rem;
+        }
+        margin:{
+          right:0;
+          bottom:0;
+        }
+        // border-bottom:thin solid black--border;
+
+        // &:first-child {
+        //   border-top:thin solid black--border;
+        // }
+      }
+      .li_inner {
+       display:flex;
+        align-items:center;
+      }
+
+      a.menu-item {
+        flex-grow:1;
+
+        display:block;
+
+        color:var(--defaultText);
+
+        text-decoration:none;
+        border:0;
+        padding:{
+          top:$padding__menulev1_topbottom;
+          bottom:$padding__menulev1_topbottom;
+        }
+        margin:0;
+
+        &:hover,
+        &:focus {
+          color:var(--beta);
+          outline:0;
+        }
+        &.menu-item--active-trail {
+          color:var(--beta);
+        }
+
+      }
+
+      .expandLevel {
+        @include display__block_hideText;
+        width:3rem;
+        height:3rem;
+        padding:0;
+        background-color:transparent;
+        @include asset__arrow(right, white);
+        background-repeat: no-repeat;
+        background-size:0.875rem auto;
+        background-position:50% 50%;
+        position:relative;
+
+        border:0;
+
+        &:hover,
+        &:focus {
+          @include asset__arrow(right, charlie);
+        }
+      }
+    }
+
+    // level 2 and down
+    ul.menu ul.menu {
+      @include typeStyle(heading,h5);
+      font-weight:400;
+      display:block;
+      transform:translateX(100%);
+      transition: transform $slidingOverlayTransition;
+
+      &.active {
+        transform:translateX(0%);
+      }
+
+      a.menu-item {
+        padding:{
+          top:$padding__menulev2_topbottom;
+          bottom:$padding__menulev2_topbottom;
+        }
+      }
+
+    }
+  }
+
+  .overlay_mode_search {
+    @include typeHierarchySizes(bodyNormal);
+
+    padding:{
+      top:0.5rem;
+    }
+
+    form {
+     display:flex;
+      flex-wrap:nowrap;
+      align-items:flex-end;
+
+      padding:{
+      //   top:0.25em;
+        bottom:0.35em;
+      }
+      border:{
+        bottom:thin solid var(--defaultText);
+      }
+
+      label {
+        @include elementInvisibleOff;
+
+        @include typeStyle(heading,h3);
+
+        margin:{
+          bottom:1.1em;
+        }
+      }
+
+      input[type=submit] {
+        @include display__block_hideText;
+        width:$width__icon_button--desktop;
+        height:$width__icon_button--desktop;
+
+        background-color:transparent;
+        @include asset__search(black);
+        background-repeat:no-repeat;
+        background-position:50% 50%;
+        background-size:70% auto;
+        padding:0;
+        border:0;
+      }
+    }
+    .form-search {
+      @include typeStyle(heading,h4);
+      padding:{
+        left:0;
+        bottom:0;
+      }
+      border:0;
+      margin:{
+        bottom:0.15em;
+      }
+
+      &::-webkit-input-placeholder {
+        color:white;
+      }
+      &::-moz-placeholder {
+        color:white;
+      }
+      &:-ms-input-placeholder {
+        color:white;
+      }
+      &::-ms-input-placeholder {
+        color:white;
+      }
+      &::placeholder {
+        color:white;
+      }
+    }
+    .form-item {
+      flex-grow:1;
+      margin-bottom:0;
+    }
+
+    .form-submit {
+      background-position:50% 75%;
+    }
+
+
+  }
+
+
+  @include in_print {
+    display:none;
+  }
+
+}

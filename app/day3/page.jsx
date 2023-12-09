@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 
+import { CopyBlock,dracula } from "react-code-blocks"; 
+
 export default function Page() {
   // Please note the second part of the puzzle, checking for gear ratios based of *, using recursion, done very inelegantly to try find solution. All could be rewritten better
 
@@ -161,19 +163,7 @@ export default function Page() {
   const gearRatios = [];
   // var cumTot = 0;
   function isSymbol(char) {
-    // const symbolChars = ['@','$','#','&','*','%','{','}','[',']',',','=','-','(',')','+',';','/']
-    // const symbolChars = ['$','#','+','*'];
-    
-
     var isSymbol = true;
-
-    // symbolChars.forEach(function(symbol){
-    //   // console.log(`checking char ${char} against symbol ${symbol}`);
-    //   if( char == symbol ) {
-    //     // console.log('they match');
-    //     isSymbol = true;      
-    //   }      
-    // });
 
     // console.log('checking char', char)
     const isNum = !isNaN(char);
@@ -183,7 +173,6 @@ export default function Page() {
     if( char === '.' ) {
       isSymbol = false;
     }
-    // console.log('char is symbol is', isSymbol);
 
     if( isSymbol ) {
       return true;
@@ -610,6 +599,447 @@ export default function Page() {
 
   console.log('totalFromGearRatios',totalFromGearRatios);
 
+  const codeToShowOnPage = `
+  const partNumbers = [];
+  const gearRatios = [];
+  // var cumTot = 0;
+  function isSymbol(char) {
+    var isSymbol = true;
+
+    // console.log('checking char', char)
+    const isNum = !isNaN(char);
+    if( isNum ) {
+      isSymbol = false;
+    }
+    if( char === '.' ) {
+      isSymbol = false;
+    }
+
+    if( isSymbol ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const schemaLines = engineSchema.split(/\\n/);
+  // console.log(schemaLines);
+  schemaLines.forEach(function(line,index){
+    const cleanLine = line.trim();
+    schemaLines[index] = cleanLine;
+  });
+  
+  schemaLines.forEach(function(line,index){
+
+    const thisLinePartsFound = [];
+    const lineIndex = index;
+    // console.log('lineIndex', lineIndex);
+    const cleanLine = line.trim();
+    // console.log(cleanLine);
+    const lineChars = cleanLine.split('');
+
+    const numbers = [];
+    var numberCount = 0;    
+    var weAreBuildingNumber = false;
+    var lineAbove = null;
+    var lineBelow = false;
+
+    console.log('-');
+    console.log(\`---- LINE \${lineIndex + 1} ANALYSIS -----\`);
+
+    lineChars.forEach(function(char, i){
+      // console.log(char);
+      const isNum = !isNaN(char);
+      // console.log(\`\${char} is number\`,isNum);
+
+      if( weAreBuildingNumber ) {
+        // already building a number
+        if( isNum ) {
+          const numberBeingBuilt = numbers[numberCount-1][0];
+          const buildNumber = \`\${numberBeingBuilt}\${char}\`;
+          numbers[numberCount - 1][0] = buildNumber;
+        } else {
+          weAreBuildingNumber = false;
+        }
+      } else {
+        // new number
+        if( isNum ) {
+          weAreBuildingNumber = true;
+          numberCount = numberCount + 1;
+          // console.log('numberCount',numberCount);
+          const numInstance = [char, i];
+          numbers[numberCount - 1] = numInstance;
+        }
+      }
+
+      if( char === '*' ) {
+        const potentialGearNumbers = [];
+        const starPos = i;
+        console.log('found a * at pos',starPos);
+        var buildingPrecedeNum = true;
+        var precedeNum = '';        
+        var posToCheck = starPos - 1;
+
+        while( buildingPrecedeNum ) {
+          if( posToCheck >= 0 ) {
+            const checkingChar = cleanLine.charAt(posToCheck);
+            const checkingCharIsNum = !isNaN(checkingChar);
+            if( checkingCharIsNum ) {
+              precedeNum = \`\${checkingChar}\${precedeNum}\`;
+              posToCheck = posToCheck - 1;
+            } else {
+              buildingPrecedeNum = false;
+            }
+          } else {
+            buildingPrecedeNum = false;
+          }
+        }
+
+        if( precedeNum.length ) {
+          potentialGearNumbers.push(precedeNum);
+        }
+
+        var buildingFollowNum = true;
+        var followNum = '';
+        var posToCheck = starPos + 1;
+
+        while( buildingFollowNum ) {
+          if( posToCheck < cleanLine.length ) {
+            const checkingChar = cleanLine.charAt(posToCheck);
+            const checkingCharIsNum = !isNaN(checkingChar);
+            if( checkingCharIsNum ) {
+              followNum = \`\${followNum}\${checkingChar}\`;
+              posToCheck = posToCheck + 1;
+            } else {
+              buildingFollowNum = false;
+            }
+          } else {
+            buildingFollowNum = false;
+          }
+        }
+
+        if( followNum.length ) {
+          potentialGearNumbers.push(followNum);
+        }
+
+        console.log('potentialGearNumbers',potentialGearNumbers);
+
+        function buildNumBackNForth(string, startPos) {
+          var number = string.charAt(startPos);
+          var buildingLeft = true;
+          var checkPos = startPos;
+
+          // start recursing left
+          while( buildingLeft ) {
+            checkPos = checkPos - 1;
+            if( checkPos >= 0 ) {
+              const checkChar = string.charAt(checkPos);
+              const checkCharIsNum = !isNaN(checkChar);
+              if( checkCharIsNum ) {
+                number = \`\${checkChar}\${number}\`;
+              } else {
+                buildingLeft = false;
+              }
+            } else {
+              buildingLeft = false;
+            }
+          } 
+
+          var buildingRight = true;
+          checkPos = startPos;
+
+          // start recursing right
+          while( buildingRight ) {
+            checkPos = checkPos + 1;
+            if( checkPos < string.length ) {
+              const checkChar = string.charAt(checkPos);
+              const checkCharIsNum = !isNaN(checkChar);
+              if( checkCharIsNum ) {
+                number = \`\${number}\${checkChar}\`;
+              } else {
+                buildingRight = false;
+              }
+            } else {
+              buildingRight = false;
+            }
+          }
+
+          return number;
+        }
+
+        // lets see if we already found 2 because it seems like the people who designed the puzzle are geniuses and never allowed possibilities in both directions
+        if( potentialGearNumbers.length === 2 ) {
+          console.log('! Alert: found a gear at line level!');
+          const num1 = parseFloat(potentialGearNumbers[0]);
+          const num2 = parseFloat(potentialGearNumbers[1]);
+          const gearRatio = num1*num2;
+          console.log('gear ratio is ', gearRatio);
+          gearRatios.push(gearRatio);
+        } else {
+          // lets keep looking for potential gears (above and below lol)
+          // first, above
+          const lineAboveIndex = lineIndex - 1;
+          if( lineAboveIndex >= 0 ) {
+            const lineAbove = schemaLines[lineAboveIndex];
+            const charAbove = lineAbove.charAt(starPos);
+            const charAboveIsNum = !isNaN(charAbove);
+            if( charAboveIsNum ) {
+              const number = buildNumBackNForth(lineAbove, starPos);
+              // console.log('above number is', number);
+              potentialGearNumbers.push(number);
+            } else {
+              const diagLeftPos = starPos - 1;
+              if( diagLeftPos >= 0 ) {
+                const charDiagLeft = lineAbove.charAt(diagLeftPos);
+                const charDiagLeftIsNum = !isNaN(charDiagLeft);
+                if( charDiagLeftIsNum ) {
+                  const number = buildNumBackNForth(lineAbove, diagLeftPos);
+                  potentialGearNumbers.push(number);
+                }
+              }
+   
+              const diagRightPos = starPos + 1;
+              if( diagRightPos < cleanLine.length ) {
+                const charDiagRight = lineAbove.charAt(diagRightPos);
+                const charDiagRightsNum = !isNaN(charDiagRight);
+                if( charDiagRightsNum ) {
+                  const number = buildNumBackNForth(lineAbove, diagRightPos);
+                  potentialGearNumbers.push(number);
+                }
+              }
+            }
+
+          }
+
+          console.log('potentialGearNumbers', potentialGearNumbers);
+          // lets see if we found 2
+          if( potentialGearNumbers.length === 2 ) {
+            const num1 = parseFloat(potentialGearNumbers[0]);
+            const num2 = parseFloat(potentialGearNumbers[1]);
+            const gearRatio = num1*num2;
+            console.log('gear ratio is ', gearRatio);
+            gearRatios.push(gearRatio);
+          } else {
+            // lets check below
+            const lineBelowIndex = lineIndex + 1;
+            if( lineBelowIndex < schemaLines.length ) {
+              // start copy paste of above and inelegantly change to below
+              const lineBelow = schemaLines[lineBelowIndex];
+              const charBelow = lineBelow.charAt(starPos);
+              const charBelowIsNum = !isNaN(charBelow);
+              if( charBelowIsNum ) {
+                const number = buildNumBackNForth(lineBelow, starPos);
+                // console.log('above number is', number);
+                potentialGearNumbers.push(number);
+              } else {
+                const diagLeftPos = starPos - 1;
+                if( diagLeftPos >= 0 ) {
+                  const charDiagLeft = lineBelow.charAt(diagLeftPos);
+                  const charDiagLeftIsNum = !isNaN(charDiagLeft);
+                  if( charDiagLeftIsNum ) {
+                    const number = buildNumBackNForth(lineBelow, diagLeftPos);
+                    potentialGearNumbers.push(number);
+                  }
+                }
+     
+                const diagRightPos = starPos + 1;
+                if( diagRightPos < cleanLine.length ) {
+                  const charDiagRight = lineBelow.charAt(diagRightPos);
+                  const charDiagRightsNum = !isNaN(charDiagRight);
+                  if( charDiagRightsNum ) {
+                    const number = buildNumBackNForth(lineBelow, diagRightPos);
+                    potentialGearNumbers.push(number);
+                  }
+                }
+              }
+              // end copy paste of above        
+              
+              console.log('potentialGearNumbers', potentialGearNumbers);
+              // lets see if we found 2
+              if( potentialGearNumbers.length === 2 ) {
+                const num1 = parseFloat(potentialGearNumbers[0]);
+                const num2 = parseFloat(potentialGearNumbers[1]);
+                const gearRatio = num1*num2;
+                console.log('gear ratio is ', gearRatio);
+                gearRatios.push(gearRatio);
+              }
+            }
+          }
+
+        }
+
+
+      }
+    });
+
+    // console.log('numbers found', numbers);
+
+    numbers.forEach(function(numberInstance){
+      var isPart = false;
+      // const numStartPos = cleanLine.indexOf(number); // this obviously doesn't work if there are two same numbers in a line
+      const numStartPos = numberInstance[1];
+      // console.log(\`------ number \${number} found at \${numStartPos}\`);
+      const number = numberInstance[0];
+
+      // check preceding char
+      const precedingPos = numStartPos - 1;
+      if( precedingPos >= 0 ) {
+        const precedingChar = cleanLine.charAt(precedingPos);
+        // console.log('the preceding char is',precedingChar);
+        const precedingIsSymbol = isSymbol(precedingChar);
+        if( precedingIsSymbol ) {
+          // console.log(\`preceding char \${precedingChar} is a symbol\`);
+          // console.log("it's a part!");
+          isPart = true;
+          partNumbers.push(number);
+          thisLinePartsFound.push(number);
+          // cumTot = cumTot + +number;
+        }
+      }
+
+      if( isPart ) {
+        return;
+      }
+
+      // check following char
+      const numLen = number.length;
+      // console.log(\`the length of number \${number} is \${numLen}\`);
+      const followingPos = numStartPos + numLen;
+      // console.log('the following position is', followingPos);
+      if( followingPos < cleanLine.length ) {
+        const followingChar = cleanLine.charAt(followingPos);
+        // console.log('the following char is',followingChar);
+        const followingIsSymbol = isSymbol(followingChar);
+        if( followingIsSymbol ) {
+          // console.log(\`following char \${followingChar} is a symbol\`);
+          // console.log("it's a part!");
+          isPart = true;
+          partNumbers.push(number);
+          thisLinePartsFound.push(number);
+          // cumTot = cumTot + +number;
+        }
+      }
+
+      if( isPart ) {
+        return;
+      }
+
+      function checkAdjacentLine(line, firstPosToCheck, lastPosToCheck) {
+        var partCaseFound = false;
+
+        if( firstPosToCheck < 0 ) {
+          firstPosToCheck = 0;
+        }
+        // console.log(\`firstPosToCheck is \${firstPosToCheck} in check function\`);
+        if( followingPos > cleanLine.length - 1 ) {
+          lastPosToCheck = cleanLine.length - 1;
+        }
+        // console.log(\`lastPosToCheck is \${lastPosToCheck} in check function\`);
+
+        const rangeToCheck = lastPosToCheck - firstPosToCheck;
+        for( var i=0; i <= rangeToCheck; i++ ) {
+          const posToCheck = firstPosToCheck + i;
+          // console.log(\`we are checking the line at position \${posToCheck}\`);
+          const checkingChar = line[posToCheck];
+          const checkingCharIsSymbol = isSymbol(checkingChar);
+          if( checkingCharIsSymbol ) {
+            // console.log(\`char \${checkingChar} is a symbol\`);
+            partCaseFound = true;
+            
+          }
+        }
+
+        if( partCaseFound ) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      // start checking adjacent lines
+      var firstPosToCheck = precedingPos;
+      var lastPosToCheck = followingPos;
+
+
+      // check the line above, if there is one
+      const lineAboveIndex = lineIndex - 1;
+      if( lineAboveIndex >= 0 ) {
+        lineAbove = schemaLines[lineAboveIndex];
+        // console.log('lineAbove', lineAbove);
+
+        // console.log(\`we are checking number \${number}\`);
+        // console.log('firstPosToCheck',firstPosToCheck);
+        // console.log('lastPosToCheck',lastPosToCheck);
+        // console.log('linelength',cleanLine.length);
+        const partCaseFound = checkAdjacentLine(lineAbove, firstPosToCheck, lastPosToCheck);
+        if( partCaseFound ) {
+          // console.log(\`part found because line above has symbol adjacent to number \${number}\`);
+          isPart = true;
+          partNumbers.push(number);
+          thisLinePartsFound.push(number);
+          // cumTot = cumTot + +number;
+        }
+      }
+
+      if( isPart ) {
+        return;
+      }
+      // check the line below, if there is one
+      const lineBelowIndex = lineIndex + 1;
+      if( lineBelowIndex < schemaLines.length ) {
+        lineBelow = schemaLines[lineBelowIndex];
+        // console.log('lineBelow', lineBelow);
+
+
+        const partCaseFound = checkAdjacentLine(lineBelow, firstPosToCheck, lastPosToCheck);
+        if( partCaseFound ) {
+          // console.log(\`part found because line below has symbol adjacent to number \${number}\`);
+          isPart = true;
+          partNumbers.push(number);
+          thisLinePartsFound.push(number);
+          // cumTot = cumTot + +number;
+        }
+      }
+    });
+
+    // if( lineAbove ) {
+    //   console.log(lineAbove);
+    // }
+    // console.log(line);
+    // if( lineBelow ) {
+    //   console.log(lineBelow);
+    // }
+    // console.log(\`on line \${lineIndex + 1} the numbers are\`, numbers);
+    // console.log(\`on line \${lineIndex + 1} found parts\`, thisLinePartsFound);
+  });
+
+  console.log('partNumbers', partNumbers);
+  var total = 0;
+  partNumbers.forEach(function(partNumber) {
+    // console.log(typeof partNumber);
+    const number = parseFloat(partNumber);
+    total = total + number;
+  });
+  
+  console.log('total',total);
+  // console.log('cumTot',cumTot);
+
+  // var noDupTotal = 0;
+  // const partNumbersNoDups = new Set(partNumbers);
+  // console.log('partNumbersNoDups',partNumbersNoDups);
+  // partNumbersNoDups.forEach(function(number){
+  //   noDupTotal = noDupTotal + +number;
+  // });
+  // console.log('noDupTotal',noDupTotal);
+
+  console.log('gear ratios are:',gearRatios)
+  var totalFromGearRatios = 0;
+  gearRatios.forEach(function(gearRatio){
+    totalFromGearRatios = totalFromGearRatios + +gearRatio;
+  });
+
+  console.log('totalFromGearRatios',totalFromGearRatios);`;
+
   return (
     <main>
       <div>
@@ -617,6 +1047,13 @@ export default function Page() {
         <p>This was an enjoyable but time intensive thing to do this Sunday. Ironically the easier part 1 took me longer, as I had a bug where having two of the same number on one line caused an issue, which was a bit difficult to find and resolve. I already feel like I have more flow with coding these problems and have improved and learnt a lot.</p>
         <p>Once that was done though, part 2 was fairly quick to solve although mentally intensive. The code for that is inelegant and verbose because I basically manually check the * characters for being potential gears manually in each direction to run the recursive steps afterwards. It would be better to condense that to a single flexible function. But, got the answer now and not going to refactor.</p>
         <p>Later after solving the puzzles, I checked out a video of a guy solving it in Rust. Watched maybe half and hated his approach, and didn't understand a lot of the Rust code. I think he was using vector maps. I realise that my way of approaching these problems is probably very JS orientated for someone who comes from a web background. There are likely way more elegant and efficient ways to tackle the problems, although in a way I found at least the start of how I tackled it nicer than the other guys approach. For sure I am learning a lot and this is great.</p>
+        <CopyBlock 
+          text={codeToShowOnPage}
+          language='javascript'
+          showLineNumbers='true'
+          wrapLines 
+          theme={dracula} 
+        /> 
         <Link href="/">Back</Link>
       </div>
     </main>

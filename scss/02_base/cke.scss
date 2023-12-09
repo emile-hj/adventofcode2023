@@ -1,0 +1,422 @@
+// USED FOR DRUPAL SITES - CKE
+
+@import '../01_tools/01_allTools';
+
+
+// Lowest common denominator, all text formats have these styles
+.field--type-text-long,
+.ck-content {
+
+  /*	Paragraphs
+  ************************************* */
+  // Normal p and li
+  p,
+  li {
+    @include typeStyle(body,normal);
+
+    margin:{
+      bottom:1.45em;
+    }
+
+    em {
+      font-style:italic;
+    }
+    u {
+      text-decoration:underline;
+    }
+    strong {
+      font-weight:700;
+    }
+  }
+
+  a:not(.cta) {
+    &,
+    &:link {
+      color:var(--defaultText);
+
+      &:hover,
+      &:focus-visible {
+       color:var(--beta);
+      }
+    }
+  }
+
+
+}
+
+// More advanced text formats have these styles
+.field--type-text-long,
+.ck-content {
+
+  .cta_right {
+    @include button();
+
+    // @include max_480 {
+    //   width:100%;
+    // }
+  }
+
+  /*  Headings
+  ************************************* */
+
+  h2 {
+    @include typeStyle(heading,h3);
+    margin:{
+      top:1.7em;
+      bottom:1.25em;
+    }
+
+    // prevent style changes
+    em {
+      font-style: normal;
+    }
+
+    u {
+      text-decoration: none;
+    }
+
+    a {
+      color: var(--alpha);
+      text-decoration: none;
+      border-bottom:0;
+    }
+
+    strong {
+      font-weight:500;
+    }
+  }
+
+  h3 {
+    @include typeStyle(heading,h4);
+
+    // prevent style changes
+    em {
+      font-style: normal;
+    }
+
+    u {
+      text-decoration: none;
+    }
+
+    a {
+      color: var(--alpha);
+      text-decoration: none;
+      border-bottom:0;
+    }
+
+    strong {
+      font-weight:500;
+    }
+  }
+
+  /*  Lists
+  ************************************* */
+  // Generic list styles
+  ul,
+  ol {
+    @include typeHierarchySizes(bodyNormal);
+    margin: 0 0 1.5em 0;
+    padding:0;
+    clear: both;
+    display: block;
+
+    li {
+      position:relative;
+      list-style-type: none;
+      list-style-image: none;
+      position:relative;
+      // margin-bottom: 0.5em;
+      padding-left:31px;
+
+      // Psuedo for bullets and numbering
+      &::before {
+        position:absolute;
+        top:0;
+        left:0;
+        padding: 0;
+        color:var(--charlie);
+      }
+      p {
+        margin:0;
+      }
+
+      // level 2 and down
+      ul,
+      ol {
+        margin-top:0.5em;
+        li {
+
+        }
+      }
+    }
+
+
+    // prevent use of CTA in list
+    .cta {
+      padding:0;
+      border:0;
+
+      &::before,
+      &::after {
+        content:none;
+      }
+
+      &:hover,
+      &:focus {
+        background-color:transparent !important;
+      }
+    }
+  }
+
+  // Unordered lists
+  ul {
+    list-style-type: none;
+
+    // level 1 and down
+    li {
+      &::before {
+        content:"–";
+      }
+    }
+
+    // only ul li
+    > li {
+      &::before {
+        content:"–";
+        top:0;
+        left: 0;
+        @include display__block_hideText;
+        width:0.6em;
+        height:0.6em;
+        background-color:var(--beta);
+      }
+    }
+
+    // level 2 and down
+    ul,
+    ol {
+      margin-bottom:0;
+      li {
+        // &::before {
+        //   top:0;
+        //   background-color:transparent;
+        //   width:auto;
+        //   height:auto;
+        //   text-indent:0;
+        // }
+      }
+    }
+
+    // nested ul
+    ul {
+      // only ul li
+      > li {
+        &::before {
+          background-color:var(--charlie);
+        }
+      }
+    }
+
+  }
+
+  // Ordered lists
+  ol {
+    counter-reset: item;
+
+    // only ol li
+    > li {
+      &::before {
+        counter-increment: item;
+        content: counter(item);
+      }
+    }
+
+    // level 1 and down
+    li {
+
+
+      // level 2 and down
+      ul,
+      ol {
+        margin-bottom:0;
+        li {
+          &::before {
+
+          }
+          // level 3 and down
+          li {
+            &::before {
+              content: "•";
+            }
+          }
+        }
+      } // End level 2 and down
+
+
+      // level 2 and down ul
+      ul {
+        li {
+          &::before {
+
+          }
+        }
+      }
+
+    } // End level 1 li
+
+  }
+
+
+  /*  Images
+  ************************************* */
+  img,
+  figure {
+    display:block;
+    max-width:100%;
+    height:auto;
+    margin: {
+      top:3rem;
+      bottom:3rem;
+    }
+  }
+
+  img {
+    display:block;
+  }
+
+  figure {
+    display:table;
+    margin: {
+      left:0;
+      right:0;
+    }
+
+    > * {
+      display:table-row;
+    }
+
+    br {
+      display:none;
+    }
+
+    &,
+    img {
+      max-width:100%;
+      height:auto;
+    }
+    img {
+      margin:0;
+      z-index:1;
+    }
+
+    figcaption {
+      @include typeStyle(body,small);
+
+      display:table-caption;
+      caption-side: bottom;
+
+      margin:{
+        top:1em;
+      }
+    }
+  }
+
+  .align-left,
+  .align-right {
+
+    margin:{
+      top:0;
+      bottom:1.5rem;
+    }
+
+    img {
+      margin:0;
+    }
+
+    // @include max_552 {
+    //   img {
+    //     margin: {
+    //       left: auto;
+    //       right: auto;
+    //     }
+    //   }
+    // }
+
+    @include min_552 {
+      max-width:45%;
+    }
+  }
+
+  .align-left {
+
+    @include min_552 {
+      float: left;
+      clear: left;
+      margin: {
+        right: 2.5rem;
+      }
+    }
+
+  }
+  .align-right {
+    @include min_552 {
+      float: right;
+      clear: right;
+      margin: {
+        left: 2.5rem;
+      }
+    }
+
+  }
+
+  .align-center {
+    &,
+    img {
+      margin:{
+        left:auto;
+        right:auto;
+      }
+    }
+  }
+}
+
+.ck-content {
+  strong {
+    font-weight:700;
+  }
+}
+
+.responsive-embed {
+  margin:{
+    top:2rem;
+    bottom:2rem;
+  }
+}
+
+.cke_editable,
+.field-name-body {
+  hr {
+    border:0;
+    border-bottom:thin solid var(--alpha);
+    margin:{
+      top:3rem;
+      bottom:3rem;
+    }
+  }
+
+}
+
+.field--type-text-long {
+  @include clearFix; // contain floated els
+}
+
+// Remove top margin from first body item
+.field--type-text-long {
+  > *:first-child {
+    margin-top:0 !important;
+  }
+  > *:last-child {
+    margin-bottom:0 !important;
+  }
+
+}

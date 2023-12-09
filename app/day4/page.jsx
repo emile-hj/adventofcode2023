@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 
+import { CopyBlock,dracula } from "react-code-blocks"; 
+
 export default function Page() {
 
   const testInput = `Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -230,11 +232,12 @@ export default function Page() {
   Card 217: 70 98 21 38 77 68 67 39 45 72 | 63 57 37 21 94 64  8 96 69 80 84 25 71 26 83 99 81 31 48 42 41 73 54 60 22
   Card 218: 92 44 79 17 16 34 55 78 19  9 | 52 39 85 98 93 46 21 91 20 45  1 89 66 27  4 88 99 41 86 72 38 40 84 81 69`;
 
+  const inputToUse = realInput;
   const scratchCards = [];
   const cardValues = [];
   var scratchCardSets = [];
 
-  var inputLines = realInput.split(/\n/);
+  var inputLines = inputToUse.split(/\n/);
   inputLines.forEach(function(line){
     const lineArr = line.split(':');
     const lineNumbers = lineArr[1];
@@ -342,12 +345,133 @@ export default function Page() {
   });
   console.log('totalCardCount',totalCardCount);
 
+  const codeToShowOnPage = `
+  const inputToUse = realInput;
+  const scratchCards = [];
+  const cardValues = [];
+  var scratchCardSets = [];
+
+  var inputLines = inputToUse.split(/\\n/);
+  inputLines.forEach(function(line){
+    const lineArr = line.split(':');
+    const lineNumbers = lineArr[1];
+    // console.log(lineNumbers);
+    const numbersArr = lineNumbers.split('|');
+    const winCaseLine = numbersArr[0].trim();
+    const yourNumsLine = numbersArr[1].trim();
+
+    const winCaseNums = winCaseLine.split(/\\s+/);
+    const yourNums = yourNumsLine.split(/\\s+/);
+
+    const cardNums = [winCaseNums,yourNums];
+    const cardNumsCopies = [cardNums];
+    scratchCards.push(cardNums);    
+    scratchCardSets.push(cardNumsCopies);
+  });
+
+  // console.log(scratchCards);
+
+  // for part 1
+  scratchCards.forEach(function(card){
+    const winCaseNums = card[0];
+    const yourNums = card[1];
+    var winCount = 0;
+    var cardValue = 0;
+
+    yourNums.forEach(function(num) {
+      var isAWinner = false;
+      winCaseNums.forEach(function(winNum) {
+        if( num === winNum ) {
+          isAWinner = true;
+        }
+      });
+
+      if( isAWinner ) {
+        winCount = winCount + 1;
+      }
+    });
+    // we now have a win count
+    if( winCount > 0 ) {
+      cardValue = 1;
+    }
+    for( var i=0; i<winCount-1; i++ ) {
+      cardValue = cardValue * 2;
+    }
+
+    // console.log('cardValue',cardValue);
+    cardValues.push(cardValue);
+  });
+
+  var totalCardValue = 0;
+  cardValues.forEach(function(value){
+    totalCardValue = totalCardValue + value;
+  });
+  console.log('totalCardValue',totalCardValue);
+  var buildingSets = scratchCardSets;
+
+  // for part 2
+  scratchCardSets.forEach(function(cardSet,setNo){
+    const winCaseNums = cardSet[0][0];
+    const yourNums = cardSet[0][1];
+    var winCount = 0;
+    const copyCount = cardSet.length;
+
+    yourNums.forEach(function(num) {
+      var isAWinner = false;
+      winCaseNums.forEach(function(winNum) {
+        if( num === winNum ) {
+          isAWinner = true;
+        }
+      });
+
+      if( isAWinner ) {
+        winCount = winCount + 1;
+      }
+    });
+    // we now have a win count
+
+    // console.log('---');
+    // console.log(\`card \${setNo}: \${copyCount} copies\`);
+    // console.log(\`card \${setNo} has \${winCount} wins, and \${copyCount} copies, so we should gain \${copyCount} copies of the following \${winCount} cards\`);
+
+    // for each copy
+    for( var i=0; i<copyCount; i++ ) {
+
+      // for the following cards
+      const nextSetNo = setNo + 1;
+      for( var j=0; j<winCount; j++ ) {
+        const targetSetNo = nextSetNo + j;
+        if( targetSetNo < scratchCardSets.length ) {
+          const setToDupOriginal = scratchCardSets[targetSetNo][0];
+          scratchCardSets[targetSetNo].push(setToDupOriginal);
+        }
+      }
+
+    }
+
+  });
+
+  // console.log('all scratchcards',scratchCardSets);
+  var totalCardCount = 0;
+  scratchCardSets.forEach(function(set) {
+    const cardCount = set.length;
+    totalCardCount = totalCardCount + cardCount;
+  });
+  console.log('totalCardCount',totalCardCount);`;
+
   return (
     <main>
       <div>
         <h1>Day 4</h1>
-        <p>I woke up very early this day and so did part one before work. I think I found it pretty easy and very enjoyable</p>
+        <p>I woke up very early this day and so did part one before work. I think I found it pretty easy and very enjoyable.</p>
         <p>Did part two after work and if I remember correctly this one was pretty light and easy. Nice for a Monday after the difficult one on Sunday.</p>
+        <CopyBlock 
+          text={codeToShowOnPage}
+          language='javascript'
+          showLineNumbers='true'
+          wrapLines 
+          theme={dracula} 
+        /> 
         <Link href="/">Back</Link>
       </div>
     </main>

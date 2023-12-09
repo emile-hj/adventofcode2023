@@ -1,0 +1,30 @@
+
+.fullWidth__header {
+  position:relative;
+  top:0;
+  left:0;
+  z-index:9999;
+
+  padding:{
+    top:1.5rem;
+    bottom:1.5rem;
+  }
+  margin:{
+    bottom:2rem;
+  }
+
+}
+#header {
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+
+  width:100%;
+}
+
+
+
+// Interactive search block
+// .search-block-form {
+//   display:none; // JS moves this into the burger
+// }

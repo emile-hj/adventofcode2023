@@ -1,0 +1,33 @@
+
+nav.pager {
+  @include typeStyle(heading,h3);
+
+  ul {
+    list-style:none;
+   display:flex;
+    justify-content:center;
+
+    padding:0;
+  }
+
+  li {
+    margin-right:0.35em;
+
+    &:last-child {
+      margin-right:0;
+    }
+
+    a {
+    }
+
+    &.is-active a {
+    }
+
+    &.pager__item--last a {
+
+    }
+    &.pager__item--first a {
+
+    }
+  }
+}

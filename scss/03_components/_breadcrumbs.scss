@@ -1,0 +1,39 @@
+
+nav.breadcrumb {
+  ol {
+    list-style: none;
+    margin:0;
+
+   display:flex;
+    @include flexWrap(wrap);
+
+    @include typeStyle(body,small);
+
+    padding:{
+      top:0.85em;
+      bottom:0.95em;
+      left:0;
+      right:0;
+    }
+  }
+
+  li {
+    
+    a,
+    &::after {
+      display:inline-block;
+    }
+
+    &::after {
+      content:">";
+      margin-right:0.35em;
+    }
+
+    &:last-child {
+      &::after {
+        content:none;
+      }
+    }
+  }
+
+}
