@@ -8,7 +8,7 @@
 @mixin typeHierarchySizes($name) {
   @if $name == bodyNormal {
     @include clamp(
-      font-size, 16, 18, 1500 // INITAL/UNSET
+      font-size, 16, 18, 1200 // INITAL/UNSET
     );
   }
   @else if $name == bodySmall {

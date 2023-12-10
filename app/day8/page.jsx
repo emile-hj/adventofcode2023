@@ -730,10 +730,10 @@ export default function Page() {
   DBR = (NXB, MLX)`;
   
   const inputToUse = realInput;
-  
+
   const inputLines = inputToUse.split(/\n/);
   // console.log('inputLines',inputLines);
-
+  
   const stepInstructions = inputLines[0];
   const map = [];
   inputLines.forEach(function(line){
@@ -741,14 +741,14 @@ export default function Page() {
       const trimmedLine = line.trim();
       const lineParts = trimmedLine.split('=');
       const posName = lineParts[0].trim();
-
+  
       const pathPosLine = lineParts[1].trim()
                                       .replace('(','')
                                       .replace(')','')
                                       .replace(' ','');
       const pathPosArr = pathPosLine.split(',');
-
-
+  
+  
       const obj = {
         posName: posName,
         paths: pathPosArr
@@ -758,43 +758,43 @@ export default function Page() {
   });
   console.log('map',map);
   // map and instructions now ready
-
+  
   var lost = true;
   var currentPosName = 'AAA';
   const destinationPosName = 'ZZZ';
-
+  
   const stepInstrucCount = stepInstructions.length;
   var stepsTaken = 0;
   var currentInstrucStep = 0;
-
+  
   // part 1 lost
-  while( lost ) {    
-    if( currentPosName === destinationPosName ) {
-      lost = false;
-    } else {
-      const currentMapPos = Object.values(map).find( (obj) => {
-        return obj.posName == currentPosName;
-      });
-      // console.log('currentMapPos',currentMapPos);
-
-      const instrucStep = stepInstructions[currentInstrucStep];
-      if( instrucStep == 'L' ) {
-        currentPosName = currentMapPos.paths[0];
-      } else if( instrucStep == 'R' ) {
-        currentPosName = currentMapPos.paths[1];
-      }    
-
-      stepsTaken = stepsTaken + 1;
-      // console.log('currentPosName after step',currentPosName);
-      currentInstrucStep = currentInstrucStep + 1;
-      if( currentInstrucStep == stepInstrucCount ) {
-        currentInstrucStep = 0;
-      }
-    }
-  }
+  // while( lost ) {    
+  //   if( currentPosName === destinationPosName ) {
+  //     lost = false;
+  //   } else {
+  //     const currentMapPos = Object.values(map).find( (obj) => {
+  //       return obj.posName == currentPosName;
+  //     });
+  //     console.log('currentMapPos',currentMapPos);
+  
+  //     const instrucStep = stepInstructions[currentInstrucStep];
+  //     if( instrucStep == 'L' ) {
+  //       currentPosName = currentMapPos.paths[0];
+  //     } else if( instrucStep == 'R' ) {
+  //       currentPosName = currentMapPos.paths[1];
+  //     }    
+  
+  //     stepsTaken = stepsTaken + 1;
+  //     console.log('currentPosName after step',currentPosName);
+  //     currentInstrucStep = currentInstrucStep + 1;
+  //     if( currentInstrucStep == stepInstrucCount ) {
+  //       currentInstrucStep = 0;
+  //     }
+  //   }
+  // }
   // part one unlost
-  console.log('stepsTaken',stepsTaken);
-
+  // console.log('stepsTaken',stepsTaken);
+  
   // part 2
   const ghostCurrentPositions = [];
   map.forEach(function(mapNode){
@@ -806,50 +806,58 @@ export default function Page() {
       ghostCurrentPositions.push(mapNode);
     }
   });  
-  // console.log('ghostCurrentPositions',ghostCurrentPositions);  
-  const ghostStatuses = Array(ghostCurrentPositions.length).fill('lost');
+  console.log('ghostCurrentPositions',ghostCurrentPositions);  
+  
+  // ! Pt 2 Brute force approach - it takes too long to compute (tried in 2 variations)
+  // const ghostCount = ghostCurrentPositions.length;
+  // const ghostStatuses = Array(ghostCurrentPositions.length).fill('lost');
   // ghost starting positions and statuses ready
-
-  function stepGhosts(ghostCurrentPositions){
-    for(var i=0; i<ghostCurrentPositions.length; i++ ) {
-      const ghostPos = ghostCurrentPositions[i];
-      const instrucStep = stepInstructions[currentInstrucStep];
-      // console.log('instrucStep',instrucStep);
-      var nextStepName = '';
-      if( instrucStep == 'L' ) {
-        // ghostCurrentPositions[i] =           
-        nextStepName = ghostPos.paths[0];
-      } else if( instrucStep == 'R' ) {
-        nextStepName = ghostPos.paths[1];
-      }    
-      // console.log('nextStepName',nextStepName);
-
-      const nextPos = Object.values(map).find((obj) => {
-        return obj.posName == nextStepName;
-      });
-      // console.log('nextPos',nextPos);
-      ghostCurrentPositions[i] = nextPos;      
-    }
-  }
-
+  
+  // function stepGhosts(ghostCurrentPositions){
+  //   for(var i=0; i<ghostCurrentPositions.length; i++ ) {
+  //     const ghostPos = ghostCurrentPositions[i];
+  //     const instrucStep = stepInstructions[currentInstrucStep];
+  //     // console.log('instrucStep',instrucStep);
+  //     var nextStepName = '';
+  //     if( instrucStep == 'L' ) {
+  //       // ghostCurrentPositions[i] =           
+  //       nextStepName = ghostPos.paths[0];
+  //     } else if( instrucStep == 'R' ) {
+  //       nextStepName = ghostPos.paths[1];
+  //     }    
+  //     // console.log('nextStepName',nextStepName);
+  
+  //     const nextPos = Object.values(map).find((obj) => {
+  //       return obj.posName == nextStepName;
+  //     });
+  //     // console.log('nextPos',nextPos);
+  //     ghostCurrentPositions[i] = nextPos;      
+  //   }
+  // }
+  
   // var allGhostsLost = true;
+  // var unlostCount = 0;
   // while( allGhostsLost ) {
-
+  
   //   for(var i=0; i<ghostCurrentPositions.length; i++ ) {
   //     const ghostPos = ghostCurrentPositions[i];
   //     // console.log('ghostPos',ghostPos);
   //     const currentPosName = ghostPos.posName;
+  //     // console.log('currentPosName',currentPosName);
   //     const lastChar = currentPosName.slice(currentPosName.length-1);
   //     if( lastChar === 'Z' ) {
-  //       ghostStatuses[i] = 'unlost';
+  //       // ghostStatuses[i] = 'unlost';
+  //       unlostCount = unlostCount + 1;
   //     }
   //   }
-  //   const allGhostsFound = ghostStatuses.every(status => status === 'unlost');
-
-  //   if( allGhostsFound ) {
+  //   // const allGhostsFound = ghostStatuses.every(status => status === 'unlost');
+  //   // console.log('after check, unlost count',unlostCount);
+  //   // if( allGhostsFound ) {
+  //   if( unlostCount == ghostCount ) {
   //     allGhostsLost = false;
   //   } else {
-  //     ghostStatuses.fill('lost');
+  //     // ghostStatuses.fill('lost');
+  //     unlostCount = 0;
   //     stepGhosts(ghostCurrentPositions);
   //     stepsTaken = stepsTaken + 1;
   
@@ -859,23 +867,322 @@ export default function Page() {
   //     }
   //   }
   // }
-
+  
   // ghostCurrentPositions.forEach(function(ghostPos, i){
   //   const thisGhostStatus = ghostStatuses[i];
   //   var thisGhostCurrentInstrucStep = 0;
   //   var currentPosName = ghostPos.posName;
   // });
   // part 2 unlost for all
+  
+  const ghostsLoopPoints = [];
+  ghostCurrentPositions.forEach(function(ghostPos, i) {
+    console.log('ghostPos',ghostPos);
+    var loopPointFound = false;
+    var pointsVisited = 0;
+    var currentInstrucStep = -1;
+    var posName = ghostPos.posName;
+    var posNamesVisited = [];
+  
+    while( !loopPointFound ) {
+      console.log('––– checking pos',posName);
+      console.log('posNamesVisited',posNamesVisited);
+      // check if we visited this pos already
+      for( var i=0; i<posNamesVisited.length; i++ ) {
+        const checkPosName = posNamesVisited[i];
+        console.log('posName',posName);
+        console.log('checkPosName',checkPosName);
+        if( posName === checkPosName ) {
+          // pos has already been visited
+          loopPointFound = true;
+        }
+      }
+      posNamesVisited.push(posName);
+  
+      if( !loopPointFound ) {
+        pointsVisited = pointsVisited + 1;
+        currentInstrucStep = currentInstrucStep + 1;
+        if( currentInstrucStep == stepInstrucCount ) {
+          currentInstrucStep = 0;
+        }
+        const nextPosName = stepGhost(posName,currentInstrucStep);
+        posName = nextPosName;
+      }  
+    } 
+    const steps = pointsVisited - 1;
+    console.log(`this ghost reaches loop in ${steps} steps`);
+    ghostsLoopPoints.push(pointsVisited);
+  });
+  
+  function stepGhost(posName, instrucToUse) {
+  
+    const currentPos = Object.values(map).find((obj) => {
+      return obj.posName == posName;
+    });
+    
+    const instrucStep = stepInstructions[instrucToUse];
+    // console.log('instrucStep',instrucStep);
+    var nextStepName = '';
+    if( instrucStep == 'L' ) {
+      // ghostCurrentPositions[i] =           
+      nextStepName = currentPos.paths[0];
+    } else if( instrucStep == 'R' ) {
+      nextStepName = currentPos.paths[1];
+    }    
+    return( nextStepName );
+  }
+  
+  var powerOfGhostLoopPoints = 0;
+  ghostsLoopPoints.forEach(function(loopPoint){
+    if( powerOfGhostLoopPoints === 0 ) {
+      powerOfGhostLoopPoints = loopPoint;
+    } else {
+      powerOfGhostLoopPoints = powerOfGhostLoopPoints * loopPoint;
+    }
+  });
+  console.log('powerOfGhostLoopPoints',powerOfGhostLoopPoints);
+  stepsTaken = powerOfGhostLoopPoints;
+  console.log('stepsTaken',stepsTaken);
+  
+  const endTime = performance.now() / 1000;
+  console.log(`end at ${endTime} seconds`);
+
+  const codeToShowOnPage = `
+  const inputToUse = realInput;
+
+  const inputLines = inputToUse.split(/\\n/);
+  // console.log('inputLines',inputLines);
+  
+  const stepInstructions = inputLines[0];
+  const map = [];
+  inputLines.forEach(function(line){
+    if( line.includes('=' )) {
+      const trimmedLine = line.trim();
+      const lineParts = trimmedLine.split('=');
+      const posName = lineParts[0].trim();
+  
+      const pathPosLine = lineParts[1].trim()
+                                      .replace('(','')
+                                      .replace(')','')
+                                      .replace(' ','');
+      const pathPosArr = pathPosLine.split(',');
+  
+  
+      const obj = {
+        posName: posName,
+        paths: pathPosArr
+      }
+      map.push(obj);
+    }
+  });
+  console.log('map',map);
+  // map and instructions now ready
+  
+  var lost = true;
+  var currentPosName = 'AAA';
+  const destinationPosName = 'ZZZ';
+  
+  const stepInstrucCount = stepInstructions.length;
+  var stepsTaken = 0;
+  var currentInstrucStep = 0;
+  
+  // part 1 lost
+  // while( lost ) {    
+  //   if( currentPosName === destinationPosName ) {
+  //     lost = false;
+  //   } else {
+  //     const currentMapPos = Object.values(map).find( (obj) => {
+  //       return obj.posName == currentPosName;
+  //     });
+  //     console.log('currentMapPos',currentMapPos);
+  
+  //     const instrucStep = stepInstructions[currentInstrucStep];
+  //     if( instrucStep == 'L' ) {
+  //       currentPosName = currentMapPos.paths[0];
+  //     } else if( instrucStep == 'R' ) {
+  //       currentPosName = currentMapPos.paths[1];
+  //     }    
+  
+  //     stepsTaken = stepsTaken + 1;
+  //     console.log('currentPosName after step',currentPosName);
+  //     currentInstrucStep = currentInstrucStep + 1;
+  //     if( currentInstrucStep == stepInstrucCount ) {
+  //       currentInstrucStep = 0;
+  //     }
+  //   }
+  // }
+  // part one unlost
   // console.log('stepsTaken',stepsTaken);
-
-
-
+  
+  // part 2
+  const ghostCurrentPositions = [];
+  map.forEach(function(mapNode){
+    // console.log(mapNode);
+    const posName = mapNode.posName;    
+    const lastChar = posName.slice(posName.length-1);
+    // console.log('lastChar',lastChar);
+    if( lastChar == 'A' ) {
+      ghostCurrentPositions.push(mapNode);
+    }
+  });  
+  console.log('ghostCurrentPositions',ghostCurrentPositions);  
+  
+  // ! Pt 2 Brute force approach - it takes too long to compute (tried in 2 variations)
+  // const ghostCount = ghostCurrentPositions.length;
+  // const ghostStatuses = Array(ghostCurrentPositions.length).fill('lost');
+  // ghost starting positions and statuses ready
+  
+  // function stepGhosts(ghostCurrentPositions){
+  //   for(var i=0; i<ghostCurrentPositions.length; i++ ) {
+  //     const ghostPos = ghostCurrentPositions[i];
+  //     const instrucStep = stepInstructions[currentInstrucStep];
+  //     // console.log('instrucStep',instrucStep);
+  //     var nextStepName = '';
+  //     if( instrucStep == 'L' ) {
+  //       // ghostCurrentPositions[i] =           
+  //       nextStepName = ghostPos.paths[0];
+  //     } else if( instrucStep == 'R' ) {
+  //       nextStepName = ghostPos.paths[1];
+  //     }    
+  //     // console.log('nextStepName',nextStepName);
+  
+  //     const nextPos = Object.values(map).find((obj) => {
+  //       return obj.posName == nextStepName;
+  //     });
+  //     // console.log('nextPos',nextPos);
+  //     ghostCurrentPositions[i] = nextPos;      
+  //   }
+  // }
+  
+  // var allGhostsLost = true;
+  // var unlostCount = 0;
+  // while( allGhostsLost ) {
+  
+  //   for(var i=0; i<ghostCurrentPositions.length; i++ ) {
+  //     const ghostPos = ghostCurrentPositions[i];
+  //     // console.log('ghostPos',ghostPos);
+  //     const currentPosName = ghostPos.posName;
+  //     // console.log('currentPosName',currentPosName);
+  //     const lastChar = currentPosName.slice(currentPosName.length-1);
+  //     if( lastChar === 'Z' ) {
+  //       // ghostStatuses[i] = 'unlost';
+  //       unlostCount = unlostCount + 1;
+  //     }
+  //   }
+  //   // const allGhostsFound = ghostStatuses.every(status => status === 'unlost');
+  //   // console.log('after check, unlost count',unlostCount);
+  //   // if( allGhostsFound ) {
+  //   if( unlostCount == ghostCount ) {
+  //     allGhostsLost = false;
+  //   } else {
+  //     // ghostStatuses.fill('lost');
+  //     unlostCount = 0;
+  //     stepGhosts(ghostCurrentPositions);
+  //     stepsTaken = stepsTaken + 1;
+  
+  //     currentInstrucStep = currentInstrucStep + 1;
+  //     if( currentInstrucStep == stepInstrucCount ) {
+  //       currentInstrucStep = 0;
+  //     }
+  //   }
+  // }
+  
+  // ghostCurrentPositions.forEach(function(ghostPos, i){
+  //   const thisGhostStatus = ghostStatuses[i];
+  //   var thisGhostCurrentInstrucStep = 0;
+  //   var currentPosName = ghostPos.posName;
+  // });
+  // part 2 unlost for all
+  
+  const ghostsLoopPoints = [];
+  ghostCurrentPositions.forEach(function(ghostPos, i) {
+    console.log('ghostPos',ghostPos);
+    var loopPointFound = false;
+    var pointsVisited = 0;
+    var currentInstrucStep = -1;
+    var posName = ghostPos.posName;
+    var posNamesVisited = [];
+  
+    while( !loopPointFound ) {
+      console.log('––– checking pos',posName);
+      console.log('posNamesVisited',posNamesVisited);
+      // check if we visited this pos already
+      for( var i=0; i<posNamesVisited.length; i++ ) {
+        const checkPosName = posNamesVisited[i];
+        console.log('posName',posName);
+        console.log('checkPosName',checkPosName);
+        if( posName === checkPosName ) {
+          // pos has already been visited
+          loopPointFound = true;
+        }
+      }
+      posNamesVisited.push(posName);
+  
+      if( !loopPointFound ) {
+        pointsVisited = pointsVisited + 1;
+        currentInstrucStep = currentInstrucStep + 1;
+        if( currentInstrucStep == stepInstrucCount ) {
+          currentInstrucStep = 0;
+        }
+        const nextPosName = stepGhost(posName,currentInstrucStep);
+        posName = nextPosName;
+      }  
+    } 
+    const steps = pointsVisited - 1;
+    console.log(\`this ghost reaches loop in \${steps} steps\`);
+    ghostsLoopPoints.push(pointsVisited);
+  });
+  
+  function stepGhost(posName, instrucToUse) {
+  
+    const currentPos = Object.values(map).find((obj) => {
+      return obj.posName == posName;
+    });
+    
+    const instrucStep = stepInstructions[instrucToUse];
+    // console.log('instrucStep',instrucStep);
+    var nextStepName = '';
+    if( instrucStep == 'L' ) {
+      // ghostCurrentPositions[i] =           
+      nextStepName = currentPos.paths[0];
+    } else if( instrucStep == 'R' ) {
+      nextStepName = currentPos.paths[1];
+    }    
+    return( nextStepName );
+  }
+  
+  var powerOfGhostLoopPoints = 0;
+  ghostsLoopPoints.forEach(function(loopPoint){
+    if( powerOfGhostLoopPoints === 0 ) {
+      powerOfGhostLoopPoints = loopPoint;
+    } else {
+      powerOfGhostLoopPoints = powerOfGhostLoopPoints * loopPoint;
+    }
+  });
+  console.log('powerOfGhostLoopPoints',powerOfGhostLoopPoints);
+  stepsTaken = powerOfGhostLoopPoints;
+  console.log('stepsTaken',stepsTaken);
+  
+  const endTime = performance.now() / 1000;
+  console.log(\`end at \${endTime} seconds\`);`;
 
 
   return (
     <main>
       <div>
         <h1>Day 8</h1>        
+        <p>I have been having trouble solving part 2. With my original, brute force, method of stepping every ghost through its path of positions until they reach synchronisation at the same moment, I was able to get the answer with the test input. However I realised that the compute time with the real input is too long. I can't get an answer.</p>
+        <p>I actually left it computing last night whilst I went out, and at dinner, Tim, Gabo and I had a really interesting chat about AoC in general and these kind of problems where the compute time of the linear/brute force method is too slow, and how various patterns can be compressed to reduce the amount of cycles that must be performed, essentially. When I got back home, it was still computing, and I realised I needed a better solution.</p>        
+        <p>I've had a look online for better ways to approach this and see people have mentioned that each ghost reaches a certain point where it starts looping, and we can count the amount of steps to reach the loop point. There are people talking about finding the LCM (lowest common multiple) of the loop-point step number, and someone else talking about Chinese Remainder Theorem. I haven't been able to solve this yet but will try and come back to it.</p>
+
+        <CopyBlock 
+          text={codeToShowOnPage}
+          language='javascript'
+          showLineNumbers='true'
+          wrapLines 
+          theme={dracula} 
+        /> 
+        
         <Link href="/">Back</Link>
       </div>
     </main>
