@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { CopyBlock,dracula } from "react-code-blocks"; 
+import DayHeader from '../../components/dayHeader/dayHeader.component';
+import CodeBlock from '../../components/codeBlock/codeBlock.component';
 
 export default function Page() {
 
@@ -341,16 +342,16 @@ export default function Page() {
   return (
     <main>
       <div>
-        <h1>Day 2</h1>
+        <DayHeader
+          title='Day 2'
+          starCount={2}
+          puzzleLink='https://adventofcode.com/2023/day/2'
+        />
         <p>Already feeling more used to this kind of problem solving after day 1. Writing this in retrospect but I think this was fairly smooth and easy.</p>
-        <CopyBlock 
-          text={codeToShowOnPage}
-          language='javascript'
-          showLineNumbers='true'
-          wrapLines 
-          theme={dracula} 
+        <CodeBlock 
+          codeToShow={codeToShowOnPage}
         /> 
-        <Link href="/">Back</Link>
+        <Link href="/">All days</Link> / <Link href="/day3">Day 3</Link>
       </div>
     </main>
   )

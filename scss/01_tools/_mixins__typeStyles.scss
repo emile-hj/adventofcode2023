@@ -8,12 +8,12 @@
 @mixin typeHierarchySizes($name) {
   @if $name == bodyNormal {
     @include clamp(
-      font-size, 16, 18, 1200 // INITAL/UNSET
+      font-size, 16, 20, 1200 // INITAL/UNSET
     );
   }
   @else if $name == bodySmall {
     @include clamp(
-      font-size, 16, 23, 1947 // INITAL/UNSET
+      font-size, 13, 15, 1200 // INITAL/UNSET
     );
   }
   @else if $name == bodyExtraSmall {
@@ -39,22 +39,22 @@
   }
   @else if $name == h2 {
     @include clamp(
-      font-size, 34, 64, 1705 // INITAL/UNSET
+      font-size, 30, 50, 1848 // INITAL/UNSET
     );
   }
   @else if $name == h3 {
     @include clamp(
-      font-size, 26, 50, 1800 // INITAL/UNSET
+      font-size, 26, 40, 1800 // INITAL/UNSET
     );
   }
   @else if $name == h4 {
     @include clamp(
-      font-size, 22, 40, 1920 // INITAL/UNSET
+      font-size, 22, 30, 1800 // INITAL/UNSET
     );
   }
   @else if $name == h5 {
     @include clamp( 
-      font-size, 19, 32, 1776 // INITAL/UNSET
+      font-size, 19, 25, 1776 // INITAL/UNSET
     );
   }
   @else if $name == h6 {
@@ -130,7 +130,7 @@
 
       margin:{
         top:0; // INITAL/UNSET
-        bottom:0.525em; // INITAL/UNSET
+        bottom:0.5em; // INITAL/UNSET
       }
     }
     @else if $name == h1 {

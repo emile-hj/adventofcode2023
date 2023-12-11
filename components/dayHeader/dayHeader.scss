@@ -1,0 +1,31 @@
+
+@import '../../scss/01_tools/01_allTools';
+
+
+.dayHeader {
+  // @include typeHierarchySizes(h1);
+
+  margin:{
+    bottom:2em;
+  }
+
+
+  h1 {
+    margin:{
+      bottom:0.25em;
+    }
+  }
+
+  .underTitle {
+    display:flex;
+    align-items: baseline;
+    gap:0.75em;
+  }
+
+  .starCount {
+    @include typeStyle(heading,h5);
+  }
+  a {
+    @include typeStyle(body,normal);
+  }
+}

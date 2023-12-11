@@ -1,6 +1,7 @@
 'use client';
 
-import { CopyBlock,dracula } from "react-code-blocks"; 
+import DayHeader from '../../components/dayHeader/dayHeader.component';
+import CodeBlock from '../../components/codeBlock/codeBlock.component';
 
 import Link from "next/link";
 
@@ -12,7 +13,7 @@ export default function Page() {
   const realInput = `Time:        47     98     66     98
   Distance:   400   1213   1011   1540`;
 
-  const inputToUse = realInput;
+  const inputToUse = testInput;
 
   // ! Get race times and distance records from input
   const inputLines = inputToUse.split(/\n/);
@@ -170,18 +171,19 @@ export default function Page() {
   return (
     <main>
       <div>
-        <h1>Day 6</h1>
-        <p>Well it seems I am well and truly obsessed. Part two today was so much easier than yesterday's XD. basically the same as part one with some spaces removed.</p>
+        <DayHeader
+          title='Day 6'
+          starCount={2}
+          puzzleLink='https://adventofcode.com/2023/day/6'
+        />
+        <p>Well it seems I am well and truly obsessed. Part two today was so much easier than yesterday's XD. Basically the same as part one with some spaces removed.</p>
+        <p>This seems to have turned into a blog! I will try and do as many days as possible.</p>
 
-        <CopyBlock 
-          text={codeToShowOnPage}
-          language='javascript'
-          showLineNumbers='true'
-          wrapLines 
-          theme={dracula} 
+        <CodeBlock 
+          codeToShow={codeToShowOnPage}
         />  
 
-        <Link href="/">Back</Link>
+        <Link href="/">All days</Link> / <Link href="/day7">Day 7</Link>
       </div>
     </main>
   )

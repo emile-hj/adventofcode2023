@@ -1,0 +1,27 @@
+@import '../../scss/01_tools/01_allTools';
+
+.pane__header {
+  @include typeHierarchySizes(h4);
+
+  padding:{
+    top:1em;
+  }
+  margin:{
+    bottom:2em;
+  }
+}
+
+.logo {
+  @include typeStyle(heading,h4);
+
+  &,
+  &:link {
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:focus-visible,
+  &:visited {
+    color:black;
+  }
+}

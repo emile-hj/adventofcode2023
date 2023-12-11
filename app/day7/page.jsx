@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { CopyBlock,dracula } from "react-code-blocks"; 
+import DayHeader from '../../components/dayHeader/dayHeader.component';
+import CodeBlock from '../../components/codeBlock/codeBlock.component';
 
 export default function Page() {
   // camel cards game
@@ -1027,7 +1028,7 @@ export default function Page() {
   J333J 41
   55AA6 787`;
 
-  const inputToUse = realInput;
+  const inputToUse = testInput;
   const inputLines = inputToUse.split(/\n/);
   // console.log('inputLines',inputLines);
   
@@ -1139,6 +1140,7 @@ export default function Page() {
     } else if( handType == 'fiveOfKind' ) {
       rank = 6;
     }
+
     return rank;
   }
 
@@ -1161,9 +1163,7 @@ export default function Page() {
         rank = 11;
       } else if( cardName == 'A' ) {
         rank = 12;
-      }   
-      
-      
+      }  
     }
 
     return rank;
@@ -1366,6 +1366,7 @@ export default function Page() {
     } else if( handType == 'fiveOfKind' ) {
       rank = 6;
     }
+
     return rank;
   }
 
@@ -1389,8 +1390,6 @@ export default function Page() {
       } else if( cardName == 'A' ) {
         rank = 12;
       }   
-      
-      
     }
 
     return rank;
@@ -1485,21 +1484,21 @@ export default function Page() {
   return (
     <main>
       <div>
-        <h1>Day 7</h1>
-        <p>It took me a few minutes to plan out how to tackle part 1 with pen and paper, but was way more time consuming to implement. This was mentally challenging but fairly straight forward; complicated but just need to follow the logic path. Ended up with a bubble sort inside a bubble sort yay!</p>
+        <DayHeader
+          title='Day 7'
+          starCount={2}
+          puzzleLink='https://adventofcode.com/2023/day/7'
+        />
+        <p>It took me a few minutes to plan out how to tackle part one with pen and paper, but was way more time consuming to implement. This was mentally challenging but fairly straight forward; complicated but just need to follow the logic path. Ended up with a bubble sort inside a bubble sort yay!</p>
         <p>I said to Nichola and Gabo the other day that I like writing code to achieve creating something rather than writing code for the sake of it, but here I am on day 7, and I am starting to question that. I guess I am achieving stars though…</p>
         <p>It's been a stressful week and funnily enough, doing these puzzles has been the most meditative part of the day each day.</p>
 
 
-        <CopyBlock 
-          text={codeToShowOnPage}
-          language='javascript'
-          showLineNumbers='true'
-          wrapLines 
-          theme={dracula} 
+        <CodeBlock 
+          codeToShow={codeToShowOnPage}
         /> 
 
-        <Link href="/">Back</Link>
+        <Link href="/">All days</Link> / <Link href="/day8">Day 8</Link>
       </div>
     </main>
   )

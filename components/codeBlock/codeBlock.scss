@@ -1,0 +1,14 @@
+@import '../../scss/01_tools/01_allTools';
+
+.codeBlock {
+  @include typeStyle(body,small);
+
+  margin:{
+    top:3em;
+    bottom:3em;
+  }
+
+  > * {
+    overflow-x:auto;
+  }
+}

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { CopyBlock,dracula } from "react-code-blocks"; 
+import DayHeader from '../../components/dayHeader/dayHeader.component';
+import CodeBlock from '../../components/codeBlock/codeBlock.component';
 
 export default function Page() {
   // lost in desert
@@ -408,18 +409,20 @@ export default function Page() {
   return (
     <main>
       <div>
-        <h1>Day 9</h1>        
-        <p>For part 1, the problem seemed straight forward enough but I found the implementation a bit difficult and found it quite annoying, this may also be because I have been coding everyday and am tired in general. That said I may have normalised my baseline because I feel like I've written some not-so-simple code and solved the problem in a reasonable amount of time.</p>
-        <p>There is room for improvement in my dealing with recursive flow and while loops, and how to debug them, as I often have issues with them and keep crashing the browser with infinite loops. I should probably just switch to running the code in Node.js but it's nice to be here within the blog already.
-      </p>
-        <CopyBlock 
-          text={codeToShowOnPage}
-          language='javascript'
-          showLineNumbers='true'
-          wrapLines 
-          theme={dracula} 
+        <DayHeader
+          title='Day 9'
+          starCount={1}
+          puzzleLink='https://adventofcode.com/2023/day/9'
+        />
+        
+        <p>For part one, the problem seemed straight forward enough but I found the implementation a bit difficult and found it quite annoying, this may also be because I have been coding everyday on top of work and music, and am tired in general. That said I may have normalised my baseline because I feel like I've written some not-so-simple code and solved the problem in a reasonable amount of time.</p>
+        <p>There is room for improvement in my dealing with recursive flow and while loops, and how to debug them, as I often have issues with them and keep crashing the browser with infinite loops. I should probably just switch to running the code in Node.js but it's nice to be here within the blog already.</p>
+        <p>I will have to come back to part two if there is time, because I didn't get to it this weekend.</p>
+        <CodeBlock 
+          codeToShow={codeToShowOnPage}
         /> 
-        <Link href="/">Back</Link>
+
+        <Link href="/">All days</Link> / <Link href="/day10">Day 10</Link>
       </div>
     </main>
   )

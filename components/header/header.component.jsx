@@ -1,11 +1,15 @@
 
+import Link from "next/link";
+
+import './header.scss';
 
 
 const Header = () => {
   return (
     <div className="pane pane__header">
       <div className="paneInner">
-        EHJ does advent of code 2023
+        
+        <Link className="logo" href="/">Emile does Advent of Code 2023</Link>
       </div>
     </div>
   )

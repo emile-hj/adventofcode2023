@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { CopyBlock,dracula } from "react-code-blocks"; 
+import DayHeader from '../../components/dayHeader/dayHeader.component';
+import CodeBlock from '../../components/codeBlock/codeBlock.component';
 
 export default function Page() {
   // Please note the second part of the puzzle, checking for gear ratios based of *, using recursion, done very inelegantly to try find solution. All could be rewritten better
@@ -1043,18 +1044,18 @@ export default function Page() {
   return (
     <main>
       <div>
-        <h1>Day 3</h1>
-        <p>This was an enjoyable but time intensive thing to do this Sunday. Ironically the easier part 1 took me longer, as I had a bug where having two of the same number on one line caused an issue, which was a bit difficult to find and resolve. I already feel like I have more flow with coding these problems and have improved and learnt a lot.</p>
-        <p>Once that was done though, part 2 was fairly quick to solve although mentally intensive. The code for that is inelegant and verbose because I basically manually check the * characters for being potential gears manually in each direction to run the recursive steps afterwards. It would be better to condense that to a single flexible function. But, got the answer now and not going to refactor.</p>
+        <DayHeader
+          title='Day 3'
+          starCount={2}
+          puzzleLink='https://adventofcode.com/2023/day/3'
+        />
+        <p>This was an enjoyable but time-intensive thing to do this Sunday. Ironically the easier part one took me longer, as I had a bug where having two of the same number on one line caused an issue, which was a bit difficult to find and resolve. I already feel like I have more flow with coding these problems and have improved and learnt a lot.</p>
+        <p>Once that was done though, part two was fairly quick to solve although mentally intensive. The code for that is inelegant and verbose because I basically manually check the * characters for being potential gears manually in each direction to run the recursive steps afterwards. It would be better to condense that to a single flexible function. But, got the answer now and not going to refactor.</p>
         <p>Later after solving the puzzles, I checked out a video of a guy solving it in Rust. Watched maybe half and hated his approach, and didn't understand a lot of the Rust code. I think he was using vector maps. I realise that my way of approaching these problems is probably very JS orientated for someone who comes from a web background. There are likely way more elegant and efficient ways to tackle the problems, although in a way I found at least the start of how I tackled it nicer than the other guys approach. For sure I am learning a lot and this is great.</p>
-        <CopyBlock 
-          text={codeToShowOnPage}
-          language='javascript'
-          showLineNumbers='true'
-          wrapLines 
-          theme={dracula} 
+        <CodeBlock 
+          codeToShow={codeToShowOnPage}
         /> 
-        <Link href="/">Back</Link>
+        <Link href="/">All days</Link> / <Link href="/day4">Day 4</Link>
       </div>
     </main>
   )

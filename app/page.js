@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main>
       <div>
-        <h1>Days</h1>
+        <h1 className="visually-hidden">Days</h1>
         <nav>
           <ul>
             <li>
@@ -38,6 +38,9 @@ export default function Home() {
             </li>
             <li>
               <Link href="day9">Day 9</Link>
+            </li>
+            <li>
+              <Link href="day10">Day 10</Link>
             </li>
           </ul>
         </nav>

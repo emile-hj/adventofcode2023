@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { CopyBlock,dracula } from "react-code-blocks"; 
+import DayHeader from '../../components/dayHeader/dayHeader.component';
+import CodeBlock from '../../components/codeBlock/codeBlock.component';
 
 export default function Page() {
 
@@ -1123,18 +1124,18 @@ export default function Page() {
   return (
     <main>
       <div>
-        <h1>Day 1</h1>
+        <DayHeader
+          title='Day 1'
+          starCount={2}
+          puzzleLink='https://adventofcode.com/2023/day/1'
+        />
         <p>Gabo sent over this Advent of Code thing and I instantly got pulled in and enjoyed solving this. It seems like a great way to practise and learn more which is fun.</p>
         <p>I haven't been doing much of this kind of coding recently so I think I was slower to get into this than I am now (writing this in retrospect on day 6).</p>
         <p>Part two was more confusing because I originally thought about comparing actual numbers with real numbers whilst analysing their character positions, but soon realised I could just replace the written numbers with actual numbers. Had some issues with that because I missed one of the combined word combinations and didn't find it for ages.</p>
-        <CopyBlock 
-          text={codeToShowOnPage}
-          language='javascript'
-          showLineNumbers='true'
-          wrapLines 
-          theme={dracula} 
+        <CodeBlock 
+          codeToShow={codeToShowOnPage}
         /> 
-        <Link href="/">Back</Link>
+        <Link href="/">All days</Link> / <Link href="/day2">Day2</Link>
       </div>
     </main>
   )

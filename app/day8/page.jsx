@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 
-import { CopyBlock,dracula } from "react-code-blocks"; 
+import DayHeader from '../../components/dayHeader/dayHeader.component';
+import CodeBlock from '../../components/codeBlock/codeBlock.component';
+
 
 export default function Page() {
   // lost in desert
@@ -731,7 +733,7 @@ export default function Page() {
   
   const inputToUse = realInput;
 
-  const inputLines = inputToUse.split(/\n/);
+  const inputLines = testInput.split(/\n/);
   // console.log('inputLines',inputLines);
   
   const stepInstructions = inputLines[0];
@@ -1170,20 +1172,21 @@ export default function Page() {
   return (
     <main>
       <div>
-        <h1>Day 8</h1>        
-        <p>I have been having trouble solving part 2. With my original, brute force, method of stepping every ghost through its path of positions until they reach synchronisation at the same moment, I was able to get the answer with the test input. However I realised that the compute time with the real input is too long. I can't get an answer.</p>
-        <p>I actually left it computing last night whilst I went out, and at dinner, Tim, Gabo and I had a really interesting chat about AoC in general and these kind of problems where the compute time of the linear/brute force method is too slow, and how various patterns can be compressed to reduce the amount of cycles that must be performed, essentially. When I got back home, it was still computing, and I realised I needed a better solution.</p>        
+        <DayHeader
+          title='Day 8'
+          starCount={1}
+          puzzleLink='https://adventofcode.com/2023/day/8'
+        /> 
+
+        <p>Part one done, but I have been having trouble solving part 2. With my original, brute force, method of stepping every ghost through its path of positions until they reach synchronisation, I was able to get the answer with the test input. However I realised that the compute time with the real input is too long. I can't get an answer.</p>
+        <p>I actually left it computing last night whilst I went out, and at dinner, Tim, Gabo and I had a really interesting chat about AoC in general and these kind of problems where the compute time of the linear/brute force method is too slow, and how various patterns can essentially be compressed to reduce the amount of cycles that must be performed. When I got back home, it was still computing, and I realised I needed a better solution.</p>        
         <p>I've had a look online for better ways to approach this and see people have mentioned that each ghost reaches a certain point where it starts looping, and we can count the amount of steps to reach the loop point. There are people talking about finding the LCM (lowest common multiple) of the loop-point step number, and someone else talking about Chinese Remainder Theorem. I haven't been able to solve this yet but will try and come back to it.</p>
 
-        <CopyBlock 
-          text={codeToShowOnPage}
-          language='javascript'
-          showLineNumbers='true'
-          wrapLines 
-          theme={dracula} 
+        <CodeBlock 
+          codeToShow={codeToShowOnPage}
         /> 
-        
-        <Link href="/">Back</Link>
+
+        <Link href="/">All days</Link> / <Link href="/day9">Day 9</Link>
       </div>
     </main>
   )

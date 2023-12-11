@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { CopyBlock,dracula } from "react-code-blocks"; 
+import DayHeader from '../../components/dayHeader/dayHeader.component';
+import CodeBlock from '../../components/codeBlock/codeBlock.component';
 
 export default function Page() {
   const startTime = performance.now() / 1000;
@@ -636,21 +637,20 @@ export default function Page() {
   return (
     <main>
       <div>
-        <h1>Day 5</h1>
-
-        <p>Part 1 was the most medative thing I have done all day…</p>
-        <p>Then I got to part 2. It turns out that I got a working solution very quickly, but I was unable to run it to get an answer in a reasonable time. I spent a long time trying to run the code to get an answer.</p>
-        <p>PLEASE NOTE! Running part 2 in browser will probably crash it. I ended up running the code directly with Node.js and it took 1 hour to compute the answer, checking a total of: 2,855,550,144 seeds.</p>
+        <DayHeader
+          title='Day 5'
+          starCount={2}
+          puzzleLink='https://adventofcode.com/2023/day/5'
+        />
+        <p>Part one was the most medative thing I have done all day…</p>
+        <p>Then I got to part two. It turns out that I got a working solution very quickly, but I was unable to run it to get an answer in a reasonable time. I spent a long time trying to run the code to get an answer. This is the first time that I have had to consider computational time in programming as I'm usually just doing web stuff that doesn't require it. so that's a bit of an eye opener and has got me thinking differently, for example planning whether to store data or continue operating with it on the fly.</p>
+        <p>Please note: running part 2 in browser will probably crash it. I ended up running the code directly with Node.js and it took 1 hour to compute the answer, checking a total of: 2,855,550,144 seeds.</p>
         
-        <CopyBlock 
-          text={codeToShowOnPage}
-          language='javascript'
-          showLineNumbers='true'
-          wrapLines 
-          theme={dracula} 
+        <CodeBlock 
+          codeToShow={codeToShowOnPage}
         /> 
 
-        <Link href="/">Back</Link>
+        <Link href="/">All days</Link> / <Link href="/day6">Day 6</Link>
       </div>
     </main>
   )
