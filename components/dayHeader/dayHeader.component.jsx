@@ -1,4 +1,4 @@
-import StarCount from '../starcount/starcount.component';
+import StarCount from '../starCount/starCount.component';
 
 import Link from "next/link";
 
