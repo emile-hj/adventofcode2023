@@ -643,8 +643,10 @@ export default function Page() {
           puzzleLink='https://adventofcode.com/2023/day/5'
         />
         <p>Part one was the most medative thing I have done all day…</p>
-        <p>Then I got to part two. It turns out that I got a working solution very quickly, but I was unable to run it to get an answer in a reasonable time. I spent a long time trying to run the code to get an answer. This is the first time that I have had to consider computational time in programming as I'm usually just doing web stuff that doesn't require it. so that's a bit of an eye opener and has got me thinking differently, for example planning whether to store data or continue operating with it on the fly.</p>
+        <p>Then I got to part two. It turns out that I got a working solution very quickly, but I was unable to run it to get an answer in a reasonable time. I spent a long time trying to run the code to get an answer. This is the first time that I have had to consider computation time in programming as I'm usually just doing web stuff that doesn't require it. So that's a bit of an eye opener and has got me thinking differently, for example planning whether to store data or continue operating with it on the fly, and not walking through the problem linearly but trying to find some way to compress the amount of loops you have to make.</p>
         <p>Please note: running part two in browser will probably crash it. I ended up running the code directly with Node.js and it took 1 hour to compute the answer, checking a total of: 2,855,550,144 seeds.</p>
+        <p>Update: I just watched the Primeagen's speed run video where he solves part two from scratch in 23 minutes, and computes the answer in like a second, with Javascript. Ohhh so you're not supposed to brute force the answer? XD</p>
+        <p>It was really cool to see how he reads the question and instantly understands what the issues will be, what to avoid etc, and has a plan to avoid them. I had no idea. Even though I got nowhere close to being able to solve the problem without brute forcing it, or even understood what the Primeagen did, I feel that I have learnt something, and gained extra awareness.</p>
         
         <CodeBlock 
           codeToShow={codeToShowOnPage}
