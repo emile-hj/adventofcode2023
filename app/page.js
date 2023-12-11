@@ -10,7 +10,7 @@ export default function Home() {
     <main>
       <div>
         <h1 className="visually-hidden">Days</h1>
-        <nav>
+        <nav className="dayList">
           <ul>
             <li>
               <Link href="day1">Day 1</Link>

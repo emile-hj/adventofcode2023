@@ -1,0 +1,9 @@
+.dayList {
+  @include typeStyle(body,large);
+
+  li {
+    margin:{
+      bottom:0.25em;
+    }
+  }
+} 
