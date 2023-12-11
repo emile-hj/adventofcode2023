@@ -1,7 +1,8 @@
-import StarCount from '../starCount/starCount.component';
+
 import Link from "next/link";
 
 import './dayHeader.scss';
+import StarCount from "../starCount/starcount.component";
 
 const DayHeader = ({
   title,
@@ -13,7 +14,7 @@ const DayHeader = ({
     <div className="dayHeader">
       <h1>{title}</h1>
 
-      <div className="underTitle">
+      <div className="underTitle">  
         <StarCount count={starCount} />
         <Link href={puzzleLink} target="_blank">Link to puzzle</Link>
       </div>        
