@@ -1,5 +1,4 @@
 import StarCount from '../starCount/starCount.component';
-
 import Link from "next/link";
 
 import './dayHeader.scss';
