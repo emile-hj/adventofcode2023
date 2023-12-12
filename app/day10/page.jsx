@@ -657,7 +657,7 @@ export default function Page() {
           codeToShow={codeToShowOnPage}
         /> 
 
-        <Link href="/">All days</Link>
+        <Link href="/">All days</Link> / <Link href="/day11">Day 11</Link>
       </div>
     </main>
   )
