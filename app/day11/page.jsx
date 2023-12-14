@@ -612,7 +612,7 @@ console.log('distanceCoveredWithExpanse',distanceCoveredWithExpanse);`;
           puzzleLink='https://adventofcode.com/2023/day/11'
         />
 
-        <p>I initially looked at this puzzle yesterday morning, and was like nope, don't have time for this today, so have managed to solve part one on day 12.</p>
+        <p>I initially looked at this puzzle yesterday morning, and was like nope, don't have time for this today, so have managed to solve part one today on day 12.</p>
         <p>The problem seemed a bit challenging to me because I wasn't completely sure how I could loop through the space whilst simultaneously growing it, but realised I could do this quite well by recording the growth offset and factoring that in. I had problems though in that I initally grew the space vertically before horizontally, and there was a bug I couldn't figure out, and didn't have time to. I resolved it by switching the order to grow horizontally first.</p>
         <p>The next part to analyse the distances between galaxies went smoothly and quickly. Looking at part two and it's an interesting challenge. Not sure of a solution straight away and no time now!</p>
         <p>I have brute forced many of the solutions to these puzzles, but I wasn't going to do that with the one million times bigger expanses of space for part two. No, no. I thought of a solution on the flight to London and have implemented it now. I liked this puzzle.</p>
@@ -622,7 +622,7 @@ console.log('distanceCoveredWithExpanse',distanceCoveredWithExpanse);`;
           codeToShow={codeToShowOnPage}
         /> 
 
-        <Link href="/">All days</Link>
+        <Link href="/">All days</Link> / <Link href="/day12">Day 12</Link>
       </div>
     </main>
   )
