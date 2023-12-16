@@ -733,7 +733,7 @@ export default function Page() {
   
   const inputToUse = realInput;
 
-  const inputLines = testInput.split(/\n/);
+  const inputLines = inputToUse.split(/\n/);
   // console.log('inputLines',inputLines);
   
   const stepInstructions = inputLines[0];
@@ -810,72 +810,6 @@ export default function Page() {
   });  
   console.log('ghostCurrentPositions',ghostCurrentPositions);  
   
-  // ! Pt 2 Brute force approach - it takes too long to compute (tried in 2 variations)
-  // const ghostCount = ghostCurrentPositions.length;
-  // const ghostStatuses = Array(ghostCurrentPositions.length).fill('lost');
-  // ghost starting positions and statuses ready
-  
-  // function stepGhosts(ghostCurrentPositions){
-  //   for(var i=0; i<ghostCurrentPositions.length; i++ ) {
-  //     const ghostPos = ghostCurrentPositions[i];
-  //     const instrucStep = stepInstructions[currentInstrucStep];
-  //     // console.log('instrucStep',instrucStep);
-  //     var nextStepName = '';
-  //     if( instrucStep == 'L' ) {
-  //       // ghostCurrentPositions[i] =           
-  //       nextStepName = ghostPos.paths[0];
-  //     } else if( instrucStep == 'R' ) {
-  //       nextStepName = ghostPos.paths[1];
-  //     }    
-  //     // console.log('nextStepName',nextStepName);
-  
-  //     const nextPos = Object.values(map).find((obj) => {
-  //       return obj.posName == nextStepName;
-  //     });
-  //     // console.log('nextPos',nextPos);
-  //     ghostCurrentPositions[i] = nextPos;      
-  //   }
-  // }
-  
-  // var allGhostsLost = true;
-  // var unlostCount = 0;
-  // while( allGhostsLost ) {
-  
-  //   for(var i=0; i<ghostCurrentPositions.length; i++ ) {
-  //     const ghostPos = ghostCurrentPositions[i];
-  //     // console.log('ghostPos',ghostPos);
-  //     const currentPosName = ghostPos.posName;
-  //     // console.log('currentPosName',currentPosName);
-  //     const lastChar = currentPosName.slice(currentPosName.length-1);
-  //     if( lastChar === 'Z' ) {
-  //       // ghostStatuses[i] = 'unlost';
-  //       unlostCount = unlostCount + 1;
-  //     }
-  //   }
-  //   // const allGhostsFound = ghostStatuses.every(status => status === 'unlost');
-  //   // console.log('after check, unlost count',unlostCount);
-  //   // if( allGhostsFound ) {
-  //   if( unlostCount == ghostCount ) {
-  //     allGhostsLost = false;
-  //   } else {
-  //     // ghostStatuses.fill('lost');
-  //     unlostCount = 0;
-  //     stepGhosts(ghostCurrentPositions);
-  //     stepsTaken = stepsTaken + 1;
-  
-  //     currentInstrucStep = currentInstrucStep + 1;
-  //     if( currentInstrucStep == stepInstrucCount ) {
-  //       currentInstrucStep = 0;
-  //     }
-  //   }
-  // }
-  
-  // ghostCurrentPositions.forEach(function(ghostPos, i){
-  //   const thisGhostStatus = ghostStatuses[i];
-  //   var thisGhostCurrentInstrucStep = 0;
-  //   var currentPosName = ghostPos.posName;
-  // });
-  // part 2 unlost for all
   
   const ghostsLoopPoints = [];
   ghostCurrentPositions.forEach(function(ghostPos, i) {
@@ -884,22 +818,16 @@ export default function Page() {
     var pointsVisited = 0;
     var currentInstrucStep = -1;
     var posName = ghostPos.posName;
-    var posNamesVisited = [];
+    // var posNamesVisited = [];
   
     while( !loopPointFound ) {
-      console.log('––– checking pos',posName);
-      console.log('posNamesVisited',posNamesVisited);
-      // check if we visited this pos already
-      for( var i=0; i<posNamesVisited.length; i++ ) {
-        const checkPosName = posNamesVisited[i];
-        console.log('posName',posName);
-        console.log('checkPosName',checkPosName);
-        if( posName === checkPosName ) {
-          // pos has already been visited
-          loopPointFound = true;
-        }
+      // console.log('––– checking pos',posName);
+
+      const lastChar = posName.slice(posName.length-1);
+      // console.log('lastChar',lastChar);
+      if( lastChar == 'Z' ) {
+        loopPointFound = true;
       }
-      posNamesVisited.push(posName);
   
       if( !loopPointFound ) {
         pointsVisited = pointsVisited + 1;
@@ -934,16 +862,34 @@ export default function Page() {
     return( nextStepName );
   }
   
-  var powerOfGhostLoopPoints = 0;
+  function gcd(a, b) { 
+    for (let temp = b; b !== 0;) { 
+      b = a % b; 
+      a = temp; 
+      temp = b; 
+    } 
+    return a; 
+  } 
+  
+  function lcmFunction(a, b) { 
+    const gcdValue = gcd(a, b); 
+    return (a * b) / gcdValue; 
+  } 
+
+  var workingLCM = null;
+  console.log('ghostsLoopPoints',ghostsLoopPoints);
   ghostsLoopPoints.forEach(function(loopPoint){
-    if( powerOfGhostLoopPoints === 0 ) {
-      powerOfGhostLoopPoints = loopPoint;
+
+    if( workingLCM === null ) {
+      workingLCM = loopPoint;
     } else {
-      powerOfGhostLoopPoints = powerOfGhostLoopPoints * loopPoint;
+      workingLCM = lcmFunction(workingLCM, loopPoint);
     }
+    
   });
-  console.log('powerOfGhostLoopPoints',powerOfGhostLoopPoints);
-  stepsTaken = powerOfGhostLoopPoints;
+  console.log('workingLCM',workingLCM);
+
+  stepsTaken = workingLCM;
   console.log('stepsTaken',stepsTaken);
   
   const endTime = performance.now() / 1000;
@@ -1174,18 +1120,20 @@ export default function Page() {
       <div>
         <DayHeader
           title='Day 8'
-          starCount={1}
+          starCount={2}
           puzzleLink='https://adventofcode.com/2023/day/8'
         /> 
 
         <p>Part one done in a reasonable amount of time, and I showed Tim how I'd done it and mentioned how I'm having a bit of trouble with recursive loops, bugs and stuff. He showed me Wallaby.js and Quokka.js, recommending them for immediate test running in the editor to quickly get test results and find failure points. Wallaby looked the most useful to me, although I am yet to write a test. I would like to learn more about this.</p>
         <p>Working on part two the following day, I have been having trouble solving it. With my original, brute force, method of stepping every ghost through its path of positions until they reach synchronisation, I was able to get the answer with the test input. However I realised that the compute time with the real input is too long. I can't get an answer.</p>
         <p>I actually left it computing last night whilst I went out, and at dinner, Tim, Gabo and I had a really interesting chat about AoC in general and these kind of problems where the compute time of the linear/brute force method is too slow, and how various patterns can essentially be compressed to reduce the amount of cycles that must be performed. When I got back home, it was still computing, and I realised I needed a better solution.</p>        
-        <p>I've had a look online for better ways to approach this and see people have mentioned that each ghost reaches a certain point where it starts looping, and we can count the amount of steps to reach the loop point. There are people talking about finding the LCM (lowest common multiple) of the loop-point step number, and someone else talking about Chinese Remainder Theorem. I haven't been able to solve this yet but will try and come back to it.</p>
+        <p>I've had a look online for better ways to approach this and see people have mentioned that each ghost reaches a certain point where it starts looping, and we can count the amount of steps to reach the loop point. There are people talking about finding the LCM (lowest common multiple) of the loop-point step number…</p>
+        <p>I've come back to part two of this problem days later now that I have some time. I had given the LCM idea some thought after reading that last time, and realised that it actually seemed quite simple and obvious to find how many steps each ghost takes to reach their destination, and find the lowest multiple of those values. Well it wasn't obvious to me until basically being told, but now it's quite embarassing that I even tried to brute force and loop all the ghosts until they reached synchronisation, when there is a clear mathematical solution to the problem.</p>
+        <p>I didn't know how to find the lowest common multiple of two numbers so found these two functions online, 'gcd' and 'lcmFunction'. I don't quite know how they work and should probably spend some time reading them and about LCM. For now good enough and the problem is solved!</p>
 
-        <CodeBlock 
+        {/* <CodeBlock 
           codeToShow={codeToShowOnPage}
-        /> 
+        />  */}
 
         <Link href="/">All days</Link> / <Link href="/day9">Day 9</Link>
       </div>

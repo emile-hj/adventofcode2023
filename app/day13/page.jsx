@@ -11,6 +11,7 @@ import CodeBlock from '../../components/codeBlock/codeBlock.component';
 export default function Page() {
     
 
+
   const testInput = `#.##..##.
   ..#.##.#.
   ##......#
@@ -1470,8 +1471,8 @@ export default function Page() {
   #..#.##
   #.#####`;
   
-  const inputToUse = testInput;
-  console.log('inputToUse',inputToUse);
+  const inputToUse = realInput;
+  // console.log('inputToUse',inputToUse);
   
   const inputGroups = inputToUse.split(/\n\s*\n/);
   console.log('inputGroups',inputGroups);
@@ -1482,8 +1483,7 @@ export default function Page() {
     const lines = group.split(/\n/);
   
     lines.forEach(function(line){
-  
-      console.log('line',line);
+      // console.log('line',line);
       const cleanLine = line.trim();
       
       const chars = cleanLine.split('');
@@ -1491,101 +1491,83 @@ export default function Page() {
     });
     blocks.push(block);
   });
-  console.log('blocks',blocks);
+  // console.log('blocks',blocks);
   // we now have blocks
   
   // check blocks for horz mirrors
   const horzMirrors = [];
   blocks.forEach(function(block, blockId){
-    
+    const blockLength = block.length;
+    // console.log('blockLength',blockLength);
+
+    var horzMirrorAt = null;
+
     block.forEach(function(row,i){
-      // console.log('checking row', i);
-      // Check for Horz mirrors
       var lookingForMirror = true;
       var checkingRowNo = i;
       var nextCheckingRowNo = i+1;
-      var horzMirrorAt = null;
+      var thisRowMirror = null;
   
       while( lookingForMirror ) {
-        // console.log('checkingRowNo',checkingRowNo);
-        // console.log('nextCheckingRowNo',nextCheckingRowNo);
-        const checkingRow = block[checkingRowNo];
-        if( checkingRow ) {
+
+        if( checkingRowNo >= 0 && nextCheckingRowNo <= blockLength-1 ) {
+          const checkingRow = block[checkingRowNo];
           const checkingRowChars = block[checkingRowNo].toString();
-          // console.log(`checkingRowChars ${checkingRow} is`,checkingRowChars);
-  
+
           const nextRow = block[nextCheckingRowNo];
-          if( nextRow ) {
-            const nextRowChars = nextRow.toString();
-            // console.log('nextRowChars',nextRowChars);
-  
-            // if mirror image found
-            if( checkingRowChars === nextRowChars ) {
-              if( horzMirrorAt == null ) {
-                horzMirrorAt = i;
-              }
-              checkingRowNo = checkingRowNo - 1;
-              nextCheckingRowNo = nextCheckingRowNo + 1;
-            } else {
-              lookingForMirror = false;
-              horzMirrorAt = null;
+          const nextRowChars = nextRow.toString();
+
+          // if mirror image found
+          if( checkingRowChars === nextRowChars ) {
+            if( thisRowMirror == null ) {
+              thisRowMirror = i;
             }
+            checkingRowNo = checkingRowNo - 1;
+            nextCheckingRowNo = nextCheckingRowNo + 1;
+
           } else {
-            lookingForMirror = false;
-            // if( horzMirrorAt == null ) {
-            //   horzMirrorAt = i;
-            // }
-          }
-  
-        } else {
+            thisRowMirror = null;
+            lookingForMirror = false;            
+          } 
+        } else {       
+          // if a mirror found
+          if( thisRowMirror != null ) {
+            horzMirrorAt = thisRowMirror
+          } 
           lookingForMirror = false;
         }
   
       }
-  
-      if( horzMirrorAt ) {
-        console.log(`block ${blockId} has a horz mirror at ${horzMirrorAt + 1}`);
-        horzMirrors.push(horzMirrorAt + 1);
-      } else {
-        // console.log(`block ${blockId} has no horz mirror`);
-      }
     });
   
+    if( horzMirrorAt != null ) {
+      // console.log(`block ${blockId} has a horz mirror at ${horzMirrorAt + 1}`);
+      horzMirrors.push(horzMirrorAt + 1);
+    }
   });
-  console.log('horzMirrors',horzMirrors);
+  // console.log('horzMirrors',horzMirrors);
   
   // check blocks for vert mirrors
   const vertMirrors = [];
   blocks.forEach(function(block, blockId) {
     const blockWidth = block[0].length;
-    const blockHeight = block.length;
-    // console.log('blockWidth',blockWidth);
-    // console.log('blockHeight',blockHeight);
+  
+    var vertMirrorAt = null;
   
     // for each column
     for( var i=0; i<blockWidth; i++ ) {
-  
-      // console.log('checking column', i);
       // Check for Horz mirrors
       var lookingForMirror = true;
       var checkingColNo = i;
       var nextCheckingColNo = i+1;
-      var vertMirrorAt = null;
+      var thisColMirror = null;
   
       while( lookingForMirror ) {
-        // console.log('checkingColNo',checkingColNo);
-        // console.log('nextCheckingColNo',nextCheckingColNo);
-        if( checkingColNo < 0 || nextCheckingColNo > blockWidth-1 ) {
-        // if( checkingColNo < 0 ) {
-        //   lookingForMirror = false;
-        // } else if( nextCheckingColNo > blockWidth-1 ) {
-          lookingForMirror = false;
-        //   if( vertMirrorAt == null ) {
-        //     vertMirrorAt = i;
-        //   }
-        } else {
+
+        if( checkingColNo >= 0 && nextCheckingColNo <= blockWidth-1 ) {
           const checkingCol = [];
           const nextCheckingCol = [];
+          
           block.forEach(function(row){
             const char = row[checkingColNo];
             checkingCol.push(char);
@@ -1595,41 +1577,41 @@ export default function Page() {
           });
   
           const checkingColChars = checkingCol.toString();
-          // console.log(`checkingColChars ${checkingColNo} is`,checkingColChars);
-  
           const nextCheckingColChars = nextCheckingCol.toString();
-          // console.log('nextCheckingColChars',nextCheckingColChars);
   
           // if mirror image found
           if( checkingColChars === nextCheckingColChars ) {
-            if( vertMirrorAt == null ) {
-              vertMirrorAt = i;
+            if( thisColMirror === null ) {
+              thisColMirror = i;
             }
             checkingColNo = checkingColNo - 1;
             nextCheckingColNo = nextCheckingColNo + 1;
           } else {
+            thisColMirror = null;
             lookingForMirror = false;
-            vertMirrorAt = null;
           }
-        }
+        } else {
+          if( thisColMirror != null ) {
+            vertMirrorAt = thisColMirror;
+          }
+          lookingForMirror = false;
+          
+        } 
       }
+    }
   
-      if( vertMirrorAt ) {
-        console.log(`block ${blockId} has a vert mirror at ${vertMirrorAt + 1}`);
-        vertMirrors.push(vertMirrorAt + 1);
-      } else {
-        // console.log(`block ${blockId} has no vert mirror`);
-      }
+    // console.log('vertMirrorAt',vertMirrorAt);
+    if( vertMirrorAt != null) {
+      vertMirrors.push(vertMirrorAt + 1);
     }
   });
   console.log('horzMirrors',horzMirrors);
-  console.log('vertMirrors',vertMirrors);
+  // console.log('vertMirrors',vertMirrors);
   
   var horzTotal = 0;
   horzMirrors.forEach(function(value) {
     horzTotal = horzTotal + value;
   });
-  
   
   var vertTotal = 0;
   vertMirrors.forEach(function(value) {
@@ -1643,20 +1625,175 @@ export default function Page() {
   const part1FinalCalc = vertTotal + adjustedHorzTot;
   console.log('part1FinalCalc',part1FinalCalc);
 
+  const codeToShow = `  
+  const inputToUse = realInput;
+  // console.log('inputToUse',inputToUse);
+  
+  const inputGroups = inputToUse.split(/\\n\\s*\\n/);
+  console.log('inputGroups',inputGroups);
+  
+  const blocks = [];
+  inputGroups.forEach(function(group){
+    const block = [];
+    const lines = group.split(/\\n/);
+  
+    lines.forEach(function(line){
+      // console.log('line',line);
+      const cleanLine = line.trim();
+      
+      const chars = cleanLine.split('');
+      block.push(chars);
+    });
+    blocks.push(block);
+  });
+  // console.log('blocks',blocks);
+  // we now have blocks
+  
+  // check blocks for horz mirrors
+  const horzMirrors = [];
+  blocks.forEach(function(block, blockId){
+    const blockLength = block.length;
+    // console.log('blockLength',blockLength);
+
+    var horzMirrorAt = null;
+
+    block.forEach(function(row,i){
+      var lookingForMirror = true;
+      var checkingRowNo = i;
+      var nextCheckingRowNo = i+1;
+      var thisRowMirror = null;
+  
+      while( lookingForMirror ) {
+
+        if( checkingRowNo >= 0 && nextCheckingRowNo <= blockLength-1 ) {
+          const checkingRow = block[checkingRowNo];
+          const checkingRowChars = block[checkingRowNo].toString();
+
+          const nextRow = block[nextCheckingRowNo];
+          const nextRowChars = nextRow.toString();
+
+          // if mirror image found
+          if( checkingRowChars === nextRowChars ) {
+            if( thisRowMirror == null ) {
+              thisRowMirror = i;
+            }
+            checkingRowNo = checkingRowNo - 1;
+            nextCheckingRowNo = nextCheckingRowNo + 1;
+
+          } else {
+            thisRowMirror = null;
+            lookingForMirror = false;            
+          } 
+        } else {       
+          // if a mirror found
+          if( thisRowMirror != null ) {
+            horzMirrorAt = thisRowMirror
+          } 
+          lookingForMirror = false;
+        }
+  
+      }
+    });
+  
+    if( horzMirrorAt != null ) {
+      // console.log(\`block \${blockId} has a horz mirror at \${horzMirrorAt + 1}\`);
+      horzMirrors.push(horzMirrorAt + 1);
+    }
+  });
+  // console.log('horzMirrors',horzMirrors);
+  
+  // check blocks for vert mirrors
+  const vertMirrors = [];
+  blocks.forEach(function(block, blockId) {
+    const blockWidth = block[0].length;
+  
+    var vertMirrorAt = null;
+  
+    // for each column
+    for( var i=0; i<blockWidth; i++ ) {
+      // Check for Horz mirrors
+      var lookingForMirror = true;
+      var checkingColNo = i;
+      var nextCheckingColNo = i+1;
+      var thisColMirror = null;
+  
+      while( lookingForMirror ) {
+
+        if( checkingColNo >= 0 && nextCheckingColNo <= blockWidth-1 ) {
+          const checkingCol = [];
+          const nextCheckingCol = [];
+          
+          block.forEach(function(row){
+            const char = row[checkingColNo];
+            checkingCol.push(char);
+  
+            const nextColChar = row[nextCheckingColNo];
+            nextCheckingCol.push(nextColChar);
+          });
+  
+          const checkingColChars = checkingCol.toString();
+          const nextCheckingColChars = nextCheckingCol.toString();
+  
+          // if mirror image found
+          if( checkingColChars === nextCheckingColChars ) {
+            if( thisColMirror === null ) {
+              thisColMirror = i;
+            }
+            checkingColNo = checkingColNo - 1;
+            nextCheckingColNo = nextCheckingColNo + 1;
+          } else {
+            thisColMirror = null;
+            lookingForMirror = false;
+          }
+        } else {
+          if( thisColMirror != null ) {
+            vertMirrorAt = thisColMirror;
+          }
+          lookingForMirror = false;
+          
+        } 
+      }
+    }
+  
+    // console.log('vertMirrorAt',vertMirrorAt);
+    if( vertMirrorAt != null) {
+      vertMirrors.push(vertMirrorAt + 1);
+    }
+  });
+  console.log('horzMirrors',horzMirrors);
+  // console.log('vertMirrors',vertMirrors);
+  
+  var horzTotal = 0;
+  horzMirrors.forEach(function(value) {
+    horzTotal = horzTotal + value;
+  });
+  
+  var vertTotal = 0;
+  vertMirrors.forEach(function(value) {
+    vertTotal = vertTotal + value;
+  });
+  console.log('vertTotal',vertTotal);
+  console.log('horzTotal',horzTotal);
+  const adjustedHorzTot = parseFloat(\`\${horzTotal}00\`);
+  console.log('adjustedHorzTot',adjustedHorzTot);
+  
+  const part1FinalCalc = vertTotal + adjustedHorzTot;
+  console.log('part1FinalCalc',part1FinalCalc);`;
+
   return (
     <main>
       <div>
         <DayHeader
           title='Day 13'
-          starCount={0}
+          starCount={1}
           puzzleLink='https://adventofcode.com/2023/day/13'
         />
 
-        <p>My code solves the test input but not the real input. There's some kind of bug and I'm guessing it's when a mirror is in the last position horizontally or vertically, although in that case how do we know what is the mirror? I'll have to come back to it.</p>
-{/*   
+        <p>At first my code solved the test input but not the real input. I knew there was some kind of bug and suspected it was to do with the boundaries of the blocks, like when a mirror is at the edge of a block, but that wasn't it. After a long time searching for the bug I've found the issue… When I was checking each block for the found mirror position, I was expecting it to either be null or a number for the position: if the position was 0, although it was something, and not null, I was saying if( 0 ), which obviously returns false. Face palm. Part one done now, although I am quite dissatisfied with how many issues I had with this towards the end.</p>
+
         <CodeBlock 
-          codeToShow={codeToShowOnPage}
-        />  */}
+          codeToShow={codeToShow}
+        />
 
         <Link href="/">All days</Link>
       </div>
