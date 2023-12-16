@@ -638,7 +638,7 @@ export default function Page() {
     <main>
       <div>
         <DayHeader
-          title='Day 5'
+          title='Day 5: If You Give A Seed A Fertilizer'
           starCount={2}
           puzzleLink='https://adventofcode.com/2023/day/5'
         />

@@ -225,6 +225,7 @@ export default function Page() {
   console.log('histories',histories);
 
   const allPredictions = [];
+  const allHistPredictions = [];
   histories.forEach(function(history,i){
     history.forEach(function(entry,j){
       const numEntry = parseFloat(entry);
@@ -267,40 +268,50 @@ export default function Page() {
 
     // ! make predictions
     const breakdownCount = differenceBreakdowns.length;
-
+    console.log('breakdownCount',breakdownCount);
     for( var i=breakdownCount-1; i>-1; i-- ) {
+      var nextBreakdownLastEntry = 0;
+      var nextBreakdownFirstEntry = 0;
+
       const breakdown = differenceBreakdowns[i];
-      var prediction = 'notmade';
-      if( i == breakdownCount-1 ) {
-        prediction = 0;
-      } else {
-        const thisBreakdownLength = breakdown.length;
-        const lastEntry = breakdown[thisBreakdownLength-1];
-        // console.log('lastEntry',lastEntry);
-        
+      // if( i == breakdownCount-1 ) {
+      //   prediction = 0;
+      // } else {
+      const thisBreakdownLength = breakdown.length;
+      const lastEntry = breakdown[thisBreakdownLength-1];
+      const firstEntry = breakdown[0];
+      // console.log('lastEntry',lastEntry);
+      
+      if( differenceBreakdowns[i+1] ) {
         const nextBreakdown = differenceBreakdowns[i+1];
         const nextBreakdownLength = nextBreakdown.length;
-        const nextBreakdownLastEntry = nextBreakdown[nextBreakdownLength-1];
-        // console.log('nextBreakdownLastEntry',nextBreakdownLastEntry);
-
-        prediction = lastEntry + nextBreakdownLastEntry;
-  
+        nextBreakdownLastEntry = nextBreakdown[nextBreakdownLength-1];
+        nextBreakdownFirstEntry = nextBreakdown[0];
       }
+      // console.log('nextBreakdownLastEntry',nextBreakdownLastEntry);
+
+      const prediction = lastEntry + nextBreakdownLastEntry;
+      const histPrediction = firstEntry - nextBreakdownFirstEntry;
+      // }
 
       differenceBreakdowns[i].push(prediction);
+      differenceBreakdowns[i].unshift(histPrediction);
       // console.log('differenceBreakdowns',differenceBreakdowns);      
     }
 
-    // console.log('after prediction, differenceBreakdowns', differenceBreakdowns);
+    console.log('after prediction, differenceBreakdowns', differenceBreakdowns);
     const histWithPrediction = differenceBreakdowns[0];
     const histWPredLength = histWithPrediction.length;
     const finalPrediction = histWithPrediction[histWPredLength-1];
+    const finalHistPrediction = histWithPrediction[0];
+    
     allPredictions.push(finalPrediction);
-
+    allHistPredictions.push(finalHistPrediction);
 
   });
 
-  // console.log('allPredictions',allPredictions);
+  console.log('allPredictions',allPredictions);
+  console.log('allHistPredictions',allHistPredictions);
 
   var predictionTotal = 0;
   allPredictions.forEach(function(prediction) {
@@ -308,7 +319,11 @@ export default function Page() {
   });
   console.log('predictionTotal',predictionTotal);
 
-
+  var histPredictionTotal = 0;
+  allHistPredictions.forEach(function(prediction) {
+    histPredictionTotal = histPredictionTotal + prediction;
+  });
+  console.log('histPredictionTotal',histPredictionTotal);
 
   const codeToShowOnPage = `
   const inputToUse = realInput;
@@ -323,6 +338,7 @@ export default function Page() {
   console.log('histories',histories);
 
   const allPredictions = [];
+  const allHistPredictions = [];
   histories.forEach(function(history,i){
     history.forEach(function(entry,j){
       const numEntry = parseFloat(entry);
@@ -365,59 +381,76 @@ export default function Page() {
 
     // ! make predictions
     const breakdownCount = differenceBreakdowns.length;
-
+    console.log('breakdownCount',breakdownCount);
     for( var i=breakdownCount-1; i>-1; i-- ) {
+      var nextBreakdownLastEntry = 0;
+      var nextBreakdownFirstEntry = 0;
+
       const breakdown = differenceBreakdowns[i];
-      var prediction = 'notmade';
-      if( i == breakdownCount-1 ) {
-        prediction = 0;
-      } else {
-        const thisBreakdownLength = breakdown.length;
-        const lastEntry = breakdown[thisBreakdownLength-1];
-        // console.log('lastEntry',lastEntry);
-        
+      // if( i == breakdownCount-1 ) {
+      //   prediction = 0;
+      // } else {
+      const thisBreakdownLength = breakdown.length;
+      const lastEntry = breakdown[thisBreakdownLength-1];
+      const firstEntry = breakdown[0];
+      // console.log('lastEntry',lastEntry);
+      
+      if( differenceBreakdowns[i+1] ) {
         const nextBreakdown = differenceBreakdowns[i+1];
         const nextBreakdownLength = nextBreakdown.length;
-        const nextBreakdownLastEntry = nextBreakdown[nextBreakdownLength-1];
-        // console.log('nextBreakdownLastEntry',nextBreakdownLastEntry);
-
-        prediction = lastEntry + nextBreakdownLastEntry;
-  
+        nextBreakdownLastEntry = nextBreakdown[nextBreakdownLength-1];
+        nextBreakdownFirstEntry = nextBreakdown[0];
       }
+      // console.log('nextBreakdownLastEntry',nextBreakdownLastEntry);
+
+      const prediction = lastEntry + nextBreakdownLastEntry;
+      const histPrediction = firstEntry - nextBreakdownFirstEntry;
+      // }
 
       differenceBreakdowns[i].push(prediction);
+      differenceBreakdowns[i].unshift(histPrediction);
       // console.log('differenceBreakdowns',differenceBreakdowns);      
     }
 
-    // console.log('after prediction, differenceBreakdowns', differenceBreakdowns);
+    console.log('after prediction, differenceBreakdowns', differenceBreakdowns);
     const histWithPrediction = differenceBreakdowns[0];
     const histWPredLength = histWithPrediction.length;
     const finalPrediction = histWithPrediction[histWPredLength-1];
+    const finalHistPrediction = histWithPrediction[0];
+    
     allPredictions.push(finalPrediction);
-
+    allHistPredictions.push(finalHistPrediction);
 
   });
 
-  // console.log('allPredictions',allPredictions);
+  console.log('allPredictions',allPredictions);
+  console.log('allHistPredictions',allHistPredictions);
 
   var predictionTotal = 0;
   allPredictions.forEach(function(prediction) {
     predictionTotal = predictionTotal + prediction;
   });
-  console.log('predictionTotal',predictionTotal);`;
+  console.log('predictionTotal',predictionTotal);
+
+  var histPredictionTotal = 0;
+  allHistPredictions.forEach(function(prediction) {
+    histPredictionTotal = histPredictionTotal + prediction;
+  });
+  console.log('histPredictionTotal',histPredictionTotal);`;
 
   return (
     <main>
       <div>
         <DayHeader
-          title='Day 9'
-          starCount={1}
+          title='Day 9: Mirage Maintenance'
+          starCount={2}
           puzzleLink='https://adventofcode.com/2023/day/9'
         />
         
         <p>For part one, the problem seemed straight forward enough but I found the implementation a bit difficult and found it quite annoying, this may also be because I have been coding everyday on top of work and music, and am tired in general. That said I may have normalised my baseline because I feel like I've written some not-so-simple code and solved the problem in a reasonable amount of time.</p>
         <p>There is room for improvement in my dealing with recursive flow and while loops, and how to debug them, as I often have issues with them and keep crashing the browser with infinite loops. I should probably just switch to running the code in Node.js but it's nice to be here within the blog already.</p>
         <p>I will have to come back to part two if there is time, because I didn't get to it this weekend.</p>
+        <p>Came back to part two a week later it's done!</p>
         <CodeBlock 
           codeToShow={codeToShowOnPage}
         /> 

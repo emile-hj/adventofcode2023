@@ -770,32 +770,32 @@ export default function Page() {
   var currentInstrucStep = 0;
   
   // part 1 lost
-  // while( lost ) {    
-  //   if( currentPosName === destinationPosName ) {
-  //     lost = false;
-  //   } else {
-  //     const currentMapPos = Object.values(map).find( (obj) => {
-  //       return obj.posName == currentPosName;
-  //     });
-  //     console.log('currentMapPos',currentMapPos);
+  while( lost ) {    
+    if( currentPosName === destinationPosName ) {
+      lost = false;
+    } else {
+      const currentMapPos = Object.values(map).find( (obj) => {
+        return obj.posName == currentPosName;
+      });
+      // console.log('currentMapPos',currentMapPos);
   
-  //     const instrucStep = stepInstructions[currentInstrucStep];
-  //     if( instrucStep == 'L' ) {
-  //       currentPosName = currentMapPos.paths[0];
-  //     } else if( instrucStep == 'R' ) {
-  //       currentPosName = currentMapPos.paths[1];
-  //     }    
+      const instrucStep = stepInstructions[currentInstrucStep];
+      if( instrucStep == 'L' ) {
+        currentPosName = currentMapPos.paths[0];
+      } else if( instrucStep == 'R' ) {
+        currentPosName = currentMapPos.paths[1];
+      }    
   
-  //     stepsTaken = stepsTaken + 1;
-  //     console.log('currentPosName after step',currentPosName);
-  //     currentInstrucStep = currentInstrucStep + 1;
-  //     if( currentInstrucStep == stepInstrucCount ) {
-  //       currentInstrucStep = 0;
-  //     }
-  //   }
-  // }
+      stepsTaken = stepsTaken + 1;
+      // console.log('currentPosName after step',currentPosName);
+      currentInstrucStep = currentInstrucStep + 1;
+      if( currentInstrucStep == stepInstrucCount ) {
+        currentInstrucStep = 0;
+      }
+    }
+  }
   // part one unlost
-  // console.log('stepsTaken',stepsTaken);
+  console.log('stepsTaken',stepsTaken);
   
   // part 2
   const ghostCurrentPositions = [];
@@ -891,9 +891,7 @@ export default function Page() {
 
   stepsTaken = workingLCM;
   console.log('stepsTaken',stepsTaken);
-  
-  const endTime = performance.now() / 1000;
-  console.log(`end at ${endTime} seconds`);
+
 
   const codeToShowOnPage = `
   const inputToUse = realInput;
@@ -935,32 +933,32 @@ export default function Page() {
   var currentInstrucStep = 0;
   
   // part 1 lost
-  // while( lost ) {    
-  //   if( currentPosName === destinationPosName ) {
-  //     lost = false;
-  //   } else {
-  //     const currentMapPos = Object.values(map).find( (obj) => {
-  //       return obj.posName == currentPosName;
-  //     });
-  //     console.log('currentMapPos',currentMapPos);
+  while( lost ) {    
+    if( currentPosName === destinationPosName ) {
+      lost = false;
+    } else {
+      const currentMapPos = Object.values(map).find( (obj) => {
+        return obj.posName == currentPosName;
+      });
+      // console.log('currentMapPos',currentMapPos);
   
-  //     const instrucStep = stepInstructions[currentInstrucStep];
-  //     if( instrucStep == 'L' ) {
-  //       currentPosName = currentMapPos.paths[0];
-  //     } else if( instrucStep == 'R' ) {
-  //       currentPosName = currentMapPos.paths[1];
-  //     }    
+      const instrucStep = stepInstructions[currentInstrucStep];
+      if( instrucStep == 'L' ) {
+        currentPosName = currentMapPos.paths[0];
+      } else if( instrucStep == 'R' ) {
+        currentPosName = currentMapPos.paths[1];
+      }    
   
-  //     stepsTaken = stepsTaken + 1;
-  //     console.log('currentPosName after step',currentPosName);
-  //     currentInstrucStep = currentInstrucStep + 1;
-  //     if( currentInstrucStep == stepInstrucCount ) {
-  //       currentInstrucStep = 0;
-  //     }
-  //   }
-  // }
+      stepsTaken = stepsTaken + 1;
+      // console.log('currentPosName after step',currentPosName);
+      currentInstrucStep = currentInstrucStep + 1;
+      if( currentInstrucStep == stepInstrucCount ) {
+        currentInstrucStep = 0;
+      }
+    }
+  }
   // part one unlost
-  // console.log('stepsTaken',stepsTaken);
+  console.log('stepsTaken',stepsTaken);
   
   // part 2
   const ghostCurrentPositions = [];
@@ -975,72 +973,6 @@ export default function Page() {
   });  
   console.log('ghostCurrentPositions',ghostCurrentPositions);  
   
-  // ! Pt 2 Brute force approach - it takes too long to compute (tried in 2 variations)
-  // const ghostCount = ghostCurrentPositions.length;
-  // const ghostStatuses = Array(ghostCurrentPositions.length).fill('lost');
-  // ghost starting positions and statuses ready
-  
-  // function stepGhosts(ghostCurrentPositions){
-  //   for(var i=0; i<ghostCurrentPositions.length; i++ ) {
-  //     const ghostPos = ghostCurrentPositions[i];
-  //     const instrucStep = stepInstructions[currentInstrucStep];
-  //     // console.log('instrucStep',instrucStep);
-  //     var nextStepName = '';
-  //     if( instrucStep == 'L' ) {
-  //       // ghostCurrentPositions[i] =           
-  //       nextStepName = ghostPos.paths[0];
-  //     } else if( instrucStep == 'R' ) {
-  //       nextStepName = ghostPos.paths[1];
-  //     }    
-  //     // console.log('nextStepName',nextStepName);
-  
-  //     const nextPos = Object.values(map).find((obj) => {
-  //       return obj.posName == nextStepName;
-  //     });
-  //     // console.log('nextPos',nextPos);
-  //     ghostCurrentPositions[i] = nextPos;      
-  //   }
-  // }
-  
-  // var allGhostsLost = true;
-  // var unlostCount = 0;
-  // while( allGhostsLost ) {
-  
-  //   for(var i=0; i<ghostCurrentPositions.length; i++ ) {
-  //     const ghostPos = ghostCurrentPositions[i];
-  //     // console.log('ghostPos',ghostPos);
-  //     const currentPosName = ghostPos.posName;
-  //     // console.log('currentPosName',currentPosName);
-  //     const lastChar = currentPosName.slice(currentPosName.length-1);
-  //     if( lastChar === 'Z' ) {
-  //       // ghostStatuses[i] = 'unlost';
-  //       unlostCount = unlostCount + 1;
-  //     }
-  //   }
-  //   // const allGhostsFound = ghostStatuses.every(status => status === 'unlost');
-  //   // console.log('after check, unlost count',unlostCount);
-  //   // if( allGhostsFound ) {
-  //   if( unlostCount == ghostCount ) {
-  //     allGhostsLost = false;
-  //   } else {
-  //     // ghostStatuses.fill('lost');
-  //     unlostCount = 0;
-  //     stepGhosts(ghostCurrentPositions);
-  //     stepsTaken = stepsTaken + 1;
-  
-  //     currentInstrucStep = currentInstrucStep + 1;
-  //     if( currentInstrucStep == stepInstrucCount ) {
-  //       currentInstrucStep = 0;
-  //     }
-  //   }
-  // }
-  
-  // ghostCurrentPositions.forEach(function(ghostPos, i){
-  //   const thisGhostStatus = ghostStatuses[i];
-  //   var thisGhostCurrentInstrucStep = 0;
-  //   var currentPosName = ghostPos.posName;
-  // });
-  // part 2 unlost for all
   
   const ghostsLoopPoints = [];
   ghostCurrentPositions.forEach(function(ghostPos, i) {
@@ -1049,22 +981,16 @@ export default function Page() {
     var pointsVisited = 0;
     var currentInstrucStep = -1;
     var posName = ghostPos.posName;
-    var posNamesVisited = [];
+    // var posNamesVisited = [];
   
     while( !loopPointFound ) {
-      console.log('––– checking pos',posName);
-      console.log('posNamesVisited',posNamesVisited);
-      // check if we visited this pos already
-      for( var i=0; i<posNamesVisited.length; i++ ) {
-        const checkPosName = posNamesVisited[i];
-        console.log('posName',posName);
-        console.log('checkPosName',checkPosName);
-        if( posName === checkPosName ) {
-          // pos has already been visited
-          loopPointFound = true;
-        }
+      // console.log('––– checking pos',posName);
+
+      const lastChar = posName.slice(posName.length-1);
+      // console.log('lastChar',lastChar);
+      if( lastChar == 'Z' ) {
+        loopPointFound = true;
       }
-      posNamesVisited.push(posName);
   
       if( !loopPointFound ) {
         pointsVisited = pointsVisited + 1;
@@ -1099,27 +1025,42 @@ export default function Page() {
     return( nextStepName );
   }
   
-  var powerOfGhostLoopPoints = 0;
-  ghostsLoopPoints.forEach(function(loopPoint){
-    if( powerOfGhostLoopPoints === 0 ) {
-      powerOfGhostLoopPoints = loopPoint;
-    } else {
-      powerOfGhostLoopPoints = powerOfGhostLoopPoints * loopPoint;
-    }
-  });
-  console.log('powerOfGhostLoopPoints',powerOfGhostLoopPoints);
-  stepsTaken = powerOfGhostLoopPoints;
-  console.log('stepsTaken',stepsTaken);
+  function gcd(a, b) { 
+    for (let temp = b; b !== 0;) { 
+      b = a % b; 
+      a = temp; 
+      temp = b; 
+    } 
+    return a; 
+  } 
   
-  const endTime = performance.now() / 1000;
-  console.log(\`end at \${endTime} seconds\`);`;
+  function lcmFunction(a, b) { 
+    const gcdValue = gcd(a, b); 
+    return (a * b) / gcdValue; 
+  } 
+
+  var workingLCM = null;
+  console.log('ghostsLoopPoints',ghostsLoopPoints);
+  ghostsLoopPoints.forEach(function(loopPoint){
+
+    if( workingLCM === null ) {
+      workingLCM = loopPoint;
+    } else {
+      workingLCM = lcmFunction(workingLCM, loopPoint);
+    }
+    
+  });
+  console.log('workingLCM',workingLCM);
+
+  stepsTaken = workingLCM;
+  console.log('stepsTaken',stepsTaken);`;
 
 
   return (
     <main>
       <div>
         <DayHeader
-          title='Day 8'
+          title='Day 8: Haunted Wasteland'
           starCount={2}
           puzzleLink='https://adventofcode.com/2023/day/8'
         /> 
@@ -1131,9 +1072,9 @@ export default function Page() {
         <p>I've come back to part two of this problem days later now that I have some time. I had given the LCM idea some thought after reading that last time, and realised that it actually seemed quite simple and obvious to find how many steps each ghost takes to reach their destination, and find the lowest multiple of those values. Well it wasn't obvious to me until basically being told, but now it's quite embarassing that I even tried to brute force and loop all the ghosts until they reached synchronisation, when there is a clear mathematical solution to the problem.</p>
         <p>I didn't know how to find the lowest common multiple of two numbers so found these two functions online, 'gcd' and 'lcmFunction'. I don't quite know how they work and should probably spend some time reading them and about LCM. For now good enough and the problem is solved!</p>
 
-        {/* <CodeBlock 
+        <CodeBlock 
           codeToShow={codeToShowOnPage}
-        />  */}
+        /> 
 
         <Link href="/">All days</Link> / <Link href="/day9">Day 9</Link>
       </div>

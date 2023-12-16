@@ -1784,7 +1784,7 @@ export default function Page() {
     <main>
       <div>
         <DayHeader
-          title='Day 13'
+          title='Day 13: Point of Incidence'
           starCount={1}
           puzzleLink='https://adventofcode.com/2023/day/13'
         />
@@ -1795,7 +1795,7 @@ export default function Page() {
           codeToShow={codeToShow}
         />
 
-        <Link href="/">All days</Link>
+        <Link href="/">All days</Link> / <Link href="/day14">Day 14</Link>
       </div>
     </main>
   )

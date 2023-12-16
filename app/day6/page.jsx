@@ -172,7 +172,7 @@ export default function Page() {
     <main>
       <div>
         <DayHeader
-          title='Day 6'
+          title='Day 6: Wait For It'
           starCount={2}
           puzzleLink='https://adventofcode.com/2023/day/6'
         />

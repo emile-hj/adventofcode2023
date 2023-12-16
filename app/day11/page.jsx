@@ -607,7 +607,7 @@ console.log('distanceCoveredWithExpanse',distanceCoveredWithExpanse);`;
     <main>
       <div>
         <DayHeader
-          title='Day 11'
+          title='Day 11: Cosmic Expansion'
           starCount={2}
           puzzleLink='https://adventofcode.com/2023/day/11'
         />

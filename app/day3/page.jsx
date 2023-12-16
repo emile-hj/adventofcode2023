@@ -1045,7 +1045,7 @@ export default function Page() {
     <main>
       <div>
         <DayHeader
-          title='Day 3'
+          title='Day 3: Gear Ratios'
           starCount={2}
           puzzleLink='https://adventofcode.com/2023/day/3'
         />
