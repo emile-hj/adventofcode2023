@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 
-
 export default function Home() {
 
   return (
@@ -54,6 +53,10 @@ export default function Home() {
             <li>
               <Link href="day14">Day 14: Parabolic Reflector Dish ⭐</Link>
             </li>
+            <li>
+              <Link href="day15">Day 15: Lens Library ⭐</Link>
+            </li>
+            
           </ul>
         </nav>
 
