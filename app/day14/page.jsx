@@ -263,7 +263,7 @@ export default function Page() {
           codeToShow={codeToShow}
         />
 
-        <Link href="/">All days</Link>
+        <Link href="/">All days</Link> / <Link href="/day15">Day 15</Link>
       </div>
     </main>
   )

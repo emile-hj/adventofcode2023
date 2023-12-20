@@ -54,9 +54,10 @@ export default function Page() {
         <DayHeader
           title='Day 15: Lens Library'
           starCount={1}
-          puzzleLink='https://adventofcode.com/2023/day/14'
+          puzzleLink='https://adventofcode.com/2023/day/15'
         />
-    
+
+        <p>A nice easy one to do on my lunch break (part one only – who has time to do all these parts!?)</p>
         <Link href="/">All days</Link>
       </div>
     </main>
