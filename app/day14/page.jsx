@@ -185,7 +185,8 @@ export default function Page() {
   });
   console.log('totalWeight',totalWeight);
 
-  const codeToShow = `  const inputToUse = realInput;
+  const codeToShow = `  
+  const inputToUse = realInput;
 
   const dish = [];
   const lines = inputToUse.split(/\\n/);

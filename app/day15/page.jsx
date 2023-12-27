@@ -58,7 +58,7 @@ export default function Page() {
         />
 
         <p>A nice easy one to do on my lunch break (part one only – who has time to do all these parts!?)</p>
-        <Link href="/">All days</Link>
+        <Link href="/">All days</Link> / <Link href="/day16">Day 16</Link>
       </div>
     </main>
   )

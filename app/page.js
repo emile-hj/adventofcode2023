@@ -56,7 +56,19 @@ export default function Home() {
             <li>
               <Link href="day15">Day 15: Lens Library ⭐</Link>
             </li>
-            
+            <li>
+              <Link href="day16">Day 16: The Floor Will Be Lava</Link>
+            </li>
+            <li>
+              <Link href="day16">Day 17: Clumsy Crucible</Link>
+            </li>
+            <li>
+              <Link href="day16">Day 18: Lavaduct Lagoon</Link>
+            </li>
+            <li>
+              <Link href="day19">Day 19: Aplenty ⭐</Link>
+            </li>
+                        
           </ul>
         </nav>
 
